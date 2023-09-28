@@ -1,5 +1,6 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 using SkySoft.CvRenderer.Core.Models;
 using System.ComponentModel;
@@ -7,21 +8,20 @@ using System.Text.Json;
 
 namespace WebApplicationPdf.Pages
 {
-    public class Statement
+    public  class PdfRenderer
     {
         public CvModel? cvModel { get; }
 
-        public Statement(CvModel? Value)
+        public PdfRenderer(CvModel? Value)
         {
             cvModel = Value;
         }
 
-        public void PageContainer()
+        public void Render()
         {
             Document.Create(document =>
             {
-                document
-                .Page(page =>
+                document.Page(page =>
                 {
                     page.Size(PageSizes.A4);
 
@@ -29,16 +29,16 @@ namespace WebApplicationPdf.Pages
                     .Component(new PageCover(cvModel));
                 });
 
-                document
-                .Page(page =>
+                document.Page(page =>
                 {
-                    page.Size (PageSizes.A4);
+                    page.Size(PageSizes.A4);
 
                     page.Content()
                     .Component(new PageProjectsAccomplished(cvModel));
                 });
 
-            }).ShowInPreviewer();
+            }).ShowInPreviewer();/*.GeneratePdf("hello.pdf");*/
+            QuestPDF.Settings.License = LicenseType.Community;
         }
     }
 }

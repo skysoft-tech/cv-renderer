@@ -15,8 +15,6 @@ namespace WebApplicationPdf.Pages
             cvModel = value;
         }
 
-        TitleElement AccomplishedProjects = new TitleElement("PROJECTS ACCOMPLISHED", "#000000");
-
         public void Compose(IContainer container)
         {
             container
@@ -35,7 +33,7 @@ namespace WebApplicationPdf.Pages
                          //Title
                          column.Item()
                          .PaddingLeft(20)
-                         .Element(AccomplishedProjects.TitleContainer);
+                         .Component(new TitleComponent("PROJECTS ACCOMPLISHED", "#000000"));
 
                          //Content
                          cvModel.Projects.ForEach( projects =>

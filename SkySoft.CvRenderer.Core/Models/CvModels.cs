@@ -1,5 +1,20 @@
 ﻿namespace SkySoft.CvRenderer.Core.Models
 {
+    public class CvModel
+    {
+        public Basics? Basics { get; set; }
+        public List<Work>? Work { get; set; }
+        public List<Volunteer>? Volunteer { get; set; }
+        public List<Education>? Education { get; set; }
+        public List<Award>? Awards { get; set; }
+        public List<Certificate>? Certificates { get; set; }
+        public List<Publication>? Publications { get; set; }
+        public List<Skill>? Skills { get; set; }
+        public List<Languages>? Languages { get; set; }
+        public List<Interest>? Interests { get; set; }
+        public List<Reference>? References { get; set; }
+        public List<Project>? Projects { get; set; }
+    }
     public class Location
     {
         public string? Address { get; set; }
@@ -126,21 +141,4 @@
         public List<string>? Highlights { get; set; }
         public string? Url { get; set; }
     }
-
-    public class CvModel
-    {
-        public Basics? Basics { get; set; }
-        public List<Work>? Work { get; set; }
-        public List<Volunteer>? Volunteer { get; set; }
-        public List<Education>? Education { get; set; }
-        public List<Award>? Awards { get; set; }
-        public List<Certificate>? Certificates { get; set; }
-        public List<Publication>? Publications { get; set; }
-        public List<Skill>? Skills { get; set; }
-        public List<Languages>? Languages { get; set; }
-        public List<Interest>? Interests { get; set; }
-        public List<Reference>? References { get; set; }
-        public List<Project>? Projects { get; set; }
-    }
-
 }

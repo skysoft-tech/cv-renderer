@@ -1,6 +1,5 @@
 ﻿using QuestPDF.Infrastructure;
 using QuestPDF.Fluent;
-using System.Xml.Linq;
 using WebApplicationPdf.GlobalComponent;
 
 namespace WebApplicationPdf.MainContentLeftSide

@@ -4,9 +4,6 @@ using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.GlobalComponent;
 using WebApplicationPdf.TitlePage;
 using WebApplicationPdf.MainContentLeftSide;
-using SkySoft.CvRenderer.Core;
-using System.Collections.Generic;
-using static QuestPDF.Helpers.Colors;
 
 namespace WebApplicationPdf.Pages
 { 
@@ -23,12 +20,6 @@ namespace WebApplicationPdf.Pages
 
         public void Compose(IContainer container)
         {
-
-            TitleElement workExperience = new TitleElement("WORK EXPERIENCE", "#000000");
-            TitleElement academicBackground = new TitleElement("ACADEMIC BACKGROUND", "#000000");
-            TitleElement skillsTitle = new TitleElement("SKILLS", "#000000");
-            TitleElement language = new TitleElement("LANGUAGE", "#ffffff");
-
             container.Row(row =>
             {
                 row.ConstantItem(240)
@@ -52,7 +43,7 @@ namespace WebApplicationPdf.Pages
                       .PaddingTop(20)
                       .PaddingLeft(40)
                       .PaddingRight(30)
-                      .Element(language.TitleContainer);
+                      .Component(new TitleComponent("LANGUAGE", "#ffffff"));
 
                       cvModel.Languages.ForEach(languages =>
                       {
@@ -77,7 +68,7 @@ namespace WebApplicationPdf.Pages
                          .Element(HeadTitle.BrandTitle);
 
                          column.Item()
-                         .Element(workExperience.TitleContainer);
+                         .Component(new TitleComponent("WORK EXPERIENCE", "#000000"));
 
                          cvModel.Work.ForEach(work =>
                          {
@@ -88,7 +79,7 @@ namespace WebApplicationPdf.Pages
                          .Element(line.LineContainer);
 
                          column.Item()
-                         .Element(academicBackground.TitleContainer);
+                         .Component(new TitleComponent("ACADEMIC BACKGROUND", "#000000"));
 
                          cvModel.Education.ForEach(education =>
                          {
@@ -99,7 +90,7 @@ namespace WebApplicationPdf.Pages
                          .Element(line.LineContainer);
 
                          column.Item()
-                        .Element(skillsTitle.TitleContainer);
+                        .Component(new TitleComponent("SKILLS", "#000000"));
 
                          cvModel.Skills.ForEach(skills =>
                          {

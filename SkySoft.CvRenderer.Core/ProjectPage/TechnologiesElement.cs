@@ -1,8 +1,6 @@
 ﻿using SkiaSharp;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkySoft.CvRenderer.Core.Models;
-using WebApplicationPdf.ProjectPage;
 
 namespace WebApplicationPdf.ProjectPage
 {

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuestPDF.Fluent;
+﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.TitlePage;
 
 namespace WebApplicationPdf.MainContentRightSide
 {
-    public class OutputIndices : IComponent
+    public class SkillsLogic : IComponent
     {
         public CvModel cvModel { get; }
         public int number { get; }
         
-        public OutputIndices(CvModel valueList, int EvenUneven)
+        public SkillsLogic(CvModel valueList, int EvenUneven)
         {
             CvModel cvModel = valueList;
             number = EvenUneven;

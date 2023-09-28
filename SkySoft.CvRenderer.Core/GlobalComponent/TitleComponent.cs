@@ -3,18 +3,18 @@ using QuestPDF.Infrastructure;
 
 namespace WebApplicationPdf.GlobalComponent
 {
-    internal class TitleElement
+    internal class TitleComponent : IComponent
     {
         public string Title { get; }
         public string TextСolor { get; }
 
-        public TitleElement(string title, string textСolor)
+        public TitleComponent(string title, string textСolor)
         {
             Title = title;
             TextСolor = textСolor;
         }
 
-        public void TitleContainer(IContainer container)
+        public void Compose(IContainer container)
         {
             container
             .PaddingBottom(15)

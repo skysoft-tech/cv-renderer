@@ -1,8 +1,5 @@
-﻿using SkiaSharp;
-using QuestPDF.Fluent;
+﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkySoft.CvRenderer.Core.Models;
-using HarfBuzzSharp;
 
 namespace WebApplicationPdf.MainContentLeftSide
 {

@@ -1,14 +1,6 @@
-﻿using HarfBuzzSharp;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
+﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkiaSharp;
 using SkySoft.CvRenderer.Core.Models;
-using System.Data.Common;
-using System.Drawing;
-using System.Numerics;
-using System.Reflection.Emit;
-using System.Xml.Linq;
 
 namespace WebApplicationPdf.TitlePage
 {

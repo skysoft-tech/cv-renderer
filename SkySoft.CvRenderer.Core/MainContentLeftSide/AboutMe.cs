@@ -2,8 +2,6 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.GlobalComponent;
-using WebApplicationPdf.MainContentLeftSide;
-using WebApplicationPdf.TitlePage;
 
 namespace WebApplicationPdf.MainContentLeftSide
 {
@@ -21,8 +19,6 @@ namespace WebApplicationPdf.MainContentLeftSide
             var firstNameStye = TextStyle.Default.FirstNameStyle();
             var surnameStye = TextStyle.Default.SurnameStyle();
             var brieflyAboutMyselfStyle = TextStyle.Default.BrieflyAboutMyselfStyle();
-
-            TitleElement aboutMe = new TitleElement("ABOUT ME", "#ffffff");
 
             container
              .Element(AboutMeSize.AboutMeContainerSize)
@@ -55,7 +51,7 @@ namespace WebApplicationPdf.MainContentLeftSide
 
                  column.Item()
                 .AlignLeft()
-                .Element(aboutMe.TitleContainer);
+                .Component(new TitleComponent("ABOUT ME", "#ffffff"));
              });
         }
     }

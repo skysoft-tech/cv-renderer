@@ -1,7 +1,6 @@
 ﻿using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using QuestPDF.Fluent;
-using WebApplicationPdf.GlobalComponent;
 
 namespace WebApplicationPdf.MainContentLeftSide
 {
