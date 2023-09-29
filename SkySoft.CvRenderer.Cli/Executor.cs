@@ -28,9 +28,14 @@ namespace SkySoft.CvRenderer.Cli
             _logger.LogDebug("Json: {cvJson}", cvJson);
 
             var cv = DeserializeInput(cvJson);
-            
-            var renderer = new PdfRenderer(cv);
-            renderer.Render();
+
+            var outputFileName = GetPdfName(input, output);
+            var outputFile = File.OpenWrite(outputFileName);
+
+            var renderer = new PdfRenderer(_logger, cv);
+            await renderer.Render(outputFile);
+
+            _logger.LogInformation("Created file: {outputFileName}", outputFileName);
         }
 
         private Task<string> ReadInput(string input)
@@ -38,14 +43,27 @@ namespace SkySoft.CvRenderer.Cli
             return File.ReadAllTextAsync(input);
         }
 
-        private CvModel? DeserializeInput(string cvJson)
+        private CvModel DeserializeInput(string cvJson)
         {
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
             };
 
-            return JsonSerializer.Deserialize<CvModel>(cvJson, options);
+            var cv = JsonSerializer.Deserialize<CvModel>(cvJson, options);
+            if (cv is null)
+            {
+                _logger.LogError("Failed to deserialize cv");
+
+                throw new Exception();
+            }
+
+            return cv;
+        }
+
+        private string GetPdfName(string input, string output)
+        {
+            return output ?? input.Replace(".json", ".pdf");
         }
     }
 }

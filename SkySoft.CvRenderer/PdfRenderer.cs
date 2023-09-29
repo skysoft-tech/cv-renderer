@@ -1,4 +1,5 @@
-﻿using QuestPDF.Fluent;
+﻿using Microsoft.Extensions.Logging;
+using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
@@ -11,35 +12,27 @@ namespace SkySoft.CvRenderer.Core
 {
     public class PdfRenderer
     {
-        public CvModel? cvModel { get; }
+        private readonly ILogger _logger;
+        private readonly CvModel _cv;
 
-        public PdfRenderer(CvModel? Value)
+        public PdfRenderer(ILogger logger, CvModel cv)
         {
-            cvModel = Value;
+            _logger = logger;
+            _cv = cv;
         }
 
-        public void Render()
+        public async Task Render(Stream stream)
         {
-            Document.Create(document =>
-            {
-                document.Page(page =>
-                {
-                    page.Size(PageSizes.A4);
-
-                    page.Content()
-                    .Component(new PageCover(cvModel));
-                });
-
-                document.Page(page =>
-                {
-                    page.Size(PageSizes.A4);
-
-                    page.Content()
-                    .Component(new PageProjectsAccomplished(cvModel));
-                });
-
-            }).ShowInPreviewer();/*.GeneratePdf("hello.pdf");*/
             QuestPDF.Settings.License = LicenseType.Community;
+
+            var document = new CvDocument(_logger, _cv);
+
+#if DEBUG
+            document.ShowInPreviewer();
+#else
+            var pdfData = document.GeneratePdf();
+            await stream.WriteAsync(pdfData);
+#endif
         }
     }
 }
