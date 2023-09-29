@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SkySoft.CvRenderer.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "--in source.json"
+    }
+  }
+}

@@ -8,12 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog" Version="3.0.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageReference Include="System.Text.Json" Version="8.0.0-rc.1.23419.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SkySoft.CvRenderer.Core\SkySoft.CvRenderer.Core.csproj" />
+    <ProjectReference Include="..\SkySoft.CvRenderer.Core\SkySoft.CvRenderer.csproj" />
+    <ProjectReference Include="..\SkySoft.CvRenderer\SkySoft.CvRenderer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Source.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

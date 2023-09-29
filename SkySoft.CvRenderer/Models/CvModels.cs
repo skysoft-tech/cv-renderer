@@ -15,6 +15,7 @@
         public List<Reference>? References { get; set; }
         public List<Project>? Projects { get; set; }
     }
+
     public class Location
     {
         public string? Address { get; set; }

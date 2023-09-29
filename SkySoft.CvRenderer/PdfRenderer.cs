@@ -5,10 +5,11 @@ using QuestPDF.Previewer;
 using SkySoft.CvRenderer.Core.Models;
 using System.ComponentModel;
 using System.Text.Json;
+using WebApplicationPdf.Pages;
 
-namespace WebApplicationPdf.Pages
+namespace SkySoft.CvRenderer.Core
 {
-    public  class PdfRenderer
+    public class PdfRenderer
     {
         public CvModel? cvModel { get; }
 

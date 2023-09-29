@@ -1,51 +1,32 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.CommandLine;
-using System.Text.Json;
-using System.Diagnostics;
-using SkySoft.CvRenderer.Core.Models;
-using WebApplicationPdf.Pages;
+﻿using System.CommandLine;
+
 namespace SkySoft.CvRenderer.Cli
 {
-    class Program
+    internal class Program
     {
-        static  async Task<int> Main(string[] args)
+        private static async Task<int> Main(string[] args)
         {
-            var fileOption = new Option<string>(
-                name: "--file",
-                description: "Add a json file for deserialize");
+            var inputOption = new Option<string>(
+                aliases: new string[] { "--cvJson", "--in", "-f" },
+                description: "Path to JSON file with CV data. See more: https://jsonresume.org/schema/");
 
-            var directoryOption = new Option<string>(
-                name: "--directory",
+            var outputOption = new Option<string>(
+                aliases: new string[] { "--pdf", "--out", "-p" },
                 description: "The way to save CV");
 
-            var rootCommand = new RootCommand("JSON deserialize");
-            rootCommand.AddOption(fileOption);
-            rootCommand.AddOption(directoryOption);
+            var rootCommand = new RootCommand("Allow to render PDF based on CV data");
+            rootCommand.AddOption(inputOption);
+            rootCommand.AddOption(outputOption);
 
-            rootCommand.SetHandler(async (filePath, directoryPath) =>
+            rootCommand.SetHandler(async (input, output) =>
             {
-                var fileContent = await File.ReadAllTextAsync(/*filePath*/"C:\\WebApplicationPdf\\WebApplicationPdf\\SorseCV.json");
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true,
-                };
-                CvModel? cvModel = JsonSerializer.Deserialize<CvModel>(fileContent, options);
-                PdfRenderer statement = new PdfRenderer(cvModel);
-                statement.Render();
+                var logger = Logger.SetupLogger();
+                var executor = new Executor(logger);
 
-                Console.WriteLine($"Message = {await DisplayIntAndString(directoryPath)}");
-
-                Process.Start("explorer.exe", filePath);
-
-            }, fileOption, directoryOption);
+                await executor.Run(input, output);
+            }, inputOption, outputOption);
 
             return await rootCommand.InvokeAsync(args);
-        }
-
-        public static async Task<string> DisplayIntAndString(string messageOptionValue)
-        {
-            var par = messageOptionValue;
-            return par;
         }
     }
 }
