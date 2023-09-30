@@ -11,8 +11,7 @@ namespace WebApplicationPdf.MainContentLeftSide
             return style
                 .FontSize(32)
                 .LineHeight(0.8f)
-                .FontColor("#FFFFFF")
-                .FontFamily(GlobalFontFamily.FontFamilyStyle());
+                .FontColor("#FFFFFF");
         }
 
         public static TextStyle SurnameStyle(this TextStyle style)
@@ -20,8 +19,7 @@ namespace WebApplicationPdf.MainContentLeftSide
             return style
                 .FontSize(32)
                 .LineHeight(0.8f)
-                .FontColor("#FFFFFF")
-                .FontFamily(GlobalFontFamily.FontFamilyStyle());
+                .FontColor("#FFFFFF");
         }
 
         public static TextStyle BrieflyAboutMyselfStyle(this TextStyle style)
@@ -30,8 +28,7 @@ namespace WebApplicationPdf.MainContentLeftSide
                 .Thin()
                 .FontSize(14)
                 .LineHeight(0.9f)
-                .FontColor("#FFFFFF")
-                .FontFamily(GlobalFontFamily.FontFamilyStyle());
+                .FontColor("#FFFFFF");
         }
 
         public static TextStyle AboutMeContentStyle(this TextStyle style)
@@ -39,8 +36,7 @@ namespace WebApplicationPdf.MainContentLeftSide
             return style
                 .FontSize(10)
                 .LineHeight(0.9f)
-                .FontColor("#FFFFFF")
-                .FontFamily(GlobalFontFamily.FontFamilyStyle());
+                .FontColor("#FFFFFF");
         }
 
         public static TextStyle LanguageContentStyle(this TextStyle style)
@@ -48,8 +44,7 @@ namespace WebApplicationPdf.MainContentLeftSide
             return style
                 .FontSize(13)
                 .LineHeight(0.9f)
-                .FontColor("#FFFFFF")
-                .FontFamily(GlobalFontFamily.FontFamilyStyle());
+                .FontColor("#FFFFFF");
         }
 
         public static TextStyle LocationStyle(this TextStyle style)
@@ -57,8 +52,7 @@ namespace WebApplicationPdf.MainContentLeftSide
             return style
                 .FontSize(11)
                 .LineHeight(0.9f)
-                .FontColor("#919193")
-                .FontFamily(GlobalFontFamily.FontFamilyStyle());
+                .FontColor("#919193");
         }
 
     }

@@ -21,8 +21,7 @@ namespace WebApplicationPdf.GlobalComponent
             .Text(Title)
             .FontSize(14)
             .NormalWeight()
-            .FontColor(TextСolor)
-            .FontFamily(GlobalFontFamily.FontFamilyStyle());
+            .FontColor(TextСolor);
         }
     }
 }

@@ -11,7 +11,6 @@ namespace WebApplicationPdf.GlobalComponent
             return style
             .FontSize(20)
             .ExtraBlack()
-            .FontFamily(GlobalFontFamily.FontFamilyStyle())
             .FontColor(color);
         }
 

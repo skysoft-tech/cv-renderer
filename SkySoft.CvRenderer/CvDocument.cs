@@ -3,12 +3,6 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using WebApplicationPdf.Pages;
 
 namespace SkySoft.CvRenderer
@@ -24,23 +18,30 @@ namespace SkySoft.CvRenderer
             _cv = cv;
         }
 
-        public void Compose(IDocumentContainer document)
+        public void Compose(IDocumentContainer container)
         {
-            document.Page(page =>
+            container.Page(page =>
             {
                 page.Size(PageSizes.A4);
+                page.DefaultTextStyle(SetDefaultFont);
 
                 page.Content()
                 .Component(new PageCover(_cv));
             });
 
-            document.Page(page =>
+            container.Page(page =>
             {
                 page.Size(PageSizes.A4);
+                page.DefaultTextStyle(SetDefaultFont);
 
                 page.Content()
                 .Component(new PageProjectsAccomplished(_cv));
             });
+        }
+
+        private TextStyle SetDefaultFont(TextStyle textStyle)
+        {
+            return textStyle.FontFamily("Hind");
         }
     }
 }
