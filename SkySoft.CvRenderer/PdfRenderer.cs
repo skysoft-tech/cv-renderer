@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
+using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
+using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using System.ComponentModel;
 using System.Text.Json;
@@ -23,7 +25,8 @@ namespace SkySoft.CvRenderer.Core
 
         public async Task Render(Stream stream)
         {
-            QuestPDF.Settings.License = LicenseType.Community;
+            SetupLicense();
+            SetupFont();
 
             var document = new CvDocument(_logger, _cv);
 
@@ -33,6 +36,35 @@ namespace SkySoft.CvRenderer.Core
             var pdfData = document.GeneratePdf();
             await stream.WriteAsync(pdfData);
 #endif
+        }
+
+        private void SetupFont()
+        {
+            var hindFontCollection = new[]
+            {
+                "Assets/Font/Hind-Bold.ttf",
+                "Assets/Font/Hind-Light.ttf",
+                "Assets/Font/Hind-Medium.ttf",
+                "Assets/Font/Hind-Regular.ttf",
+                "Assets/Font/Hind-SemiBold.ttf"
+            };
+
+            foreach (var fontName in hindFontCollection)
+            {
+                var fontStream = AssetsHelper.ReadResourceStream(fontName);
+                if (fontStream is null)
+                {
+                    _logger.LogWarning($"Failed to load font {fontName}");
+                    continue;
+                }
+
+                FontManager.RegisterFont(fontStream);
+            }
+        }
+
+        private void SetupLicense()
+        {
+            QuestPDF.Settings.License = LicenseType.Community;
         }
     }
 }

@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SkySoft.CvRenderer.Core\SkySoft.CvRenderer.csproj" />
     <ProjectReference Include="..\SkySoft.CvRenderer\SkySoft.CvRenderer.csproj" />
   </ItemGroup>
 

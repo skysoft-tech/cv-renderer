@@ -1,5 +1,6 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Assets;
 
 namespace WebApplicationPdf.GlobalComponent
 {
@@ -28,7 +29,7 @@ namespace WebApplicationPdf.GlobalComponent
                     .PaddingRight(5)
                     .MaxHeight(15)
                     .MaxWidth(15)
-                    .Image(@"C:\WebApplicationPdf\WebApplicationPdf\Image\Logo 1.png")
+                    .Image(AssetsHelper.ReadResourceBytes("Assets/Images/Logo.png"))
                     .FitArea();
 
                     row.AutoItem()

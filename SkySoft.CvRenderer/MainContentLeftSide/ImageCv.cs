@@ -1,5 +1,6 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Assets;
 
 namespace WebApplicationPdf.MainContentLeftSide
 {
@@ -19,7 +20,7 @@ namespace WebApplicationPdf.MainContentLeftSide
                     layer.PrimaryLayer()
                       .AlignRight()
                       .Height(170)
-                      .Image(@"C:\WebApplicationPdf\WebApplicationPdf\Image\home_full_bg_1 1.png")
+                      .Image(AssetsHelper.ReadResourceBytes("Assets/Images/RedPolygon.png"))
                       .FitArea();
 
                     //layer.Layer()
