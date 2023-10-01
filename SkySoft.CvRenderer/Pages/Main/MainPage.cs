@@ -9,15 +9,18 @@ using SkySoft.CvRenderer.Pages.Main.Footer;
 using SkySoft.CvRenderer.Pages.Main.WorkExperience;
 using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
 using SkySoft.CvRenderer.Pages.Main.Skills;
+using Microsoft.Extensions.Logging;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
     public class MainPage : IComponent
     {
-        public CvModel? cvModel { get; }
+        private readonly ILogger _logger;
+        public CvModel cvModel { get; }
 
-        public MainPage(CvModel? Value)
+        public MainPage(ILogger logger, CvModel Value)
         {
+            _logger = logger;
             cvModel = Value;
         }
 
@@ -34,7 +37,7 @@ namespace SkySoft.CvRenderer.Pages.Main
                   .Column(column =>
                   {
                       column.Item()
-                      .Element(HeaderComponent.ElementImage);
+                      .Component(new HeaderComponent(_logger, cvModel));
 
                       column.Item().Component(new AboutMeComponent(cvModel.Basics));
 

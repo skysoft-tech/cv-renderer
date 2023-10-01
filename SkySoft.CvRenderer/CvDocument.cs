@@ -26,7 +26,7 @@ namespace SkySoft.CvRenderer
                 page.Size(PageSizes.A4);
                 page.DefaultTextStyle(SetDefaultFont);
 
-                page.Content().Component(new MainPage(_cv));
+                page.Content().Component(new MainPage(_logger, _cv));
             });
 
             container.Page(page =>

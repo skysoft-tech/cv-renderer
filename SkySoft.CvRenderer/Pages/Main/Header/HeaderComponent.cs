@@ -1,18 +1,23 @@
-﻿using QuestPDF.Fluent;
+﻿using Microsoft.Extensions.Logging;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Assets;
+using SkySoft.CvRenderer.Core.Models;
 
 namespace SkySoft.CvRenderer.Pages.Main.Header
 {
-    public static class HeaderComponent
+    public class HeaderComponent : IComponent
     {
-        //public Basics? basics { get; }
-        //public ImageCv(Basics? value)
-        //{
-        //    basics = value;
-        //}
+        private readonly ILogger _logger;
+        private readonly CvModel _model;
 
-        public static void ElementImage(IContainer container)
+        public HeaderComponent(ILogger logger, CvModel model)
+        {
+            _logger = logger;
+            _model = model;
+        }
+
+        public void Compose(IContainer container)
         {
             container
                 .Layers(layer =>
@@ -23,26 +28,15 @@ namespace SkySoft.CvRenderer.Pages.Main.Header
                       .Width(212)
                       .Component<PolygonComponent>();
 
-                    //layer.Layer()
-                    //.Padding(50)
-                    //.AlignCenter()
-                    //.Image(@"C:\WebApplicationPdf\WebApplicationPdf\Image\Photo.png");
-
-
-                    //layer.Layer()
-                    //.Canvas((canvas, size) =>
-                    //{
-                    //    using var paint = new SKPaint
-                    //    {
-
-                    //    };
-
-                    //    using var image = SKImage.FromEncodedData(@"C:\WebApplicationPdf\WebApplicationPdf\Image\Photo.png");
-
-                    //    canvas.DrawImage(image, new SKPoint(0, 0));
-                    //});
-
+                    layer.Layer()
+                        .PaddingTop(34)
+                        .PaddingLeft(56)
+                        .Height(128)
+                        .Width(128)
+                        .AlignCenter()
+                        .Component(new PhotoComponent(_logger, _model?.Basics?.Image));
                 });
         }
+
     }
 }

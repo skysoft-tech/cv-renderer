@@ -13,6 +13,7 @@
     <None Remove="Assets\Hind-Light.ttf" />
     <None Remove="Assets\Hind-Medium.ttf" />
     <None Remove="Assets\Images\Logo.png" />
+    <None Remove="Assets\Images\LogoFull.png" />
     <None Remove="Assets\Images\RedPolygon.png" />
   </ItemGroup>
 
@@ -23,6 +24,7 @@
     <EmbeddedResource Include="Assets\Font\Hind-Regular.ttf" />
     <EmbeddedResource Include="Assets\Font\Hind-SemiBold.ttf" />
     <EmbeddedResource Include="Assets\Images\Logo.png" />
+    <EmbeddedResource Include="Assets\Images\LogoFull.png" />
     <EmbeddedResource Include="Assets\Images\RedPolygon.png" />
   </ItemGroup>
 
