@@ -1,7 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace WebApplicationPdf.MainContentLeftSide
+namespace SkySoft.CvRenderer.Pages.Main.AboutMe
 {
     internal static class AboutMeSize
     {

@@ -2,9 +2,9 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Assets;
 
-namespace WebApplicationPdf.MainContentLeftSide
+namespace SkySoft.CvRenderer.Pages.Main.Header
 {
-    public static class ImageCv
+    public static class HeaderComponent
     {
         //public Basics? basics { get; }
         //public ImageCv(Basics? value)
@@ -20,8 +20,8 @@ namespace WebApplicationPdf.MainContentLeftSide
                     layer.PrimaryLayer()
                       .AlignRight()
                       .Height(170)
-                      .Image(AssetsHelper.ReadResourceBytes("Assets/Images/RedPolygon.png"))
-                      .FitArea();
+                      .Width(212)
+                      .Component<PolygonComponent>();
 
                     //layer.Layer()
                     //.Padding(50)
@@ -34,7 +34,7 @@ namespace WebApplicationPdf.MainContentLeftSide
                     //{
                     //    using var paint = new SKPaint
                     //    {
-                            
+
                     //    };
 
                     //    using var image = SKImage.FromEncodedData(@"C:\WebApplicationPdf\WebApplicationPdf\Image\Photo.png");

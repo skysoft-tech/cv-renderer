@@ -2,7 +2,7 @@
 using QuestPDF.Fluent;
 using WebApplicationPdf.GlobalComponent;
 
-namespace WebApplicationPdf.ProjectPage
+namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public static class ProjectsStyle
     {

@@ -3,7 +3,8 @@ using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
-using WebApplicationPdf.Pages;
+using SkySoft.CvRenderer.Pages.Main;
+using SkySoft.CvRenderer.Pages.Projects;
 
 namespace SkySoft.CvRenderer
 {
@@ -25,8 +26,7 @@ namespace SkySoft.CvRenderer
                 page.Size(PageSizes.A4);
                 page.DefaultTextStyle(SetDefaultFont);
 
-                page.Content()
-                .Component(new PageCover(_cv));
+                page.Content().Component(new MainPage(_cv));
             });
 
             container.Page(page =>
@@ -34,8 +34,7 @@ namespace SkySoft.CvRenderer
                 page.Size(PageSizes.A4);
                 page.DefaultTextStyle(SetDefaultFont);
 
-                page.Content()
-                .Component(new PageProjectsAccomplished(_cv));
+                page.Content().Component(new ProjectsPage(_cv));
             });
         }
 

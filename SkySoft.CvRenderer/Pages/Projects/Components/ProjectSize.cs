@@ -1,7 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace WebApplicationPdf.ProjectPage
+namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public static class ProjectSize
     {

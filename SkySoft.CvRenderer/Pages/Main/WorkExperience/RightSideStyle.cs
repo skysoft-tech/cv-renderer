@@ -1,7 +1,7 @@
 ﻿using QuestPDF.Infrastructure;
 using QuestPDF.Fluent;
 
-namespace WebApplicationPdf.TitlePage
+namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 {
     internal static class RightSideStyle
     {

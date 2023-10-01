@@ -1,14 +1,15 @@
 ﻿using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using QuestPDF.Fluent;
+using SkySoft.CvRenderer.Pages.Main.AboutMe;
 
-namespace WebApplicationPdf.MainContentLeftSide
+namespace SkySoft.CvRenderer.Pages.Main.Footer
 {
-    internal class DataLocation : IComponent
+    internal class FooterComponent : IComponent
     {
         public Basics? basics { get; }
 
-        public DataLocation(Basics? value)
+        public FooterComponent(Basics? value)
         {
             basics = value;
         }

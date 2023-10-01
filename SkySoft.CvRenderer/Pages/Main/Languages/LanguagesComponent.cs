@@ -1,26 +1,29 @@
-﻿using SkiaSharp;
-using QuestPDF.Fluent;
+﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Core.Models;
+using SkiaSharp;
+using SkySoft.CvRenderer.Pages.Main.AboutMe;
 
-namespace WebApplicationPdf.ProjectPage
+namespace SkySoft.CvRenderer.Pages.Main.Languages
 {
-    public class TechnologiesElement : IComponent
+    public class LanguagesComponent : IComponent
     {
-        public string? technologies { get; }
+        public string? language { get; }
 
-        public TechnologiesElement(string? Value) 
+        public LanguagesComponent(string? value)
         {
-            technologies = Value;
+            language = value;
         }
+
         public void Compose(IContainer container)
         {
-            TextStyle projectsContentStyle = TextStyle.Default.ProjectsContentStyle();
+            TextStyle languageContentStyle = TextStyle.Default.LanguageContentStyle();
 
             container
+                .Element(AboutMeSize.LanguageSize)
                 .Layers(layer =>
                 {
                     layer.Layer()
-                    .AlignCenter()
                     .Canvas((canvas, size) =>
                     {
                         using var paint = new SKPaint
@@ -28,19 +31,17 @@ namespace WebApplicationPdf.ProjectPage
                             Color = SKColor.Parse("#d20155"),
                             IsStroke = false
                         };
-                        canvas.DrawCircle(5, 6, 3, paint);
+
+                        canvas.DrawCircle(5, 7, 3, paint);
                     });
 
                     layer.PrimaryLayer()
+                    .PaddingBottom(7)
                     .PaddingHorizontal(12)
-                    .PaddingBottom(12)
                     .Text(text =>
                     {
-                            text.Span(technologies)
-                            .FontSize(12)
-                            .LineHeight(0.9f)
-                            .FontColor("#000000")
-                            .Style(projectsContentStyle);
+                        text.Span($"{language}")
+                        .Style(languageContentStyle);
                     });
                 });
         }

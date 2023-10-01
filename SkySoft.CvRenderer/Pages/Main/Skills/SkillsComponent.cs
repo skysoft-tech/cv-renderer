@@ -1,14 +1,15 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Pages.Main.WorkExperience;
 
-namespace WebApplicationPdf.TitlePage
+namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
-    public class Skills : IComponent
+    public class SkillsComponent : IComponent
     {
         public Skill? skill { get; }
 
-        public Skills(Skill? value)
+        public SkillsComponent(Skill? value)
         {
             skill = value;
         }
@@ -25,13 +26,13 @@ namespace WebApplicationPdf.TitlePage
                     skillLevel = 25;
                     break;
                 case "Low":
-                    skillLevel = 50; 
+                    skillLevel = 50;
                     break;
                 case "Medium":
-                    skillLevel = 75; 
+                    skillLevel = 75;
                     break;
                 case "Good":
-                    skillLevel = 100; 
+                    skillLevel = 100;
                     break;
                 case "Profesional":
                     skillLevel = 125;

@@ -1,19 +1,20 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Pages.Main.WorkExperience;
 
-namespace WebApplicationPdf.TitlePage
+namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
 {
-    public class WorkExperience
+    public class AcademicBackgroundComponent : IComponent
     {
-        public Work? work { get; }
+        public Education? education { get; }
 
-        public WorkExperience(Work? value)
+        public AcademicBackgroundComponent(Education? value)
         {
-            work = value;
+            education = value;
         }
 
-        public void WorkExperienceContainer(IContainer container)
+        public void Compose(IContainer container)
         {
             TextStyle сontantTitlePink = TextStyle.Default.ContantTitlePink();
             TextStyle сontantTitleBlack = TextStyle.Default.ContantTitleBlack();
@@ -23,15 +24,10 @@ namespace WebApplicationPdf.TitlePage
             .Row(row =>
             {
                 row.AutoItem()
-                .Element(RightSideSize.LeftSidePadding)
+                .Element(RightSideSize.LeftSidePaddingData)
                 .Text(text =>
                 {
-                    text.Span(work.Name)
-                    .Style(сontantTitlePink);
-
-                    text.EmptyLine();
-
-                    text.Span($"{work.StartDate} - {work.EndDate}")
+                    text.Span($"{education.StartDate} - {education.EndDate}")
                     .Style(rightsContentStyle);
                 });
 
@@ -43,12 +39,22 @@ namespace WebApplicationPdf.TitlePage
                 .Element(RightSideSize.RightSidePadding)
                 .Text(text =>
                 {
-                    text.Span(work.Position)
+                    text.Span(education.Institution)
+                    .Style(сontantTitlePink);
+
+                    text.EmptyLine();
+
+                    text.Span($"{education.City}, {education.Country}")
+                    .Style(rightsContentStyle);
+
+                    text.EmptyLine();
+
+                    text.Span(education.StudyType)
                     .Style(сontantTitleBlack);
 
                     text.EmptyLine();
 
-                    text.Span(work.Summary)
+                    text.Span(education.Score)
                     .Style(rightsContentStyle);
                 });
             });

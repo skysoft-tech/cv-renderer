@@ -1,15 +1,14 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
-using WebApplicationPdf.TitlePage;
 
-namespace WebApplicationPdf.MainContentRightSide
+namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
     public class SkillsLogic : IComponent
     {
         public CvModel cvModel { get; }
         public int number { get; }
-        
+
         public SkillsLogic(CvModel valueList, int EvenUneven)
         {
             CvModel cvModel = valueList;
@@ -28,13 +27,13 @@ namespace WebApplicationPdf.MainContentRightSide
                 {
                     row.RelativeItem()
                    .PaddingRight(42)
-                   .Component(new Skills(cvModel.Skills[a]));
+                   .Component(new SkillsComponent(cvModel.Skills[a]));
 
                     row.RelativeItem()
                     .PaddingRight(42)
-                    .Component(new Skills(cvModel.Skills[a]));
+                    .Component(new SkillsComponent(cvModel.Skills[a]));
                 });
-            } 
+            }
         }
     }
 }

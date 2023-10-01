@@ -2,16 +2,21 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.GlobalComponent;
-using WebApplicationPdf.TitlePage;
-using WebApplicationPdf.MainContentLeftSide;
+using SkySoft.CvRenderer.Pages.Main.Header;
+using SkySoft.CvRenderer.Pages.Main.AboutMe;
+using SkySoft.CvRenderer.Pages.Main.Languages;
+using SkySoft.CvRenderer.Pages.Main.Footer;
+using SkySoft.CvRenderer.Pages.Main.WorkExperience;
+using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
+using SkySoft.CvRenderer.Pages.Main.Skills;
 
-namespace WebApplicationPdf.Pages
-{ 
-    public class PageCover : IComponent
+namespace SkySoft.CvRenderer.Pages.Main
+{
+    public class MainPage : IComponent
     {
         public CvModel? cvModel { get; }
 
-        public PageCover(CvModel? Value)
+        public MainPage(CvModel? Value)
         {
             cvModel = Value;
         }
@@ -29,9 +34,9 @@ namespace WebApplicationPdf.Pages
                   .Column(column =>
                   {
                       column.Item()
-                      .Element(ImageCv.ElementImage);
+                      .Element(HeaderComponent.ElementImage);
 
-                      column.Item().Component(new AboutMe(cvModel.Basics));
+                      column.Item().Component(new AboutMeComponent(cvModel.Basics));
 
                       cvModel.Basics.Summary.ForEach(summary =>
                       {
@@ -50,11 +55,11 @@ namespace WebApplicationPdf.Pages
                           column.Item()
                           .PaddingLeft(40)
                           .PaddingRight(30)
-                          .Component(new LanguageContainer(languages.Language));
+                          .Component(new LanguagesComponent(languages.Language));
                       });
 
                       column.Item()
-                      .Component(new DataLocation(cvModel.Basics));
+                      .Component(new FooterComponent(cvModel.Basics));
                   });
 
 
@@ -72,7 +77,7 @@ namespace WebApplicationPdf.Pages
 
                          cvModel.Work.ForEach(work =>
                          {
-                             column.Item().Element(new WorkExperience(work).WorkExperienceContainer);
+                             column.Item().Element(new WorkExperienceComponent(work).WorkExperienceContainer);
                          });
 
                          column.Item()
@@ -83,7 +88,7 @@ namespace WebApplicationPdf.Pages
 
                          cvModel.Education.ForEach(education =>
                          {
-                             column.Item().Component(new AcademicBackground(education));
+                             column.Item().Component(new AcademicBackgroundComponent(education));
                          });
 
                          column.Item()
@@ -99,11 +104,11 @@ namespace WebApplicationPdf.Pages
                                  {
                                      row.RelativeItem()
                                      .PaddingRight(42)
-                                     .Component(new Skills(skills));
+                                     .Component(new SkillsComponent(skills));
 
                                      row.RelativeItem()
                                      .PaddingRight(42)
-                                     .Component(new Skills(skills));
+                                     .Component(new SkillsComponent(skills));
                                  });
                          });
                      });

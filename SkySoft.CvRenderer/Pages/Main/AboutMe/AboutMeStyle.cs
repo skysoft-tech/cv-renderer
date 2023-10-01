@@ -2,7 +2,7 @@
 using QuestPDF.Fluent;
 using WebApplicationPdf.GlobalComponent;
 
-namespace WebApplicationPdf.MainContentLeftSide
+namespace SkySoft.CvRenderer.Pages.Main.AboutMe
 {
     public static class AboutMeStyle
     {

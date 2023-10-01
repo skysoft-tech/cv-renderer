@@ -2,7 +2,7 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 
-namespace WebApplicationPdf.ProjectPage
+namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public class ProjectsAccomplished : IComponent
     {
@@ -35,7 +35,7 @@ namespace WebApplicationPdf.ProjectPage
                 row.AutoItem()
                 .LineVertical(1)
                 .LineColor("#dbdbdb");
-                
+
                 row.RelativeItem()
                 .Element(ProjectSize.AspectRatioProjectRow)
                 .Column(column =>

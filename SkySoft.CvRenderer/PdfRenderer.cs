@@ -8,7 +8,6 @@ using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using System.ComponentModel;
 using System.Text.Json;
-using WebApplicationPdf.Pages;
 
 namespace SkySoft.CvRenderer.Core
 {

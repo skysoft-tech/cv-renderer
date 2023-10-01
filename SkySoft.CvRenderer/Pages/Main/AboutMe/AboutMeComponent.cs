@@ -3,13 +3,13 @@ using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.GlobalComponent;
 
-namespace WebApplicationPdf.MainContentLeftSide
+namespace SkySoft.CvRenderer.Pages.Main.AboutMe
 {
-    public class AboutMe : IComponent
+    public class AboutMeComponent : IComponent
     {
         public Basics? basics { get; }
 
-        public AboutMe(Basics? value)
+        public AboutMeComponent(Basics? value)
         {
             basics = value;
         }

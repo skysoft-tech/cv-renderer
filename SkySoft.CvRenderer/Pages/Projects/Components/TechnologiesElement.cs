@@ -1,28 +1,26 @@
-﻿using QuestPDF.Fluent;
+﻿using SkiaSharp;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkySoft.CvRenderer.Core.Models;
-using SkiaSharp;
 
-namespace WebApplicationPdf.MainContentLeftSide
+namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
-    public class LanguageContainer : IComponent
+    public class TechnologiesElement : IComponent
     {
-        public string? language { get; }
+        public string? technologies { get; }
 
-        public LanguageContainer(string? value)
+        public TechnologiesElement(string? Value)
         {
-            language = value;
+            technologies = Value;
         }
-
         public void Compose(IContainer container)
         {
-            TextStyle languageContentStyle = TextStyle.Default.LanguageContentStyle();
+            TextStyle projectsContentStyle = TextStyle.Default.ProjectsContentStyle();
 
             container
-                .Element(AboutMeSize.LanguageSize)
                 .Layers(layer =>
                 {
                     layer.Layer()
+                    .AlignCenter()
                     .Canvas((canvas, size) =>
                     {
                         using var paint = new SKPaint
@@ -30,17 +28,19 @@ namespace WebApplicationPdf.MainContentLeftSide
                             Color = SKColor.Parse("#d20155"),
                             IsStroke = false
                         };
-
-                        canvas.DrawCircle(5, 7, 3, paint);
+                        canvas.DrawCircle(5, 6, 3, paint);
                     });
 
                     layer.PrimaryLayer()
-                    .PaddingBottom(7)
                     .PaddingHorizontal(12)
+                    .PaddingBottom(12)
                     .Text(text =>
                     {
-                        text.Span($"{language}")
-                        .Style(languageContentStyle);
+                        text.Span(technologies)
+                        .FontSize(12)
+                        .LineHeight(0.9f)
+                        .FontColor("#000000")
+                        .Style(projectsContentStyle);
                     });
                 });
         }

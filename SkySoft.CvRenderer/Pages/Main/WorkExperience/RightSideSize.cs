@@ -1,7 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 
-namespace WebApplicationPdf.TitlePage
+namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 {
     public static class RightSideSize
     {

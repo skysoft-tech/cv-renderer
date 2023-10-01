@@ -1,16 +1,16 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Pages.Projects.Components;
 using WebApplicationPdf.GlobalComponent;
-using WebApplicationPdf.ProjectPage;
 
-namespace WebApplicationPdf.Pages
+namespace SkySoft.CvRenderer.Pages.Projects
 {
-    public class PageProjectsAccomplished : IComponent
+    public class ProjectsPage : IComponent
     {
         public CvModel? cvModel { get; }
 
-        public PageProjectsAccomplished(CvModel? value)
+        public ProjectsPage(CvModel? value)
         {
             cvModel = value;
         }
@@ -36,7 +36,7 @@ namespace WebApplicationPdf.Pages
                          .Component(new TitleComponent("PROJECTS ACCOMPLISHED", "#000000"));
 
                          //Content
-                         cvModel.Projects.ForEach( projects =>
+                         cvModel.Projects.ForEach(projects =>
                          {
                              column.Item()
                              .Component(new ProjectsAccomplished(projects));
