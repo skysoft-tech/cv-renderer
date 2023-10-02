@@ -37,6 +37,7 @@ namespace SkySoft.CvRenderer.Pages.Main
                   .Column(column =>
                   {
                       column.Item()
+                      .PaddingBottom(20)
                       .Component(new HeaderComponent(_logger, cvModel));
 
                       column.Item().Component(new AboutMeComponent(cvModel.Basics));
@@ -100,20 +101,23 @@ namespace SkySoft.CvRenderer.Pages.Main
                          column.Item()
                         .Component(new TitleComponent("SKILLS", "#000000"));
 
-                         cvModel.Skills.ForEach(skills =>
-                         {
-                             column.Item()
-                                 .Row(row =>
-                                 {
-                                     row.RelativeItem()
-                                     .PaddingRight(42)
-                                     .Component(new SkillsComponent(skills));
+                         column.Item()
+                         .Component(new SkillsLogic(_logger, cvModel));
 
-                                     row.RelativeItem()
-                                     .PaddingRight(42)
-                                     .Component(new SkillsComponent(skills));
-                                 });
-                         });
+                         //cvModel.Skills.ForEach(skills =>
+                         //{
+                         //    column.Item()
+                         //        .Row(row =>
+                         //        {
+                         //            row.RelativeItem()
+                         //            .PaddingRight(42)
+                         //            .Component(new SkillsComponent(_logger, skills));
+
+                         //            row.RelativeItem()
+                         //            .PaddingRight(42)
+                         //            .Component(new SkillsComponent(_logger, skills));
+                         //        });
+                         //});
                      });
             });
         }

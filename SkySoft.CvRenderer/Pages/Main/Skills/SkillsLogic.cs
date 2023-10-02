@@ -1,4 +1,5 @@
-﻿using QuestPDF.Fluent;
+﻿using Microsoft.Extensions.Logging;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 
@@ -6,34 +7,46 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
     public class SkillsLogic : IComponent
     {
-        public CvModel cvModel { get; }
-        public int number { get; }
-
-        public SkillsLogic(CvModel valueList, int EvenUneven)
+        private readonly CvModel _cvModel;
+        private readonly ILogger _logger;
+        public SkillsLogic(ILogger logger, CvModel value)
         {
-            CvModel cvModel = valueList;
-            number = EvenUneven;
+            _cvModel = value;
+            _logger = logger;
         }
 
         public void Compose(IContainer container)
         {
-            //for (int a = 0; a < skill.Count; a++)
-            //{
-            //if (a % 2 == number)
-            //{
-            for (int a = 0; a < cvModel.Skills.Count; a++)
+            var couples = GetParityIndex(0);
+            var notCouples = GetParityIndex(1);
+            container.Row(row =>
             {
-                container.Row(row =>
+                for (int b = 0; b < couples.Count && b < notCouples.Count; b++)
                 {
-                    row.RelativeItem()
-                   .PaddingRight(42)
-                   .Component(new SkillsComponent(cvModel.Skills[a]));
+                    row.AutoItem()
+                    .PaddingRight(42)
+                    .Component(new SkillsComponent(_logger, couples[b]));
 
                     row.RelativeItem()
                     .PaddingRight(42)
-                    .Component(new SkillsComponent(cvModel.Skills[a]));
-                });
+                    .Component(new SkillsComponent(_logger, notCouples[b]));
+                }
+            });
+        }
+
+        private List<Skill> GetParityIndex(int valueNumber)
+        {
+            List<Skill> list = new List<Skill>();
+
+            for (int a = 0; a < _cvModel.Skills.Count; a++)
+            {
+                if (a % 2 == valueNumber)
+                {
+                    list.Add(_cvModel.Skills[a]);
+                }
             }
+
+            return list;
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using Microsoft.Extensions.Logging;
+using System.Text.Json.Serialization;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -49,6 +50,8 @@ namespace SkySoft.CvRenderer.Cli
             {
                 PropertyNameCaseInsensitive = true,
             };
+
+            options.Converters.Add(new JsonStringEnumConverter());
 
             var cv = JsonSerializer.Deserialize<CvModel>(cvJson, options);
             if (cv is null)

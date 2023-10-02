@@ -107,10 +107,19 @@
         public string? Summary { get; set; }
     }
 
+    public enum SkillLevel
+    {
+        Heard,
+        Low,
+        Medium,
+        Good,
+        Profesional
+    }
+
     public class Skill
     {
         public string? Name { get; set; }
-        public string? Level { get; set; }
+        public SkillLevel? Level { get; set; }
         public List<string>? Keywords { get; set; }
     }
 

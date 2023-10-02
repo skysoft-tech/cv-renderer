@@ -9,16 +9,16 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
         public static TextStyle FirstNameStyle(this TextStyle style)
         {
             return style
+                .ExtraBlack()
                 .FontSize(32)
-                .LineHeight(0.8f)
                 .FontColor("#FFFFFF");
         }
 
         public static TextStyle SurnameStyle(this TextStyle style)
         {
             return style
+                .Thin()
                 .FontSize(32)
-                .LineHeight(0.8f)
                 .FontColor("#FFFFFF");
         }
 
@@ -35,7 +35,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
         {
             return style
                 .FontSize(10)
-                .LineHeight(0.9f)
+                .LineHeight(0.8f)
                 .FontColor("#FFFFFF");
         }
 

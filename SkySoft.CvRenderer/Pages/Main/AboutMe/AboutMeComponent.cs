@@ -7,11 +7,11 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
 {
     public class AboutMeComponent : IComponent
     {
-        public Basics? basics { get; }
+        private readonly Basics _basics;
 
-        public AboutMeComponent(Basics? value)
+        public AboutMeComponent(Basics value)
         {
-            basics = value;
+            _basics = value;
         }
 
         public void Compose(IContainer container)
@@ -28,16 +28,16 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
                  .AlignTop()
                  .Text(text =>
                  {
-                     text.Span($"{basics.Name}")
+                     text.Span($"{_basics.Name}")
                      .Style(firstNameStye);
                  });
 
                  column.Item()
                 .AlignTop()
-                .PaddingBottom(15)
+                .PaddingBottom(10)
                 .Text(text =>
                 {
-                    text.Span($"{basics.LastName}")
+                    text.Span($"{_basics.LastName}")
                     .Style(surnameStye);
                 });
 
@@ -45,7 +45,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
                  .Element(AboutMeSize.BrieflyAboutMyselfSize)
                  .Text(text =>
                  {
-                     text.Span($"{basics.Label}")
+                     text.Span($"{_basics.Label}")
                     .Style(brieflyAboutMyselfStyle);
                  });
 
