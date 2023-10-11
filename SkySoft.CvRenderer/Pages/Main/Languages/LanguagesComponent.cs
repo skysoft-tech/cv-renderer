@@ -1,26 +1,23 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkySoft.CvRenderer.Core.Models;
 using SkiaSharp;
-using SkySoft.CvRenderer.Pages.Main.AboutMe;
-
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
 namespace SkySoft.CvRenderer.Pages.Main.Languages
 {
     public class LanguagesComponent : IComponent
     {
-        public string? language { get; }
+        private readonly string _language;
 
         public LanguagesComponent(string? value)
         {
-            language = value;
+            _language = value;
         }
 
         public void Compose(IContainer container)
         {
-            TextStyle languageContentStyle = TextStyle.Default.LanguageContentStyle();
-
+            TextStyle languageStyle = TextStyle.Default.LanguageStyle();
+            
             container
-                .Element(AboutMeSize.LanguageSize)
                 .Layers(layer =>
                 {
                     layer.Layer()
@@ -32,16 +29,16 @@ namespace SkySoft.CvRenderer.Pages.Main.Languages
                             IsStroke = false
                         };
 
-                        canvas.DrawCircle(5, 7, 3, paint);
+                        canvas.DrawCircle(5, 6, 3, paint);
                     });
 
                     layer.PrimaryLayer()
-                    .PaddingBottom(7)
+                    .PaddingBottom(8)
                     .PaddingHorizontal(12)
                     .Text(text =>
                     {
-                        text.Span($"{language}")
-                        .Style(languageContentStyle);
+                        text.Span($"{_language}")
+                        .Style(languageStyle);
                     });
                 });
         }

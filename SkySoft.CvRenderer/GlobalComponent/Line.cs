@@ -1,15 +1,17 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
+using System.Data.Common;
 
 namespace WebApplicationPdf.GlobalComponent
 {
-    public class Line
+    public static class Line
     {
-        public void LineContainer(IContainer container)
+        public static void lineHorizontal(IContainer container)
         {
             container
-                .PaddingRight(20)
-                .PaddingVertical(20)
+                .PaddingTop(20)
+                .PaddingBottom(20)
                 .LineHorizontal(1)
                 .LineColor("#d8d8d8");
         }

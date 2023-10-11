@@ -3,7 +3,7 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Pages.Main.WorkExperience;
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
 namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
@@ -20,17 +20,19 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
 
         public void Compose(IContainer container)
         {
-            TextStyle rightsSkillsStyle = TextStyle.Default.RightsSkillsStyle();
-
+            var skillsStyle = TextStyle.Default.SkillsStyle();
+            
             container
                  .Column(column =>
                  {
-                     column.Item().Row(row =>
+                     column.Item()
+                     .PaddingBottom(3)
+                     .Row(row =>
                      {
                          row.AutoItem().Text(text =>
                          {
                              text.Span($"{_skill.Name}")
-                             .Style(rightsSkillsStyle);
+                             .Style(skillsStyle);
                          });
                      });
 

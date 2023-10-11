@@ -8,7 +8,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Header
     internal class PhotoComponent : IComponent
     {
         private readonly ILogger _logger;
-        private readonly string? _photo;
+        private readonly string _photo;
 
         public PhotoComponent(ILogger logger, string? photo)
         {

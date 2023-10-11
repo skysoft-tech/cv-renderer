@@ -5,6 +5,7 @@ using WebApplicationPdf.GlobalComponent;
 using SkySoft.CvRenderer.Pages.Main.Header;
 using SkySoft.CvRenderer.Pages.Main.AboutMe;
 using Microsoft.Extensions.Logging;
+using SkySoft.CvRenderer.Assets;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
@@ -26,11 +27,10 @@ namespace SkySoft.CvRenderer.Pages.Main
                 row.ConstantItem(240)
                   .ShowOnce()
                   .ExtendVertical()
-                  .Background("#1c1f2a")
+                  .Background(DocumentColors.PrimaryColor)
                   .Column(column =>
                   {
                       column.Item()
-                      .PaddingBottom(24)
                       .Component(new HeaderComponent(_logger, cvModel));
 
                       column.Item()
@@ -42,10 +42,6 @@ namespace SkySoft.CvRenderer.Pages.Main
                   .ShowOnce()
                   .Column(column =>
                   {
-                      column.Item()
-                      .Height(40)
-                      .Element(HeadTitle.BrandTitle);
-
                       column.Item()
                      .Component(new BackgroundContainer(_logger, cvModel));
                   });

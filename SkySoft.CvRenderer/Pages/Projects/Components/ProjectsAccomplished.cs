@@ -1,92 +1,73 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
 namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public class ProjectsAccomplished : IComponent
     {
-        public Project? project { get; }
+        private readonly Project _project;
 
         public ProjectsAccomplished(Project? Value)
         {
-            project = Value;
+            _project = Value;
         }
 
         public void Compose(IContainer container)
         {
-            TextStyle projectsTitlePink = TextStyle.Default.ProjectsTitlePink();
-            TextStyle projectsTitleGray = TextStyle.Default.ProjectsTitleGray();
-            TextStyle projectsContentStyle = TextStyle.Default.ProjectsContentStyle();
-            TextStyle projectsDataStyle = TextStyle.Default.ProjectsDataStyle();
-
+            var projectStartDateStyle = TextStyle.Default.ProjectStartDateStyle();
+            var projectNameStyle = TextStyle.Default.ProjectNameStyle();
+            var projectDescriptionStyle = TextStyle.Default.ProjectDescriptionStyle();
+            var dutiesStyle = TextStyle.Default.DutiesStyle();
+            
             container
-            .Element(ProjectSize.AspectRatioProject)
+            .ShowEntire()
             .Row(row =>
             {
                 row.AutoItem()
-                .Element(ProjectSize.AspectRatioProjectDate)
-                .Text(text =>
-                {
-                    text.Span($"{project.StartDate}\n{project.EndDate}")
-                    .Style(projectsDataStyle);
-                });
+                .MinWidth(49)
+                .MaxWidth(49)
+                .Text(text => text.Span($"{_project.StartDate}\n{_project.EndDate}").Style(projectStartDateStyle));
 
                 row.AutoItem()
+                .Element(ComponentsSize.LinesSize)
                 .LineVertical(1)
                 .LineColor("#dbdbdb");
 
                 row.RelativeItem()
-                .Element(ProjectSize.AspectRatioProjectRow)
                 .Column(column =>
                 {
                     column.Item()
-                    .Element(ProjectSize.AspectRatioProjectСontent)
+                    .PaddingBottom(8)
                     .Text(text =>
                     {
-                        text.Span(project.Name)
-                        .Style(projectsTitlePink);
+                        text.Span($"{_project.Name}\n").Style(projectNameStyle);
+
+                        text.Span($"{_project.Description}").Style(projectDescriptionStyle);
                     });
 
                     column.Item()
-                    .Element(ProjectSize.AspectRatioProjectСontent)
-                    .Text(text =>
+                    .Text(text => 
                     {
-                        text.Span(project.Description)
-                        .Style(projectsContentStyle);
-                    });
+                        text.Span("Duties\n").Style(dutiesStyle);
 
-                    column.Item()
-                    .Text(text =>
-                    {
-
-                        text.Span("Duties")
-                        .Style(projectsTitleGray);
-                    });
-
-                    column.Item()
-                    .Element(ProjectSize.AspectRatioProjectСontent)
-                    .Text(text =>
-                    {
-                        project.Highlights.ForEach(highlights =>
+                        _project.Highlights.ForEach(highlights =>
                         {
-                            text.Span(highlights)
-                            .Style(projectsContentStyle);
+                            text.Span($"{highlights}\n").Style(projectDescriptionStyle);
                         });
                     });
 
                     column.Item()
                     .Text(text =>
                     {
-                        text.Span("Technologies")
-                        .Style(projectsTitleGray);
+                        text.Span("Technologies").Style(dutiesStyle);
                     });
 
                     column.Item()
-                    .Element(ProjectSize.AspectRatioProjectСontent)
                     .Row(row =>
                     {
-                        project.Technologies.ForEach(technologies =>
+                        _project.Technologies.ForEach(technologies =>
                         {
                             row.AutoItem()
                             .Component(new TechnologiesElement(technologies));

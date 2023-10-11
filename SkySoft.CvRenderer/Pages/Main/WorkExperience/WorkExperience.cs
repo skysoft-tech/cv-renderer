@@ -1,55 +1,55 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
+using WebApplicationPdf.GlobalComponent;
 
 namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 {
     public class WorkExperienceComponent
     {
-        public Work? work { get; }
+        private readonly Work _work;
 
         public WorkExperienceComponent(Work? value)
         {
-            work = value;
+            _work = value;
         }
 
         public void WorkExperienceContainer(IContainer container)
         {
-            TextStyle сontantTitlePink = TextStyle.Default.ContantTitlePink();
-            TextStyle сontantTitleBlack = TextStyle.Default.ContantTitleBlack();
-            TextStyle rightsContentStyle = TextStyle.Default.RightsContentStyle();
+            var workNameStyle = TextStyle.Default.WorkNameStyle();
+            var workStartDateStyle = TextStyle.Default.WorkStartDateStyle();
+            var workPositionStyle = TextStyle.Default.WorkPositionStyle();
+            var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
 
             container
             .Row(row =>
             {
                 row.AutoItem()
-                .Element(RightSideSize.LeftSidePadding)
+                .MinWidth(50)
+                .MaxWidth(50)
                 .Text(text =>
                 {
-                    text.Span(work.Name)
-                    .Style(сontantTitlePink);
+                    text.Span($"{_work.Name}\n")
+                    .Style(workNameStyle);
 
-                    text.EmptyLine();
-
-                    text.Span($"{work.StartDate} - {work.EndDate}")
-                    .Style(rightsContentStyle);
+                    text.Span($"{_work.StartDate} - {_work.EndDate}")
+                    .Style(workStartDateStyle);
                 });
 
                 row.AutoItem()
+                .Element(ComponentsSize.LinesSize)
                 .LineVertical(1)
                 .LineColor("#dbdbdb");
 
                 row.RelativeItem()
-                .Element(RightSideSize.RightSidePadding)
                 .Text(text =>
                 {
-                    text.Span(work.Position)
-                    .Style(сontantTitleBlack);
+                    text.Span($"{_work.Position}\n")
+                    .Style(workPositionStyle);
 
-                    text.EmptyLine();
-
-                    text.Span(work.Summary)
-                    .Style(rightsContentStyle);
+                    text.Span($"{_work.Summary}\n")
+                    .Style(workSummaryStyle);
                 });
             });
         }

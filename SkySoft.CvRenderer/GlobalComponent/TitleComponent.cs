@@ -1,27 +1,31 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
 namespace WebApplicationPdf.GlobalComponent
 {
     internal class TitleComponent : IComponent
     {
-        public string Title { get; }
-        public string TextСolor { get; }
+        private readonly string _title;
+        private readonly string _textСolor;
+        private readonly int _paddingBottom;
 
-        public TitleComponent(string title, string textСolor)
+        public TitleComponent(string title, string textСolor, int paddingBottom)
         {
-            Title = title;
-            TextСolor = textСolor;
+            _title = title;
+            _textСolor = textСolor;
+            _paddingBottom = paddingBottom;
         }
 
         public void Compose(IContainer container)
         {
+            var titleComponentStyle = TextStyle.Default.TitleComponentStyle();
+
             container
-            .PaddingBottom(15)
-            .Text(Title)
+            .PaddingBottom(_paddingBottom)
+            .Text(_title).Style(titleComponentStyle)
             .FontSize(14)
-            .NormalWeight()
-            .FontColor(TextСolor);
+            .FontColor(_textСolor);
         }
     }
 }

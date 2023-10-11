@@ -4,44 +4,19 @@ using SkySoft.CvRenderer.Assets;
 
 namespace WebApplicationPdf.GlobalComponent
 {
-    public static class HeadTitle
+    public class HeadTitle : IComponent
     {
-        private static TextStyle Styles(this TextStyle style, string color)
+        public void Compose(IContainer container)
         {
-            return style
-            .FontSize(20)
-            .ExtraBlack()
-            .FontColor(color);
-        }
-
-        public static void BrandTitle(IContainer container)
-        {
-            var LeftSide = TextStyle.Default.Styles("#1c1e2a");
-            var RightSide = TextStyle.Default.Styles("#d40055");
-
             container
-                .Row(row =>
-                {
-                    row.RelativeItem()
-                    .AlignRight()
-                    .PaddingTop(6)
-                    .PaddingRight(5)
-                    .MaxHeight(15)
-                    .MaxWidth(15)
-                    .Image(AssetsHelper.ReadResourceBytes("Assets/Images/Logo.png"))
-                    .FitArea();
-
-                    row.AutoItem()
-                    .AlignRight()
-                    .Text(text =>
-                    {
-                        text.Span("SMART")
-                        .Style(LeftSide);
-
-                        text.Span("EXE")
-                        .Style(RightSide);
-                    });
-                });
+            .Column(column =>
+            {
+                column.Item()
+                .AlignRight()
+                .PaddingBottom(10)
+                .Width(1.5f, Unit.Inch)
+                .Image(AssetsHelper.ReadResourceBytes("Assets/Images/LogoFull.png"));
+            });
         }
     }
 }

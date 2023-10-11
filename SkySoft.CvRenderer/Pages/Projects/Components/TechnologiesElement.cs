@@ -6,16 +6,14 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public class TechnologiesElement : IComponent
     {
-        public string? technologies { get; }
+        private readonly string _technologies;
 
         public TechnologiesElement(string? Value)
         {
-            technologies = Value;
+            _technologies = Value;
         }
         public void Compose(IContainer container)
         {
-            TextStyle projectsContentStyle = TextStyle.Default.ProjectsContentStyle();
-
             container
                 .Layers(layer =>
                 {
@@ -28,7 +26,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                             Color = SKColor.Parse("#d20155"),
                             IsStroke = false
                         };
-                        canvas.DrawCircle(5, 6, 3, paint);
+                        canvas.DrawCircle(5, 7, 3, paint);
                     });
 
                     layer.PrimaryLayer()
@@ -36,11 +34,10 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                     .PaddingBottom(12)
                     .Text(text =>
                     {
-                        text.Span(technologies)
+                        text.Span(_technologies)
                         .FontSize(12)
                         .LineHeight(0.9f)
-                        .FontColor("#000000")
-                        .Style(projectsContentStyle);
+                        .FontColor("#000000");
                     });
                 });
         }

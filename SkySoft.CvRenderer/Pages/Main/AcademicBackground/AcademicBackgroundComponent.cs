@@ -1,63 +1,68 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Pages.Main.WorkExperience;
+using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
-namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
+namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground;
+public class AcademicBackgroundComponent : IComponent
 {
-    public class AcademicBackgroundComponent : IComponent
+    private readonly Education _education;
+
+    public AcademicBackgroundComponent(Education? value)
     {
-        public Education? education { get; }
+        _education = value;
+    }
 
-        public AcademicBackgroundComponent(Education? value)
+    public void Compose(IContainer container)
+    {
+        var workStartDateStyle = TextStyle.Default.WorkStartDateStyle();
+        var workNameStyle = TextStyle.Default.WorkNameStyle();
+        var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
+        var workPositionStyle = TextStyle.Default.WorkPositionStyle();
+
+        container
+        .Row(row =>
         {
-            education = value;
-        }
-
-        public void Compose(IContainer container)
-        {
-            TextStyle сontantTitlePink = TextStyle.Default.ContantTitlePink();
-            TextStyle сontantTitleBlack = TextStyle.Default.ContantTitleBlack();
-            TextStyle rightsContentStyle = TextStyle.Default.RightsContentStyle();
-
-            container
-            .Row(row =>
+            row.AutoItem()
+            .MinWidth(50)
+            .MaxWidth(50)
+            .Text(text =>
             {
-                row.AutoItem()
-                .Element(RightSideSize.LeftSidePaddingData)
+                text.Span($"{_education.StartDate} - {_education.EndDate}")
+                .Style(workStartDateStyle);
+            });
+
+            row.AutoItem()
+            .Element(ComponentsSize.LinesSize)
+            .LineVertical(1)
+            .LineColor("#dbdbdb");
+
+            row.RelativeItem()
+            .Column(column =>
+            {
+                column.Item()
+                .PaddingBottom(4)
                 .Text(text =>
                 {
-                    text.Span($"{education.StartDate} - {education.EndDate}")
-                    .Style(rightsContentStyle);
+                    text.Span($"{_education.Institution}\n")
+                    .Style(workNameStyle);
+
+                    text.Span($"{_education.City}, {_education.Country}")
+                    .Style(workSummaryStyle);
                 });
 
-                row.AutoItem()
-                .LineVertical(1)
-                .LineColor("#dbdbdb");
-
-                row.RelativeItem()
-                .Element(RightSideSize.RightSidePadding)
+                column.Item()
+                .PaddingBottom(14)
                 .Text(text =>
                 {
-                    text.Span(education.Institution)
-                    .Style(сontantTitlePink);
+                    text.Span($"{_education.StudyType}\n")
+                    .Style(workPositionStyle);
 
-                    text.EmptyLine();
-
-                    text.Span($"{education.City}, {education.Country}")
-                    .Style(rightsContentStyle);
-
-                    text.EmptyLine();
-
-                    text.Span(education.StudyType)
-                    .Style(сontantTitleBlack);
-
-                    text.EmptyLine();
-
-                    text.Span(education.Score)
-                    .Style(rightsContentStyle);
+                    text.Span($"{_education.Score}")
+                    .Style(workSummaryStyle);
                 });
             });
-        }
+        });
     }
 }
+
