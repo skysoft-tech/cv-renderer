@@ -6,7 +6,7 @@ using WebApplicationPdf.GlobalComponent;
 
 namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 {
-    public class WorkExperienceComponent
+    public class WorkExperienceComponent : IComponent
     {
         private readonly Work _work;
 
@@ -15,7 +15,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
             _work = value;
         }
 
-        public void WorkExperienceContainer(IContainer container)
+        public void Compose(IContainer container)
         {
             var workNameStyle = TextStyle.Default.WorkNameStyle();
             var workStartDateStyle = TextStyle.Default.WorkStartDateStyle();

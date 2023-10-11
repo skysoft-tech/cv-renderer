@@ -128,7 +128,22 @@
       "keywords": []
     },
     {
-      "name": "C# / .NET",
+      "name": "RTP/UDP, RTMP, RTSP",
+      "level": "Profesional",
+      "keywords": []
+    },
+    {
+      "name": "AWS ECS",
+      "level": "Medium",
+      "keywords": []
+    },
+    {
+      "name": "NUnit",
+      "level": "Heard",
+      "keywords": []
+    },
+    {
+      "name": "NUnit",
       "level": "Heard",
       "keywords": []
     }

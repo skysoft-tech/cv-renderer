@@ -9,28 +9,26 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
     {
         private readonly ILogger _logger;
         private readonly CvModel _cvModel;
+        private readonly int _skillId;
 
-        public SkillsLogic(ILogger logger, CvModel value)
+        public SkillsLogic(ILogger logger, CvModel cvModel, int parityIndex)
         {
             _logger = logger;
-            _cvModel = value;
+            _cvModel = cvModel;
+            _skillId = parityIndex;
+
         }
 
         public void Compose(IContainer container)
         {
-            //var couples = GetParityIndex(0);
-            //var notCouples = GetParityIndex(1);
-
-            container.Row(row =>
+            container.
+            Column(column =>
             {
-                row.RelativeItem()
-                .PaddingRight(42)
-                .Component(new SkillsComponent(_logger, GetParityIndex(0)[0]));
-
-
-                row.RelativeItem()
-                .PaddingRight(42)
-                .Component(new SkillsComponent(_logger, GetParityIndex(1)[0]));
+                GetParityIndex(_skillId).ForEach(list =>
+                {
+                    column.Item()
+                    .Component(new SkillsComponent(_logger, list));
+                });
             });
         }
 

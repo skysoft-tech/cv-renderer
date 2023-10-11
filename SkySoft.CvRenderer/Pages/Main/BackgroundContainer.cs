@@ -37,7 +37,7 @@ namespace SkySoft.CvRenderer.Pages.Main
 
                     _cvModel.Work.ForEach(work =>
                     {
-                        column.Item().Element(new WorkExperienceComponent(work).WorkExperienceContainer);
+                        column.Item().Component(new WorkExperienceComponent(work));
                     });
 
                     column.Item()
@@ -59,7 +59,7 @@ namespace SkySoft.CvRenderer.Pages.Main
                    .Component(new TitleComponent("SKILLS", "#000000", 13));
 
                     column.Item()
-                   .Component(new SkillsLogic(_logger, _cvModel));
+                   .Component(new SkillsContainer(_logger, _cvModel));
                 });
             });
         }
