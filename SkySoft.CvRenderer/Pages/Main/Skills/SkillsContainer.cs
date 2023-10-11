@@ -25,12 +25,12 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
                     row.RelativeItem()
                     .AlignLeft()
                     .PaddingRight(46)
-                    .Component(new SkillsLogic(_logger, _cvModel, 1));
+                    .Component(new SkillsLogic(_logger, _cvModel, 0));
 
                     row.RelativeItem()
                     .ShowOnce()
                     .AlignRight()
-                    .Component(new SkillsLogic(_logger, _cvModel, 0));
+                    .Component(new SkillsLogic(_logger, _cvModel, 1));
                 });
         }
     }
