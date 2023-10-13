@@ -19,6 +19,8 @@ public class AcademicBackgroundComponent : IComponent
         var workNameStyle = TextStyle.Default.WorkNameStyle();
         var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
         var workPositionStyle = TextStyle.Default.WorkPositionStyle();
+        var studyTypeStyle = TextStyle.Default.StudyTypeStyle();
+        
 
         container
         .Row(row =>
@@ -56,7 +58,7 @@ public class AcademicBackgroundComponent : IComponent
                 .Text(text =>
                 {
                     text.Span($"{_education.StudyType}\n")
-                    .Style(workPositionStyle);
+                    .Style(studyTypeStyle);
 
                     text.Span($"{_education.Score}")
                     .Style(workSummaryStyle);

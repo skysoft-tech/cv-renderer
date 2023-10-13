@@ -27,6 +27,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
                 GetParityIndex(_skillId).ForEach(list =>
                 {
                     column.Item()
+                    .ShowEntire()
                     .Component(new SkillsComponent(_logger, list));
                 });
             });

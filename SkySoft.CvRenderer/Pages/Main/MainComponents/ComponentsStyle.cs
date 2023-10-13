@@ -55,8 +55,9 @@ namespace SkySoft.CvRenderer.Pages.Main.MainComponents
         }
         //AboutMeComponent
 
-        
-        //WorkExperienceContainer
+
+        //WorkExperience/AcademicBackground
+
         public static TextStyle WorkNameStyle(this TextStyle style)
         {
             return style
@@ -82,6 +83,14 @@ namespace SkySoft.CvRenderer.Pages.Main.MainComponents
                 .FontSize(12)
                 .Weight(FontWeight.SemiBold);
         }
+        public static TextStyle StudyTypeStyle(this TextStyle style)
+        {
+            return style
+                .FontColor(DocumentColors.FontColor)
+                .LineHeight(0.7f)
+                .FontSize(12)
+                .Weight(FontWeight.Normal);
+        }
 
         public static TextStyle WorkSummaryStyle(this TextStyle style)
         {
@@ -98,7 +107,7 @@ namespace SkySoft.CvRenderer.Pages.Main.MainComponents
                 .LineHeight(0.7f)
                 .FontSize(10);
         }
-        //WorkExperienceContainer
+        //WorkExperience/AcademicBackground
 
         //ProjectsAccomplished
         public static TextStyle ProjectStartDateStyle(this TextStyle style)

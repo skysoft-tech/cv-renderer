@@ -33,15 +33,21 @@ namespace SkySoft.CvRenderer.Pages.Main
                     .Component(new AboutMeComponent(_cvModel.Basics));
 
                     column.Item()
-                    .Component(new TitleComponent("LANGUAGE", "#ffffff", 8));
-
-                    _cvModel.Languages.ForEach(languages =>
+                    .ShowEntire()
+                    .Column(column =>
                     {
                         column.Item()
-                        .Component(new LanguagesComponent(languages.Language));
+                        .Component(new TitleComponent("LANGUAGE", "#ffffff", 8));
+
+                        _cvModel.Languages.ForEach(languages =>
+                        {
+                            column.Item()
+                            .Component(new LanguagesComponent(languages.Language));
+                        });
                     });
 
                     column.Item()
+                    .ShowEntire()
                    .Component(new FooterComponent(_cvModel.Basics));
                 });
             });

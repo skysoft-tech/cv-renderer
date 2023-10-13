@@ -20,16 +20,17 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
         public void Compose(IContainer container)
         {
             container
+                //.StopPaging()
                 .Row(row =>
                 {
                     row.RelativeItem()
                     .AlignLeft()
-                    .PaddingRight(46)
+                    .PaddingRight(23)
                     .Component(new SkillsLogic(_logger, _cvModel, 0));
 
                     row.RelativeItem()
-                    .ShowOnce()
                     .AlignRight()
+                    .PaddingLeft(23)
                     .Component(new SkillsLogic(_logger, _cvModel, 1));
                 });
         }

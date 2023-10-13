@@ -26,7 +26,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                             Color = SKColor.Parse("#d20155"),
                             IsStroke = false
                         };
-                        canvas.DrawCircle(5, 7, 3, paint);
+                        canvas.DrawCircle(5, 7.5f, 2, paint);
                     });
 
                     layer.PrimaryLayer()

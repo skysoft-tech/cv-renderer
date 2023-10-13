@@ -7,6 +7,7 @@ using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
 using SkySoft.CvRenderer.Pages.Main.Skills;
 using Microsoft.Extensions.Logging;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
+using System.Data.Common;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
@@ -43,23 +44,33 @@ namespace SkySoft.CvRenderer.Pages.Main
                     column.Item()
                     .Element(Line.lineHorizontal);
 
-                    column.Item()
-                    .Component(new TitleComponent("ACADEMIC BACKGROUND", "#000000", 20))
-                    ;
 
-                    _cvModel.Education.ForEach(education =>
+                    column.Item()
+                    .ShowEntire()
+                    .Column(column => 
                     {
-                        column.Item().Component(new AcademicBackgroundComponent(education));
+                        column.Item()
+                        .Component(new TitleComponent("ACADEMIC BACKGROUND", "#000000", 20));
+
+                        _cvModel.Education.ForEach(education =>
+                        {
+                            column.Item().Component(new AcademicBackgroundComponent(education));
+                        });
                     });
 
                     column.Item()
                     .Element(Line.lineHorizontal);
 
                     column.Item()
-                   .Component(new TitleComponent("SKILLS", "#000000", 13));
+                    .ShowEntire()
+                    .Column(column => 
+                    {
+                        column.Item()
+                        .Component(new TitleComponent("SKILLS", "#000000", 13));
 
-                    column.Item()
-                   .Component(new SkillsContainer(_logger, _cvModel));
+                        column.Item()
+                       .Component(new SkillsContainer(_logger, _cvModel));
+                    });
                 });
             });
         }

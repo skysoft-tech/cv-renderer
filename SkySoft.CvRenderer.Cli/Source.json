@@ -65,8 +65,8 @@
   "education": [
     {
       "institution": "National Technical University",
-      "city" : "Vinnytsia",
-      "country" : "Ukraine",
+      "city": "Vinnytsia",
+      "country": "Ukraine",
       "url": "",
       "area": "Software Development",
       "studyType": "Engineer s degree",
@@ -77,8 +77,8 @@
     },
     {
       "institution": "National Technical University",
-      "city" : "Vinnytsia",
-      "country" : "Ukraine",
+      "city": "Vinnytsia",
+      "country": "Ukraine",
       "url": "",
       "area": "Software Development",
       "studyType": "Bachelor",
@@ -113,7 +113,7 @@
       "keywords": []
     },
     {
-      "name": "C# / .NET",
+      "name": "Xamarin",
       "level": "Heard",
       "keywords": []
     },
@@ -138,7 +138,7 @@
       "keywords": []
     },
     {
-      "name": "AWS ECS",
+      "name": "Pulumi",
       "level": "Heard",
       "keywords": []
     },

@@ -2,7 +2,6 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
-using WebApplicationPdf.GlobalComponent;
 
 namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 {
@@ -22,6 +21,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
             var workPositionStyle = TextStyle.Default.WorkPositionStyle();
             var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
 
+            
             container
             .Row(row =>
             {
