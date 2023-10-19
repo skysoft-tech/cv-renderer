@@ -21,7 +21,6 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
             var labelStyle = TextStyle.Default.LabelStyle();
             var summaryStyle = TextStyle.Default.SummaryStyle();
 
-            
             container
              .Column(column =>
              {

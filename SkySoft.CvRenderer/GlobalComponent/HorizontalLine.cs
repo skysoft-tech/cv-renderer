@@ -1,13 +1,11 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
-using System.Data.Common;
 
 namespace WebApplicationPdf.GlobalComponent
 {
-    public static class Line
+    public  class HorizontalLine : IComponent
     {
-        public static void lineHorizontal(IContainer container)
+        public void Compose(IContainer container)
         {
             container
                 .PaddingTop(20)

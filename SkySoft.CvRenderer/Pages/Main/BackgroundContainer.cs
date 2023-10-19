@@ -24,6 +24,9 @@ namespace SkySoft.CvRenderer.Pages.Main
 
         public void Compose(IContainer container)
         {
+            var incrementWorkExperience = 0;
+            var incrementAcademicBackground = 0;
+
             container.Row(row =>
             {
                 row.RelativeItem()
@@ -36,14 +39,16 @@ namespace SkySoft.CvRenderer.Pages.Main
                     column.Item()
                    .Component(new TitleComponent("WORK EXPERIENCE", "#000000", 20));
 
+                   
                     _cvModel.Work.ForEach(work =>
                     {
-                        column.Item().Component(new WorkExperienceComponent(work));
+                        
+                        column.Item().Component(new WorkExperienceComponent(work, incrementWorkExperience, _cvModel.Work.Count));
+                        incrementWorkExperience++;
                     });
 
                     column.Item()
-                    .Element(Line.lineHorizontal);
-
+                    .Component(new HorizontalLine());
 
                     column.Item()
                     .ShowEntire()
@@ -54,12 +59,13 @@ namespace SkySoft.CvRenderer.Pages.Main
 
                         _cvModel.Education.ForEach(education =>
                         {
-                            column.Item().Component(new AcademicBackgroundComponent(education));
+                            column.Item().Component(new AcademicBackgroundComponent(education, incrementAcademicBackground, _cvModel.Education.Count));
+                            incrementAcademicBackground++;
                         });
                     });
 
                     column.Item()
-                    .Element(Line.lineHorizontal);
+                    .Component(new HorizontalLine());
 
                     column.Item()
                     .ShowEntire()

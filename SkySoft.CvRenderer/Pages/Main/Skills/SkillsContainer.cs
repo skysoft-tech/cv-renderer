@@ -20,7 +20,6 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
         public void Compose(IContainer container)
         {
             container
-                //.StopPaging()
                 .Row(row =>
                 {
                     row.RelativeItem()

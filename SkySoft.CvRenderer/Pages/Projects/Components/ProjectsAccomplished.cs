@@ -1,6 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.GlobalComponent;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
 namespace SkySoft.CvRenderer.Pages.Projects.Components
@@ -8,10 +9,13 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
     public class ProjectsAccomplished : IComponent
     {
         private readonly Project _project;
+        private readonly int _index;
 
-        public ProjectsAccomplished(Project? Value)
+        public ProjectsAccomplished(Project? Value, int index)
         {
             _project = Value;
+            _index = index;
+
         }
 
         public void Compose(IContainer container)
@@ -28,13 +32,14 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 row.AutoItem()
                 .MinWidth(49)
                 .MaxWidth(49)
-                .Text(text => text.Span($"{_project.StartDate}\n{_project.EndDate}").Style(projectStartDateStyle));
+                //.Text(text => text.Span($"{_project.StartDate}\n{_project.EndDate}").Style(projectStartDateStyle));
+                .Component(new GrayDot($"{_project.StartDate}\n{_project.EndDate}", projectStartDateStyle, 75));
 
                 row.AutoItem()
-                .Element(ComponentsSize.LinesSize)
-                .LineVertical(1)
-                .LineColor("#dbdbdb");
+                .PaddingTop(_index == 0 ? 4 : 0)
+                .Component(new VerticalLine());
 
+                
                 row.RelativeItem()
                 .Column(column =>
                 {

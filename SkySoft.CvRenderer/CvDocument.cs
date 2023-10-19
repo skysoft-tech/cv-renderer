@@ -6,6 +6,7 @@ using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Pages.Main;
 using SkySoft.CvRenderer.Pages.Projects;
 using SkySoft.CvRenderer.Pages.Projects.Components;
+
 namespace SkySoft.CvRenderer
 {
     internal class CvDocument : IDocument

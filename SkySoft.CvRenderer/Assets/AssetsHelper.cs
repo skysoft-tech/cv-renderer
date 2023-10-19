@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SkySoft.CvRenderer.Assets
 {
     public static class AssetsHelper
-    {
+    { 
         public static Stream? ReadResourceStream(string fileName)
         {
             var namespaceName = fileName

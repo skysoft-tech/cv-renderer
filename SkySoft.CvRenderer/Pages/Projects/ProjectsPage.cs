@@ -18,6 +18,8 @@ namespace SkySoft.CvRenderer.Pages.Projects
 
         public void Compose(IContainer container)
         {
+            var incrementProjectsAccomplished = 0;
+
             container
             .Row(row =>
             {
@@ -28,7 +30,8 @@ namespace SkySoft.CvRenderer.Pages.Projects
                     _cvModel.Projects.ForEach(projects =>
                     {
                         column.Item()
-                        .Component(new ProjectsAccomplished(projects));
+                        .Component(new ProjectsAccomplished(projects, incrementProjectsAccomplished));
+                        incrementProjectsAccomplished++;
                     });
                 });
             });

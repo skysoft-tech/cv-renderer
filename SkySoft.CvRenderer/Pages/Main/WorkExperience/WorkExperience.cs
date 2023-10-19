@@ -1,6 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.GlobalComponent;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
 namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
@@ -8,10 +9,15 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
     public class WorkExperienceComponent : IComponent
     {
         private readonly Work _work;
+        private readonly int _index;
+        private readonly int _arraySize;
 
-        public WorkExperienceComponent(Work? value)
+        public WorkExperienceComponent(Work value, int index, int arraySize)
         {
-            _work = value;
+            _work = value; /*?? throw new NullReferenceException();*/
+            _index = index;
+            _arraySize = arraySize;
+
         }
 
         public void Compose(IContainer container)
@@ -21,35 +27,39 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
             var workPositionStyle = TextStyle.Default.WorkPositionStyle();
             var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
 
-            
             container
             .Row(row =>
             {
                 row.AutoItem()
                 .MinWidth(50)
                 .MaxWidth(50)
-                .Text(text =>
+                .Row(row =>
                 {
-                    text.Span($"{_work.Name}\n")
-                    .Style(workNameStyle);
+                    row.RelativeItem()
+                    .Column(column =>
+                    {
+                        column.Item()
+                        .Component( new GrayDot(_work.Name, workNameStyle, 76));
 
-                    text.Span($"{_work.StartDate} - {_work.EndDate}")
-                    .Style(workStartDateStyle);
+                        column.Item()
+                        .Text($"{_work.StartDate} - {_work.EndDate}")
+                        .Style(workSummaryStyle);
+                    });
                 });
 
                 row.AutoItem()
-                .Element(ComponentsSize.LinesSize)
-                .LineVertical(1)
-                .LineColor("#dbdbdb");
-
+                .PaddingTop(_index == 0 ? 4 : 0)
+                .Component(new VerticalLine());
+               
                 row.RelativeItem()
-                .Text(text =>
+                .Column(column =>
                 {
-                    text.Span($"{_work.Position}\n")
-                    .Style(workPositionStyle);
+                    column.Item()
+                    .Text($"{_work.Position}").Style(workPositionStyle);
 
-                    text.Span($"{_work.Summary}\n")
-                    .Style(workSummaryStyle);
+                    column.Item()
+                    .PaddingBottom(_arraySize == _index + 1 ? 0 : 13)
+                    .Text($"{_work.Summary}").Style(workSummaryStyle);
                 });
             });
         }

@@ -3,45 +3,46 @@ using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
-namespace SkySoft.CvRenderer.Pages.Main.Languages;
-
-public class LanguagesComponent : IComponent
+namespace SkySoft.CvRenderer.Pages.Main.Languages
 {
-    private readonly string _language;
-
-    public LanguagesComponent(string? value)
+    public class LanguagesComponent : IComponent
     {
-        _language = value;
-    }
+        private readonly string _language;
 
-    public void Compose(IContainer container)
-    {
-        TextStyle languageStyle = TextStyle.Default.LanguageStyle();
+        public LanguagesComponent(string? value)
+        {
+            _language = value;
+        }
 
-        container
-            .Layers(layer =>
-            {
-                layer.Layer()
-                .Canvas((canvas, size) =>
+        public void Compose(IContainer container)
+        {
+            TextStyle languageStyle = TextStyle.Default.LanguageStyle();
+
+            container
+                .Layers(layer =>
                 {
-                    using var paint = new SKPaint
+                    layer.Layer()
+                    .Canvas((canvas, size) =>
                     {
-                        Color = SKColor.Parse("#d20155"),
-                        IsStroke = false
-                    };
+                        using var paint = new SKPaint
+                        {
+                            Color = SKColor.Parse("#d20155"),
+                            IsStroke = false
+                        };
 
-                    canvas.DrawCircle(5, 6, 2.5f, paint);
-                });
+                        canvas.DrawCircle(5, 6, 2.5f, paint);
+                    });
 
-                layer.PrimaryLayer()
-                .PaddingBottom(8)
-                .PaddingHorizontal(12)
-                .Text(text =>
-                {
-                    text.Span($"{_language}")
-                    .Style(languageStyle);
+                    layer.PrimaryLayer()
+                    .PaddingBottom(8)
+                    .PaddingHorizontal(12)
+                    .Text(text =>
+                    {
+                        text.Span($"{_language}")
+                        .Style(languageStyle);
+                    });
                 });
-            });
+        }
     }
 }
 

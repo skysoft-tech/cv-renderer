@@ -9,14 +9,13 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
     {
         private readonly ILogger _logger;
         private readonly CvModel _cvModel;
-        private readonly int _skillId;
+        private readonly int _parityIndex;
 
         public SkillsLogic(ILogger logger, CvModel cvModel, int parityIndex)
         {
             _logger = logger;
             _cvModel = cvModel;
-            _skillId = parityIndex;
-
+            _parityIndex = parityIndex;
         }
 
         public void Compose(IContainer container)
@@ -24,7 +23,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
             container.
             Column(column =>
             {
-                GetParityIndex(_skillId).ForEach(list =>
+                GetParityIndex(_parityIndex).ForEach(list =>
                 {
                     column.Item()
                     .ShowEntire()
