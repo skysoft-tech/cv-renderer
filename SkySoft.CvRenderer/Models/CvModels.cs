@@ -113,7 +113,7 @@
         Low,
         Medium,
         Good,
-        Profesional
+        Professional
     }
 
     public class Skill

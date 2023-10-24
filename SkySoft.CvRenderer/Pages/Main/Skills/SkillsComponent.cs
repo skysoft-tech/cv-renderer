@@ -79,7 +79,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
             {
                 _logger.LogWarning("Level for the skill [{skillName}] isn't set", _skill.Name);
 
-                return (int)SkillLevel.Profesional;
+                return (int)SkillLevel.Processional;
             }
         }
 

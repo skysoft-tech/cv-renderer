@@ -94,7 +94,7 @@
   "skills": [
     {
       "name": "C# / .NET",
-      "level": "Profesional",
+      "level": "Professional",
       "keywords": []
     },
     {
@@ -129,7 +129,7 @@
     },
     {
       "name": "RTP/UDP, RTMP, RTSP",
-      "level": "Profesional",
+      "level": "Professional",
       "keywords": []
     },
     {
@@ -144,7 +144,7 @@
     },
     {
       "name": "NUnit",
-      "level": "Profesional",
+      "level": "Professional",
       "keywords": []
     }
   ],
