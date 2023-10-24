@@ -2,6 +2,7 @@
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
+using System.Net;
 
 namespace SkySoft.CvRenderer.Pages.Main.Header
 {
@@ -56,18 +57,16 @@ namespace SkySoft.CvRenderer.Pages.Main.Header
                 return false;
             }
 
-            if (!File.Exists(photo))
-            {
-                _logger.LogError("Failed to locate photo file [{photo}]", photo);
-
-                return false;
-            }
-
             try
             {
-                using var stream = File.OpenRead(photo);
-
-                bitmap = SKBitmap.Decode(stream);
+                if (IsUrl(photo))
+                {
+                    bitmap = GetImageFromUrl(photo);
+                }
+                else
+                {
+                    bitmap = GetImageFromFile(photo);
+                }
 
                 return true;
             }
@@ -78,6 +77,41 @@ namespace SkySoft.CvRenderer.Pages.Main.Header
                 return false;
             }
         }
+
+        private SKBitmap? GetImageFromFile(string? photo)
+        {
+            if (!File.Exists(photo))
+            {
+                throw new FileNotFoundException();
+            }
+
+            using var stream = File.OpenRead(photo);
+
+            return SKBitmap.Decode(stream);
+        }
+
+
+        private SKBitmap GetImageFromUrl(string photo)
+        {
+            using var client = new WebClient();
+            using Stream stream = client.OpenRead(photo);
+
+            return SKBitmap.Decode(stream);
+        }
+
+        private bool IsUrl(string? photo)
+        {
+            if (photo == null)
+            {
+                return false;
+            }
+
+            bool result = Uri.TryCreate(photo, UriKind.Absolute, out var uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+
+            return result;
+        }
+
 
         private void DrawImagePlaceholder(SKCanvas canvas, Size availableSpace)
         {

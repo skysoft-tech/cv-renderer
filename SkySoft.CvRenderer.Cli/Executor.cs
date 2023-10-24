@@ -30,6 +30,12 @@ namespace SkySoft.CvRenderer.Cli
 
             var cv = DeserializeInput(cvJson);
 
+            var isResolved = TryResolveAbsPhotoPath(cv.Basics?.Image, input, out var absPhotoPath);
+            if (isResolved)
+            {
+                cv.Basics!.Image = absPhotoPath;
+            }
+
             var outputFileName = GetPdfName(input, output);
             var outputFile = File.OpenWrite(outputFileName);
 
@@ -67,6 +73,38 @@ namespace SkySoft.CvRenderer.Cli
         private string GetPdfName(string input, string output)
         {
             return output ?? input.Replace(".json", ".pdf");
+        }
+
+        private bool TryResolveAbsPhotoPath(string? photoPath, string input, out string? absPhotoPath)
+        {
+            absPhotoPath = null;
+            if (photoPath == null)
+            {
+                return false;
+            }
+
+            if (File.Exists(photoPath))
+            {
+                absPhotoPath = Path.GetFullPath(photoPath);
+
+                return true;
+            }
+
+            var jsonLocation = Path.GetDirectoryName(input);
+            if (jsonLocation == null)
+            {
+                return false;
+            }
+
+            var probablePhotoLocation = Path.Combine(jsonLocation, photoPath);
+            if (File.Exists(probablePhotoLocation))
+            {
+                absPhotoPath = Path.GetFullPath(probablePhotoLocation);
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
