@@ -2,7 +2,7 @@
   "profiles": {
     "SkySoft.CvRenderer.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "--in source.json"
+      "commandLineArgs": "--in CVKocheharov.json"
     }
   }
 }

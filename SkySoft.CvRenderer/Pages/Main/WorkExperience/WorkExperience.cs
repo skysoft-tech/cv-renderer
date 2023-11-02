@@ -14,7 +14,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 
         public WorkExperienceComponent(Work value, int index, int arraySize)
         {
-            _work = value; /*?? throw new NullReferenceException();*/
+            _work = value;
             _index = index;
             _arraySize = arraySize;
 

@@ -30,7 +30,7 @@ namespace SkySoft.CvRenderer.Pages.Projects
                     _cvModel.Projects.ForEach(projects =>
                     {
                         column.Item()
-                        .Component(new ProjectsAccomplished(projects, incrementProjectsAccomplished));
+                        .Component(new ProjectsAccomplished(projects, incrementProjectsAccomplished, _cvModel.Projects.Count));
                         incrementProjectsAccomplished++;
                     });
                 });

@@ -1,5 +1,6 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkiaSharp;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.GlobalComponent;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
@@ -10,12 +11,13 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
     {
         private readonly Project _project;
         private readonly int _index;
+        private readonly int _arraySize;
 
-        public ProjectsAccomplished(Project? Value, int index)
+        public ProjectsAccomplished(Project? Value, int index, int arraySize)
         {
             _project = Value;
             _index = index;
-
+            _arraySize = arraySize;
         }
 
         public void Compose(IContainer container)
@@ -24,7 +26,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
             var projectNameStyle = TextStyle.Default.ProjectNameStyle();
             var projectDescriptionStyle = TextStyle.Default.ProjectDescriptionStyle();
             var dutiesStyle = TextStyle.Default.DutiesStyle();
-            
+
             container
             .ShowEntire()
             .Row(row =>
@@ -32,7 +34,6 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 row.AutoItem()
                 .MinWidth(49)
                 .MaxWidth(49)
-                //.Text(text => text.Span($"{_project.StartDate}\n{_project.EndDate}").Style(projectStartDateStyle));
                 .Component(new GrayDot($"{_project.StartDate}\n{_project.EndDate}", projectStartDateStyle, 75));
 
                 row.AutoItem()
@@ -69,15 +70,16 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                         text.Span("Technologies").Style(dutiesStyle);
                     });
 
-                    column.Item()
-                    .Row(row =>
+                    column.Item().Row(row =>
                     {
+                        float sizeComponent;
+
                         _project.Technologies.ForEach(technologies =>
                         {
-                            row.AutoItem()
-                            .Component(new TechnologiesElement(technologies));
+                            row.RelativeItem().Dynamic(new TechnologiesElement("a", out sizeComponent));
                         });
                     });
+
                 });
             });
         }
