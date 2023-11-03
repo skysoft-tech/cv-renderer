@@ -22,11 +22,6 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 
         public void Compose(IContainer container)
         {
-            var projectStartDateStyle = TextStyle.Default.ProjectStartDateStyle();
-            var projectNameStyle = TextStyle.Default.ProjectNameStyle();
-            var projectDescriptionStyle = TextStyle.Default.ProjectDescriptionStyle();
-            var dutiesStyle = TextStyle.Default.DutiesStyle();
-
             container
             .ShowEntire()
             .Row(row =>
@@ -34,7 +29,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 row.AutoItem()
                 .MinWidth(49)
                 .MaxWidth(49)
-                .Component(new GrayDot($"{_project.StartDate}\n{_project.EndDate}", projectStartDateStyle, 75));
+                .Component(new GrayDot($"{_project.StartDate}\n{_project.EndDate}", ProjectsAccomplishedStyle.ProjectStartDateStyle, 75));
 
                 row.AutoItem()
                 .PaddingTop(_index == 0 ? 4 : 0)
@@ -48,38 +43,55 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                     .PaddingBottom(8)
                     .Text(text =>
                     {
-                        text.Span($"{_project.Name}\n").Style(projectNameStyle);
+                        text.Span($"{_project.Name}\n").Style(ProjectsAccomplishedStyle.ProjectNameStyle);
 
-                        text.Span($"{_project.Description}").Style(projectDescriptionStyle);
+                        text.Span($"{_project.Description}").Style(ProjectsAccomplishedStyle.ProjectDescriptionStyle);
                     });
 
                     column.Item()
                     .Text(text => 
                     {
-                        text.Span("Duties\n").Style(dutiesStyle);
+                        text.Span("Duties\n").Style(ProjectsAccomplishedStyle.DutiesStyle);
 
                         _project.Highlights.ForEach(highlights =>
                         {
-                            text.Span($"{highlights}\n").Style(projectDescriptionStyle);
+                            text.Span($"{highlights}\n").Style(ProjectsAccomplishedStyle.ProjectDescriptionStyle);
                         });
                     });
 
                     column.Item()
                     .Text(text =>
                     {
-                        text.Span("Technologies").Style(dutiesStyle);
+                        text.Span("Technologies").Style(ProjectsAccomplishedStyle.DutiesStyle);
                     });
 
-                    column.Item().Row(row =>
-                    {
-                        float sizeComponent;
+                    column.Item().Dynamic(new TechnologiesElement(_project));
 
-                        _project.Technologies.ForEach(technologies =>
-                        {
-                            row.RelativeItem().Dynamic(new TechnologiesElement("a", out sizeComponent));
-                        });
-                    });
+                    //column.Item().PaddingBottom(24)
+                    //.Row(row =>
+                    //{
+                    //    row.RelativeItem().Text(text =>
+                    //    {
+                    //        _project.Technologies.ForEach(technologies =>
+                    //        {
+                    //            text.Element().Height(11).Width(10)
+                    //            .Canvas((canvas, size) =>
+                    //            {
+                    //                using var paint = new SKPaint
+                    //                {
+                    //                    Color = SKColor.Parse("#d20155"),
+                    //                    IsStroke = false
+                    //                };
 
+                    //                canvas.DrawCircle(5, 7f, 2, paint);
+                    //            });
+
+                    //            text.Span(technologies).FontSize(12);
+
+                    //            text.Element().Height(11).Width(10);
+                    //        });
+                    //    });
+                    //});
                 });
             });
         }

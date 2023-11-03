@@ -1,57 +1,55 @@
 ﻿using QuestPDF.Elements;
 using QuestPDF.Fluent;
-using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
-using System.Drawing;
-using System.Xml;
+using SkySoft.CvRenderer.Core.Models;
 
 namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
-    public class TechnologiesElement : IDynamicComponent<int>
+    public struct TechnologiesElemenParameters
     {
-        public int State { get; set; }
+        public Project _Project { get; set; }
+    }
 
-        private readonly string _technologies;
-        public float sizeComponent;
+    public class TechnologiesElement : IDynamicComponent<TechnologiesElemenParameters>
+    {
+        public TechnologiesElemenParameters State { get; set; }
 
-        public TechnologiesElement(string technologies, out float _sizeComponent)
+        public TechnologiesElement(Project project)
         {
-            _technologies = technologies;
-            _sizeComponent = sizeComponent;
+            State = new TechnologiesElemenParameters
+            {
+                _Project = project
+            };
         }
 
         public DynamicComponentComposeResult Compose(DynamicContext context)
         {
-            sizeComponent = context.AvailableSize.Width;
+            //float maximumLengthElement = context.AvailableSize.Width;
 
             var content = context.CreateElement(container =>
             {
-                container.Row(row =>
+                container.Column(column =>
                 {
-                    row.RelativeItem().Layers(layer =>
+                    column.Item().Text(text =>
                     {
-                        layer.Layer()
-                        .AlignCenter()
-                        .Canvas((canvas, size) =>
+                        State._Project.Technologies.ForEach(technologies =>
                         {
-                            using var paint = new SKPaint
+                            text.Element().Height(11).Width(10)
+                            .Canvas((canvas, size) =>
                             {
-                                Color = SKColor.Parse("#d20155"),
-                                IsStroke = false
-                            };
+                                using var paint = new SKPaint
+                                {
+                                    Color = SKColor.Parse("#d20155"),
+                                    IsStroke = false
+                                };
 
-                            canvas.DrawCircle(5, 7.5f, 2, paint);
-                        });
+                                canvas.DrawCircle(5, 7f, 2, paint);
+                            });
 
-                        layer.PrimaryLayer()
-                        .PaddingHorizontal(12)
-                        .Text(text =>
-                        {
-                            text.Span($"{sizeComponent}")
-                            .FontSize(12)
-                            .LineHeight(0.9f)
-                            .FontColor("#000000");
+                            text.Span($"{technologies}").FontSize(12);
+
+                            text.Element().Height(11).Width(10);
                         });
                     });
                 });

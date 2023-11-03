@@ -1,5 +1,6 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Assets;
 
 namespace SkySoft.CvRenderer.Pages.Main.MainComponents
 {

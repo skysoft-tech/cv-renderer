@@ -16,8 +16,6 @@ namespace SkySoft.CvRenderer.Pages.Main.Footer
 
         public void Compose(IContainer container)
         {
-            var locationStyle = TextStyle.Default.LocationStyle();
-
             container
                 .Element(ComponentsSize.LocationSize)
                 .Column(column =>
@@ -26,17 +24,17 @@ namespace SkySoft.CvRenderer.Pages.Main.Footer
                     .Text(text =>
                     {
                         text.Span($"{_basics.Phone}")
-                        .Style(locationStyle);
+                        .Style(AboutMeStyle.LocationStyle);
                     });
 
                     column.Item()
                     .Text(text =>
                     {
                         text.Span($"{_basics.Location.Address}")
-                        .Style(locationStyle);
+                        .Style(AboutMeStyle.LocationStyle);
 
                         text.Span($"{_basics.Location.PostalCode}")
-                        .Style(locationStyle);
+                        .Style(AboutMeStyle.LocationStyle);
                     });
                 });
         }

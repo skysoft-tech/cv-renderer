@@ -16,7 +16,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Languages
 
         public void Compose(IContainer container)
         {
-            TextStyle languageStyle = TextStyle.Default.LanguageStyle();
+            //TextStyle languageStyle = TextStyle.Default.LanguageStyle();
 
             container
                 .Layers(layer =>
@@ -39,7 +39,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Languages
                     .Text(text =>
                     {
                         text.Span($"{_language}")
-                        .Style(languageStyle);
+                        .Style(AboutMeStyle.LanguageStyle);
                     });
                 });
         }

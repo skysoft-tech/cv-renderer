@@ -17,10 +17,6 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
 
         public void Compose(IContainer container)
         {
-            var nameLastNameStyle = TextStyle.Default.NameLastNameStyle();
-            var labelStyle = TextStyle.Default.LabelStyle();
-            var summaryStyle = TextStyle.Default.SummaryStyle();
-
             container
              .Column(column =>
              {
@@ -29,10 +25,10 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
                 .Text(text =>
                 {
                     text.Span($"{_basics.Name}")
-                    .Style(nameLastNameStyle.Weight(FontWeight.Bold));
+                    .Style(AboutMeStyle.NameLastNameStyle.Weight(FontWeight.Bold));
 
                     text.Span($"{_basics.LastName}")
-                    .Style(nameLastNameStyle.Weight(FontWeight.Light));
+                    .Style(AboutMeStyle.NameLastNameStyle.Weight(FontWeight.Light));
                 });
 
                  column.Item()
@@ -40,7 +36,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
                 .Text(text =>
                 {
                     text.Span($"{_basics.Label}")
-                   .Style(labelStyle);
+                   .Style(AboutMeStyle.LabelStyle);
                 });
 
                  column.Item()
@@ -54,7 +50,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
                     text.ParagraphSpacing(8);
 
                     text.Span($"{_basics.Summary}")
-                   .Style(summaryStyle);
+                   .Style(AboutMeStyle.SummaryStyle);
                 });
              });
         }

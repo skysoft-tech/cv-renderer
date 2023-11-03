@@ -20,8 +20,6 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
 
         public void Compose(IContainer container)
         {
-            var skillsStyle = TextStyle.Default.SkillsStyle();
-            
             container
                  .Column(column =>
                  {
@@ -32,7 +30,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
                          row.AutoItem().Text(text =>
                          {
                              text.Span($"{_skill.Name}")
-                             .Style(skillsStyle);
+                             .Style(WorkAcademicStyle.SkillsStyle);
                          });
                      });
 

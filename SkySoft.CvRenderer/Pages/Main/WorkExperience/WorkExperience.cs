@@ -22,11 +22,6 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 
         public void Compose(IContainer container)
         {
-            var workNameStyle = TextStyle.Default.WorkNameStyle();
-            var workStartDateStyle = TextStyle.Default.WorkStartDateStyle();
-            var workPositionStyle = TextStyle.Default.WorkPositionStyle();
-            var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
-
             container
             .Row(row =>
             {
@@ -39,11 +34,11 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                     .Column(column =>
                     {
                         column.Item()
-                        .Component( new GrayDot(_work.Name, workNameStyle, 76));
+                        .Component( new GrayDot(_work.Name, WorkAcademicStyle.WorkNameStyle, 76));
 
                         column.Item()
                         .Text($"{_work.StartDate} - {_work.EndDate}")
-                        .Style(workSummaryStyle);
+                        .Style(WorkAcademicStyle.WorkSummaryStyle);
                     });
                 });
 
@@ -55,11 +50,11 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                 .Column(column =>
                 {
                     column.Item()
-                    .Text($"{_work.Position}").Style(workPositionStyle);
+                    .Text($"{_work.Position}").Style(WorkAcademicStyle.WorkPositionStyle);
 
                     column.Item()
                     .PaddingBottom(_arraySize == _index + 1 ? 0 : 13)
-                    .Text($"{_work.Summary}").Style(workSummaryStyle);
+                    .Text($"{_work.Summary}").Style(WorkAcademicStyle.WorkSummaryStyle);
                 });
             });
         }

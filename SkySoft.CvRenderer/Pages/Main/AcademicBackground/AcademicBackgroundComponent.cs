@@ -21,19 +21,13 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
 
         public void Compose(IContainer container)
         {
-            var workStartDateStyle = TextStyle.Default.WorkStartDateStyle();
-            var workNameStyle = TextStyle.Default.WorkNameStyle();
-            var workSummaryStyle = TextStyle.Default.WorkSummaryStyle();
-            var workPositionStyle = TextStyle.Default.WorkPositionStyle();
-            var studyTypeStyle = TextStyle.Default.StudyTypeStyle();
-
             container
             .Row(row =>
             {
                 row.AutoItem()
                 .MinWidth(50)
                 .MaxWidth(50)
-                .Component(new GrayDot($"{_education.StartDate} - {_education.EndDate}", workStartDateStyle, 76));
+                .Component(new GrayDot($"{_education.StartDate} - {_education.EndDate}", WorkAcademicStyle.WorkStartDateStyle, 76));
 
                 row.AutoItem()
                 .PaddingTop(_index == 0 ? 4 : 0)
@@ -47,10 +41,10 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     .Text(text =>
                     {
                         text.Span($"{_education.Institution}\n")
-                        .Style(workNameStyle);
+                        .Style(WorkAcademicStyle.WorkNameStyle);
 
                         text.Span($"{_education.City}, {_education.Country}")
-                        .Style(workSummaryStyle);
+                        .Style(WorkAcademicStyle.WorkSummaryStyle);
                     });
 
                     column.Item()
@@ -58,10 +52,10 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     .Text(text =>
                     {
                         text.Span($"{_education.StudyType}\n")
-                        .Style(studyTypeStyle);
+                        .Style(WorkAcademicStyle.StudyTypeStyle);
 
                         text.Span($"{_education.Score}")
-                        .Style(workSummaryStyle);
+                        .Style(WorkAcademicStyle.WorkSummaryStyle);
                     });
                 });
             });

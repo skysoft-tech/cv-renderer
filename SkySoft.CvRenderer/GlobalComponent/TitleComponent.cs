@@ -19,11 +19,9 @@ namespace WebApplicationPdf.GlobalComponent
 
         public void Compose(IContainer container)
         {
-            var titleComponentStyle = TextStyle.Default.TitleComponentStyle();
-
             container
             .PaddingBottom(_paddingBottom)
-            .Text(_title).Style(titleComponentStyle)
+            .Text(_title).Style(TitleStylecs.TitleComponentStyle)
             .FontSize(14)
             .FontColor(_textСolor);
         }
