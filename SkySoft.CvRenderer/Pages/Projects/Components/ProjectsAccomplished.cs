@@ -1,4 +1,5 @@
-﻿using QuestPDF.Fluent;
+﻿using QuestPDF.Elements;
+using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkySoft.CvRenderer.Core.Models;
@@ -17,7 +18,6 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
         {
             _project = Value;
             _index = index;
-            _arraySize = arraySize;
         }
 
         public void Compose(IContainer container)
@@ -37,6 +37,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 
                 
                 row.RelativeItem()
+                .PaddingBottom(24)
                 .Column(column =>
                 {
                     column.Item()
@@ -63,35 +64,12 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                     .Text(text =>
                     {
                         text.Span("Technologies").Style(ProjectsAccomplishedStyle.DutiesStyle);
+
                     });
 
-                    column.Item().Dynamic(new TechnologiesElement(_project));
+                    //column.Item().Dynamic(new TechnologiesDynamicComponent(_project));
 
-                    //column.Item().PaddingBottom(24)
-                    //.Row(row =>
-                    //{
-                    //    row.RelativeItem().Text(text =>
-                    //    {
-                    //        _project.Technologies.ForEach(technologies =>
-                    //        {
-                    //            text.Element().Height(11).Width(10)
-                    //            .Canvas((canvas, size) =>
-                    //            {
-                    //                using var paint = new SKPaint
-                    //                {
-                    //                    Color = SKColor.Parse("#d20155"),
-                    //                    IsStroke = false
-                    //                };
-
-                    //                canvas.DrawCircle(5, 7f, 2, paint);
-                    //            });
-
-                    //            text.Span(technologies).FontSize(12);
-
-                    //            text.Element().Height(11).Width(10);
-                    //        });
-                    //    });
-                    //});
+                    column.Item().Component(new TechnologiesComponent(_project));
                 });
             });
         }

@@ -3,38 +3,47 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.GlobalComponent;
 
 namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public struct TechnologiesElemenParameters
     {
-        public Project _Project { get; set; }
+        public Project _project { get; set; }
     }
 
-    public class TechnologiesElement : IDynamicComponent<TechnologiesElemenParameters>
+    public class TechnologiesDynamicComponent : IDynamicComponent<TechnologiesElemenParameters>
     {
         public TechnologiesElemenParameters State { get; set; }
 
-        public TechnologiesElement(Project project)
+        private int maximumStringLength = 40;
+
+        public TechnologiesDynamicComponent(Project project)
         {
             State = new TechnologiesElemenParameters
             {
-                _Project = project
+                _project = project
             };
         }
 
         public DynamicComponentComposeResult Compose(DynamicContext context)
         {
-            //float maximumLengthElement = context.AvailableSize.Width;
+            int sumStringLengths = 0;
 
             var content = context.CreateElement(container =>
             {
+                var pageNumber = context.PageNumber;
+                var totalPage = context.TotalPages;
+
                 container.Column(column =>
                 {
                     column.Item().Text(text =>
                     {
-                        State._Project.Technologies.ForEach(technologies =>
+                        State._project.Technologies.ForEach(technologies =>
                         {
+                            sumStringLengths = sumStringLengths + StringLength(technologies);
+
+                            text.Span(ActionWithString(sumStringLengths));
                             text.Element().Height(11).Width(10)
                             .Canvas((canvas, size) =>
                             {
@@ -47,9 +56,14 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                                 canvas.DrawCircle(5, 7f, 2, paint);
                             });
 
-                            text.Span($"{technologies}").FontSize(12);
+                            text.Span($"{pageNumber} {totalPage}").FontSize(12);
 
-                            text.Element().Height(11).Width(10);
+                            //text.Element().Height(11).Width(10);
+
+                            if (sumStringLengths > maximumStringLength)
+                            {
+                                sumStringLengths = StringLength(technologies);
+                            }
                         });
                     });
                 });
@@ -60,6 +74,20 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 Content = content,
                 HasMoreContent = false
             };
+        }
+
+        private int StringLength(string value)
+        {
+            return value.Length;
+        }
+
+        private string ActionWithString(int totalStringLength)
+        {
+            string action = "";
+
+            if (totalStringLength > maximumStringLength) return action = "\n";
+
+            return action;
         }
     }
 }

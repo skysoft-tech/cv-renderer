@@ -16,8 +16,6 @@ namespace SkySoft.CvRenderer.Pages.Main.Languages
 
         public void Compose(IContainer container)
         {
-            //TextStyle languageStyle = TextStyle.Default.LanguageStyle();
-
             container
                 .Layers(layer =>
                 {
