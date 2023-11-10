@@ -27,12 +27,11 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
             .Row(row =>
             {
                 row.AutoItem()
-                .MinWidth(49)
-                .MaxWidth(49)
-                .Component(new GrayDot($"{_project.StartDate}\n{_project.EndDate}", ProjectsAccomplishedStyle.ProjectStartDateStyle, 75));
+                .MinWidth(50)
+                .MaxWidth(50)
+                .Text($"{_project.StartDate}\n{_project.EndDate}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
 
                 row.AutoItem()
-                .PaddingTop(_index == 0 ? 4 : 0)
                 .Component(new VerticalLine());
 
                 

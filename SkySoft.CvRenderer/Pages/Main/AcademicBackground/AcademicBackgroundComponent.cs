@@ -27,7 +27,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                 row.AutoItem()
                 .MinWidth(50)
                 .MaxWidth(50)
-                .Component(new GrayDot($"{_education.StartDate} - {_education.EndDate}", WorkAcademicStyle.WorkStartDateStyle, 76));
+                .Text($"{_education.StartDate} - {_education.EndDate}").Style(WorkAcademicStyle.WorkStartDateStyle);
 
                 row.AutoItem()
                 .PaddingTop(_index == 0 ? 4 : 0)

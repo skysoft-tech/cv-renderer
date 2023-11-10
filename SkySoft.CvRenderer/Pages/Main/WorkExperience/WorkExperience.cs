@@ -11,15 +11,18 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
         private readonly Work _work;
         private readonly int _index;
         private readonly int _arraySize;
+        private readonly float _minWidth;
+        
 
-        public WorkExperienceComponent(Work value, int index, int arraySize)
+
+        public WorkExperienceComponent(Work work, int index, int arraySize, float minWidth)
         {
-            _work = value;
+            _work = work;
             _index = index;
             _arraySize = arraySize;
+            _minWidth = minWidth;
 
         }
-
         public void Compose(IContainer container)
         {
             container
@@ -33,8 +36,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                     row.RelativeItem()
                     .Column(column =>
                     {
-                        column.Item()
-                        .Component( new GrayDot(_work.Name, WorkAcademicStyle.WorkNameStyle, 76));
+                        column.Item().Text($"{_work.Name}").Style(WorkAcademicStyle.WorkNameStyle);
 
                         column.Item()
                         .Text($"{_work.StartDate} - {_work.EndDate}")
@@ -43,7 +45,6 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                 });
 
                 row.AutoItem()
-                .PaddingTop(_index == 0 ? 4 : 0)
                 .Component(new VerticalLine());
                
                 row.RelativeItem()

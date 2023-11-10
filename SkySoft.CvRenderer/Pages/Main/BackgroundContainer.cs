@@ -39,11 +39,9 @@ namespace SkySoft.CvRenderer.Pages.Main
                     column.Item()
                    .Component(new TitleComponent("WORK EXPERIENCE", "#000000", 20));
 
-                   
                     _cvModel.Work.ForEach(work =>
                     {
-                        
-                        column.Item().Component(new WorkExperienceComponent(work, incrementWorkExperience, _cvModel.Work.Count));
+                        column.Item().Component(new WorkExperienceComponent(work, incrementWorkExperience, _cvModel.Work.Count, GetTheLongestWork(_cvModel)));
                         incrementWorkExperience++;
                     });
 
@@ -79,6 +77,38 @@ namespace SkySoft.CvRenderer.Pages.Main
                     });
                 });
             });
+        }
+
+        private float GetTheLongestWork(CvModel cvModel)
+        {
+            float longestString = 0;
+
+            cvModel.Work.ForEach(work => 
+            {
+                if (longestString < GetTheLongestLast(work.Name).Length)
+                {
+                    longestString = GetTheLongestLast(work.Name).Length;
+                }
+            });
+
+            return longestString;
+        }
+
+        private string GetTheLongestLast(string value)
+        {
+            float longestString = 0;
+            var result = "";
+
+            value.Split(" ").ToList().ForEach(i =>
+            {
+                if (longestString < i.Length)
+                {
+                    longestString = i.Length;
+                    result = i;
+                }
+            });
+
+            return result;
         }
     }    
 }
