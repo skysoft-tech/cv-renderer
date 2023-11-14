@@ -11,16 +11,12 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
         private readonly Work _work;
         private readonly int _index;
         private readonly int _arraySize;
-        private readonly float _minWidth;
         
-
-
-        public WorkExperienceComponent(Work work, int index, int arraySize, float minWidth)
+        public WorkExperienceComponent(Work work, int index, int arraySize)
         {
             _work = work;
             _index = index;
             _arraySize = arraySize;
-            _minWidth = minWidth;
 
         }
         public void Compose(IContainer container)
@@ -29,24 +25,24 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
             .Row(row =>
             {
                 row.AutoItem()
-                .MinWidth(50)
-                .MaxWidth(50)
+                .MinWidth(60)
+                .MaxWidth(60)
                 .Row(row =>
                 {
                     row.RelativeItem()
                     .Column(column =>
                     {
-                        column.Item().Text($"{_work.Name}").Style(WorkAcademicStyle.WorkNameStyle);
+                        column.Item().Text($"{_work.Name}")
+                        .Style(WorkAcademicStyle.WorkNameStyle);
 
-                        column.Item()
-                        .Text($"{_work.StartDate} - {_work.EndDate}")
+                        column.Item().Text($"{_work.StartDate} - {_work.EndDate}")
                         .Style(WorkAcademicStyle.WorkSummaryStyle);
                     });
                 });
 
                 row.AutoItem()
-                .Component(new VerticalLine());
-               
+                .Component(new VerticalLine(25.5f));
+
                 row.RelativeItem()
                 .Column(column =>
                 {
@@ -54,10 +50,10 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                     .Text($"{_work.Position}").Style(WorkAcademicStyle.WorkPositionStyle);
 
                     column.Item()
-                    .PaddingBottom(_arraySize == _index + 1 ? 0 : 13)
+                    .PaddingBottom(PaddingForElement.PadingEltment(_arraySize, _index, 13))
                     .Text($"{_work.Summary}").Style(WorkAcademicStyle.WorkSummaryStyle);
                 });
-            });
+            });     
         }
     }
 }

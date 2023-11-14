@@ -10,9 +10,9 @@ namespace SkySoft.CvRenderer.Pages.Main.AboutMe
     {
         private readonly Basics _basics;
 
-        public AboutMeComponent(Basics value)
+        public AboutMeComponent(Basics basics)
         {
-            _basics = value;
+            _basics = basics;
         }
 
         public void Compose(IContainer container)

@@ -25,21 +25,22 @@ namespace SkySoft.CvRenderer.Pages.Main
             container.Row(row =>
             {
                 row.ConstantItem(240)
-                  .ShowOnce()
+                  
                   .ExtendVertical()
                   .Background(DocumentColors.PrimaryColor)
                   .Column(column =>
                   {
                       column.Item()
+                      .ShowOnce()
                       .Component(new HeaderComponent(_logger, cvModel));
 
                       column.Item()
+                      .ShowOnce()
                       .Component(new AboutMeContainer(_logger, cvModel));
                   });
 
 
                 row.RelativeItem(1)
-                  .ShowOnce()
                   .Column(column =>
                   {
                       column.Item()

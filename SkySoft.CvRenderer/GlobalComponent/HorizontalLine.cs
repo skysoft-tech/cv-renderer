@@ -1,5 +1,6 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Assets;
 
 namespace WebApplicationPdf.GlobalComponent
 {
@@ -11,7 +12,7 @@ namespace WebApplicationPdf.GlobalComponent
                 .PaddingTop(20)
                 .PaddingBottom(20)
                 .LineHorizontal(1)
-                .LineColor("#d8d8d8");
+                .LineColor(DocumentColors.ElementsBackgroundColor);
         }
     }
 }

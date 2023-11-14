@@ -25,13 +25,12 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
             .Row(row =>
             {
                 row.AutoItem()
-                .MinWidth(50)
-                .MaxWidth(50)
+                .MinWidth(60)
+                .MaxWidth(60)
                 .Text($"{_education.StartDate} - {_education.EndDate}").Style(WorkAcademicStyle.WorkStartDateStyle);
 
                 row.AutoItem()
-                .PaddingTop(_index == 0 ? 4 : 0)
-                .Component(new VerticalLine());
+                .Component(new VerticalLine(25.5f));
 
                 row.RelativeItem()
                 .Column(column =>
@@ -48,10 +47,10 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     });
 
                     column.Item()
-                    .PaddingBottom(_arraySize == _index + 1 ? 0 : 13)
+                    .PaddingBottom(PaddingForElement.PadingEltment(_arraySize, _index, 13))
                     .Text(text =>
                     {
-                        text.Span($"{_education.StudyType}\n")
+                        text.Span($"{_education.StudyType} {Transfer(_education.Score)}")
                         .Style(WorkAcademicStyle.StudyTypeStyle);
 
                         text.Span($"{_education.Score}")
@@ -59,6 +58,11 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     });
                 });
             });
+        }
+
+        private string Transfer(string value)
+        {
+            return value == "" ? "" : "\n";
         }
     }
 }
