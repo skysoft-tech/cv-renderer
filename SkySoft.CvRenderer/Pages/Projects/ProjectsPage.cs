@@ -30,8 +30,6 @@ namespace SkySoft.CvRenderer.Pages.Projects
                 {
                     _cvModel.Projects.ForEach(projects =>
                     {
-                        //column.Item().ShowEntire().Dynamic(new ProgectDynamic(projects));
-
                         column.Item()
                         .Component(new ProjectsAccomplished(projects));
 

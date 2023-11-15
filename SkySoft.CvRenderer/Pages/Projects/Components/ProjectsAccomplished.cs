@@ -29,7 +29,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 .Text($"{_project.StartDate}\n{_project.EndDate}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
 
                 row.AutoItem()
-                .Component(new VerticalLine(26));
+                .Component(new VerticalLine(26, 1));
 
                 
                 row.RelativeItem()

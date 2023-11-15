@@ -9,9 +9,9 @@ namespace SkySoft.CvRenderer.GlobalComponent
 {
     public static class PaddingForElement
     {
-        public static int PadingEltment(int arraySize, int index, int pading)
+        public static int PadingBottomEltment(int arraySize, int index, int padingBottom)
         {
-            return arraySize == index + 1 ? 0 : pading;
+            return arraySize == index + 1 ? 0 : padingBottom;
         }
     }
 }

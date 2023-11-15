@@ -3,20 +3,24 @@ using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
+using System.Collections.Generic;
 
 namespace SkySoft.CvRenderer.GlobalComponent
 {
     public class VerticalLine : IComponent
     {
         private readonly float _horizontalPosition;
+        private readonly int _index;
 
-        public VerticalLine(float horizontalPosition) 
+        public VerticalLine(float horizontalPosition, int index) 
         {
             _horizontalPosition = horizontalPosition;
+            _index = index;
         }
 
         public void Compose(IContainer container)
         {
+
             container.Layers(layer =>
             {
                 layer.Layer()
@@ -33,6 +37,7 @@ namespace SkySoft.CvRenderer.GlobalComponent
 
                 layer.PrimaryLayer()
                     .Element(ComponentsSize.LinesSize)
+                    .PaddingTop(_index == 0 ? 5 : 0)
                     .LineVertical(1)
                     .LineColor(DocumentColors.ElementsBackgroundColor);
             });

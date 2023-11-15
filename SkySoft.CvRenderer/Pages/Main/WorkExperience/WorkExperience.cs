@@ -41,7 +41,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                 });
 
                 row.AutoItem()
-                .Component(new VerticalLine(25.5f));
+                .Component(new VerticalLine(25.5f, _index));
 
                 row.RelativeItem()
                 .Column(column =>
@@ -50,7 +50,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                     .Text($"{_work.Position}").Style(WorkAcademicStyle.WorkPositionStyle);
 
                     column.Item()
-                    .PaddingBottom(PaddingForElement.PadingEltment(_arraySize, _index, 13))
+                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
                     .Text($"{_work.Summary}").Style(WorkAcademicStyle.WorkSummaryStyle);
                 });
             });     

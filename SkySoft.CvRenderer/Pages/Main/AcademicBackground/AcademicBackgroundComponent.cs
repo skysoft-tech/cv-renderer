@@ -30,7 +30,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                 .Text($"{_education.StartDate} - {_education.EndDate}").Style(WorkAcademicStyle.WorkStartDateStyle);
 
                 row.AutoItem()
-                .Component(new VerticalLine(25.5f));
+                .Component(new VerticalLine(25.5f, _index));
 
                 row.RelativeItem()
                 .Column(column =>
@@ -47,7 +47,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     });
 
                     column.Item()
-                    .PaddingBottom(PaddingForElement.PadingEltment(_arraySize, _index, 13))
+                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
                     .Text(text =>
                     {
                         text.Span($"{_education.StudyType} {Transfer(_education.Score)}")
