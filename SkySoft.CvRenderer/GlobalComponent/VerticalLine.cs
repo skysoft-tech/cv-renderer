@@ -11,10 +11,13 @@ namespace SkySoft.CvRenderer.GlobalComponent
     {
         private readonly float _horizontalPosition;
         private readonly int _index;
+        private readonly float _verticalPosition;
+        
 
-        public VerticalLine(float horizontalPosition, int index) 
+        public VerticalLine(float horizontalPosition, float verticalPosition, int index) 
         {
             _horizontalPosition = horizontalPosition;
+            _verticalPosition = verticalPosition;
             _index = index;
         }
 
@@ -32,7 +35,8 @@ namespace SkySoft.CvRenderer.GlobalComponent
                         Color = SKColor.Parse("#dbdbdb"),
                         IsStroke = false
                     };
-                    canvas.DrawCircle(_horizontalPosition, 6, 2.5f, paint);
+
+                    canvas.DrawCircle(_horizontalPosition, _verticalPosition, 2.5f, paint);
                 });
 
                 layer.PrimaryLayer()

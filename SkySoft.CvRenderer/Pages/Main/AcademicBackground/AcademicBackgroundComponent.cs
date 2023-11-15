@@ -30,7 +30,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                 .Text($"{_education.StartDate} - {_education.EndDate}").Style(WorkAcademicStyle.WorkStartDateStyle);
 
                 row.AutoItem()
-                .Component(new VerticalLine(25.5f, _index));
+                .Component(new VerticalLine(26f, 6, _index));
 
                 row.RelativeItem()
                 .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))

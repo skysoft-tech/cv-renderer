@@ -33,11 +33,11 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 .Text($"{_project.StartDate}\n{_project.EndDate}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
 
                 row.AutoItem()
-                .Component(new VerticalLine(26, _index));
+                .Component(new VerticalLine(26f, 8, _index));
 
                 
                 row.RelativeItem()
-                .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 24))
+                .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 26))
                 .Column(column =>
                 {
                     column.Item()
