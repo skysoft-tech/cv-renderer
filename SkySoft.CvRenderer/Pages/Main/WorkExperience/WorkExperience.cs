@@ -44,13 +44,13 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                 .Component(new VerticalLine(25.5f, _index));
 
                 row.RelativeItem()
+                .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
                 .Column(column =>
                 {
                     column.Item()
                     .Text($"{_work.Position}").Style(WorkAcademicStyle.WorkPositionStyle);
 
                     column.Item()
-                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
                     .Text($"{_work.Summary}").Style(WorkAcademicStyle.WorkSummaryStyle);
                 });
             });     

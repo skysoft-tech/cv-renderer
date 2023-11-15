@@ -11,7 +11,6 @@ namespace SkySoft.CvRenderer.Pages.Projects
     public class ProjectsPage : IComponent
     {
         private readonly CvModel _cvModel;
-
         public ProjectsPage(CvModel? value)
         {
             _cvModel = value;
@@ -31,8 +30,7 @@ namespace SkySoft.CvRenderer.Pages.Projects
                     _cvModel.Projects.ForEach(projects =>
                     {
                         column.Item()
-                        .Component(new ProjectsAccomplished(projects));
-
+                        .Component(new ProjectsAccomplished(projects, incrementProjectsAccomplished, _cvModel.Projects.Count));
                         incrementProjectsAccomplished++;
                     });
                 });

@@ -33,6 +33,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                 .Component(new VerticalLine(25.5f, _index));
 
                 row.RelativeItem()
+                .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
                 .Column(column =>
                 {
                     column.Item()
@@ -47,7 +48,6 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     });
 
                     column.Item()
-                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
                     .Text(text =>
                     {
                         text.Span($"{_education.StudyType} {Transfer(_education.Score)}")

@@ -11,10 +11,14 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
     public class ProjectsAccomplished : IComponent
     {
         private readonly Project _project;
+        private readonly int _index;
+        private readonly int _arraySize;
 
-        public ProjectsAccomplished(Project Value)
+        public ProjectsAccomplished(Project Value, int index, int arraySize)
         {
             _project = Value;
+            _index = index;
+            _arraySize = arraySize;
         }
 
         public void Compose(IContainer container)
@@ -29,11 +33,11 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 .Text($"{_project.StartDate}\n{_project.EndDate}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
 
                 row.AutoItem()
-                .Component(new VerticalLine(26, 1));
+                .Component(new VerticalLine(26, _index));
 
                 
                 row.RelativeItem()
-                .PaddingBottom(24)
+                .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 24))
                 .Column(column =>
                 {
                     column.Item()
@@ -63,7 +67,8 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 
                     });
 
-                    column.Item().Component(new TechnologiesComponent(_project));
+                    column.Item()
+                    .Component(new TechnologiesComponent(_project));
                 });
             });
         }
