@@ -25,7 +25,6 @@ namespace SkySoft.CvRenderer.Pages.Main
             container.Row(row =>
             {
                 row.ConstantItem(240)
-                  
                   .ExtendVertical()
                   .Background(DocumentColors.PrimaryColor)
                   .Column(column =>
@@ -38,7 +37,6 @@ namespace SkySoft.CvRenderer.Pages.Main
                       .ShowOnce()
                       .Component(new AboutMeContainer(_logger, cvModel));
                   });
-
 
                 row.RelativeItem(1)
                   .Column(column =>

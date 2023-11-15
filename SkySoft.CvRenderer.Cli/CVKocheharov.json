@@ -23,35 +23,53 @@
       }
     ]
   },
-    "work": [
-        {
-            "name": "SmartExe",
-            "position": "C++ developer",
-            "url": "https://skysoft.com",
-            "startDate": "2019",
-            "endDate": "present",
-            "summary": "Audio/video processing and streaming software development",
-            "highlights": []
-        },
-        {
-            "name": "ModaStylz",
-            "position": "C++ developer",
-            "url": "",
-            "startDate": "2017",
-            "endDate": "2018",
-            "summary": "Server-side application for custom image transformation",
-            "highlights": []
-        },
-        {
-            "name": "SSPE Geosystem",
-            "position": "C++ developer",
-            "url": "http://vingeo.com/",
-            "startDate": "2003",
-            "endDate": "2017",
-            "summary": "Full cycle development of the software complex for the digital airborne camera.",
-            "highlights": []
-        }
-    ],
+  "work": [
+    {
+      "name": "SmartExe",
+      "position": "C++ developer",
+      "url": "https://skysoft.com",
+      "startDate": "2019",
+      "endDate": "present",
+      "summary": "Audio/video processing and streaming software development",
+      "highlights": []
+    },
+    {
+      "name": "ModaStylz",
+      "position": "C++ developer",
+      "url": "",
+      "startDate": "2017",
+      "endDate": "2018",
+      "summary": "Server-side application for custom image transformation",
+      "highlights": []
+    },
+    {
+      "name": "SSPE Geosystem",
+      "position": "C++ developer",
+      "url": "http://vingeo.com/",
+      "startDate": "2003",
+      "endDate": "2017",
+      "summary": "Full cycle development of the software complex for the digital airborne camera.",
+      "highlights": []
+    },
+    {
+      "name": "SSPE Geosystem",
+      "position": "C++ developer",
+      "url": "http://vingeo.com/",
+      "startDate": "2003",
+      "endDate": "2017",
+      "summary": "Full cycle development of the software complex for the digital airborne camera.",
+      "highlights": []
+    },
+    {
+      "name": "SSPE Geosystem",
+      "position": "C++ developer",
+      "url": "http://vingeo.com/",
+      "startDate": "2003",
+      "endDate": "2017",
+      "summary": "Full cycle development of the software complex for the digital airborne camera.",
+      "highlights": []
+    }
+  ],
     "volunteer": [],
   "education": [
     {
@@ -64,18 +82,6 @@
       "startDate": "2002",
       "endDate": "2003",
       "score": "",
-      "courses": []
-    },
-    {
-      "institution": "National Technical University",
-      "city": "Vinnytsia",
-      "country": "Ukraine",
-      "url": "https://vntu.edu.ua/",
-      "area": "Computer systems & networks",
-      "studyType": "Bachelor",
-      "startDate": "1998",
-      "endDate": "2002",
-      "score": "Software engineer-analyst",
       "courses": []
     },
     {
@@ -173,20 +179,28 @@
             "keywords": []
         }
     ],
-    "languages": [
+  "languages": [
         {
-            "language": "English",
-            "fluency": "Upper intermidiate"
+          "language": "English",
+          "fluency": "Upper intermidiate"
         },
         {
-            "language": "Ukrainian",
-            "fluency": "Native speaker"
+          "language": "Ukrainian",
+          "fluency": "Native speaker"
         },
         {
-            "language": "Russian",
-            "fluency": "Native speaker"
-        }
-    ],
+          "language": "Ukrainian",
+          "fluency": "Native speaker"
+        },
+        {
+          "language": "Ukrainian",
+          "fluency": "Native speaker"
+        },
+        {
+          "language": "Russian",
+          "fluency": "Native speaker"
+    }
+  ],
     "interests": [
         {
             "name": "Sport",
