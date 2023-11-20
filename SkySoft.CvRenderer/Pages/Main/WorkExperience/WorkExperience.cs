@@ -10,15 +10,14 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
     public class WorkExperienceComponent : IComponent
     {
         private readonly Work _work;
-        private readonly int _index;
-        private readonly int _arraySize;
-        
-        public WorkExperienceComponent(Work work, int index, int arraySize)
+        private readonly bool _isFirstItem;
+        private readonly bool _isLastItem;
+
+        public WorkExperienceComponent(Work work, int index, int count)
         {
             _work = work;
-            _index = index;
-            _arraySize = arraySize;
-
+            _isFirstItem = index == 0;
+            _isLastItem = index + 1 == count;
         }
 
         public void Compose(IContainer container)
@@ -29,12 +28,11 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
             container.Row(row =>
             {
                 row.AutoItem()
-                    .MinWidth(60)
-                    .MaxWidth(60)
+                    .MinWidth(50)
+                    .MaxWidth(100)
                     .Row(row =>
                     {
-                        row.RelativeItem()
-                        .Column(column =>
+                        row.RelativeItem().Column(column =>
                         {
                             var nameStyle = TextStyle
                                 .Default
@@ -43,7 +41,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                                 .FontSize(12)
                                 .Weight(FontWeight.SemiBold);
 
-                            column.Item().Text($"{_work.Name}").Style(nameStyle);
+                            column.Item().Text(_work.Name).Style(nameStyle);
 
                             var workSummaryStyle = TextStyle
                                 .Default
@@ -55,10 +53,10 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                         });
                     });
 
-                row.AutoItem().Component(new VerticalLine(26f, 6, _index));
+                row.AutoItem().Component(new VerticalLine(26f, 6, _isFirstItem));
 
                 row.RelativeItem()
-                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
+                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_isLastItem, 13))
                     .Column(column =>
                     {
                         column.Item()
@@ -67,7 +65,7 @@ namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
                         column.Item()
                         .Text($"{_work.Summary}").Style(WorkAcademicStyle.WorkSummaryStyle);
                     });
-            });     
+            });
         }
     }
 }

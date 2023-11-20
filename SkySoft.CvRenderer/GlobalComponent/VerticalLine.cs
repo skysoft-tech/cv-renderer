@@ -10,15 +10,14 @@ namespace SkySoft.CvRenderer.GlobalComponent
     public class VerticalLine : IComponent
     {
         private readonly float _horizontalPosition;
-        private readonly int _index;
         private readonly float _verticalPosition;
-        
+        private readonly bool _isFirstItem;
 
-        public VerticalLine(float horizontalPosition, float verticalPosition, int index) 
+        public VerticalLine(float horizontalPosition, float verticalPosition, bool isFirstItem) 
         {
             _horizontalPosition = horizontalPosition;
             _verticalPosition = verticalPosition;
-            _index = index;
+            _isFirstItem = isFirstItem;
         }
 
         public void Compose(IContainer container)
@@ -41,7 +40,7 @@ namespace SkySoft.CvRenderer.GlobalComponent
 
                 layer.PrimaryLayer()
                     .Element(ComponentsSize.LinesSize)
-                    .PaddingTop(_index == 0 ? 5 : 0)
+                    .PaddingTop(_isFirstItem ? 5 : 0)
                     .LineVertical(1)
                     .LineColor(DocumentColors.ElementsBackgroundColor);
             });

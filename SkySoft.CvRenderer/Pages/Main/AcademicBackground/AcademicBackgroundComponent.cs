@@ -9,14 +9,16 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
     public class AcademicBackgroundComponent : IComponent
     {
         private readonly Education _education;
-        private readonly int _index;
-        private readonly int _arraySize;
 
-        public AcademicBackgroundComponent(Education? value, int index, int arraySize)
+        private readonly bool _isFirstItem;
+        private readonly bool _isLastItem;
+
+        public AcademicBackgroundComponent(Education? value, int index, int count)
         {
             _education = value;
-            _index = index;
-            _arraySize = arraySize;
+
+            _isFirstItem = index == 0;
+            _isLastItem = index + 1 == count;
         }
 
         public void Compose(IContainer container)
@@ -33,10 +35,10 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     .Text($"{start} - {end}")
                     .Style(WorkAcademicStyle.WorkStartDateStyle);
 
-                row.AutoItem().Component(new VerticalLine(26f, 6, _index));
+                row.AutoItem().Component(new VerticalLine(26f, 6, _isFirstItem));
 
                 row.RelativeItem()
-                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 13))
+                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_isLastItem, 13))
                     .Column(column =>
                     {
                         column.Item()

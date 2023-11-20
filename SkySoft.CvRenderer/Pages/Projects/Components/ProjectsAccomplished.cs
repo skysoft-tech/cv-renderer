@@ -11,14 +11,16 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
     public class ProjectsAccomplished : IComponent
     {
         private readonly Project _project;
-        private readonly int _index;
-        private readonly int _arraySize;
 
-        public ProjectsAccomplished(Project Value, int index, int arraySize)
+        private readonly bool _isFirstItem;
+        private readonly bool _isLastItem;
+
+        public ProjectsAccomplished(Project Value, int index, int count)
         {
             _project = Value;
-            _index = index;
-            _arraySize = arraySize;
+
+            _isFirstItem = index == 0;
+            _isLastItem = index + 1 == count;
         }
 
         public void Compose(IContainer container)
@@ -33,11 +35,11 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 .Text($"{_project.StartDate:MM/yyyy}\n{_project.EndDate:MM/yyyy}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
 
                 row.AutoItem()
-                .Component(new VerticalLine(26f, 8, _index));
+                .Component(new VerticalLine(26f, 8, _isFirstItem));
 
                 
                 row.RelativeItem()
-                .PaddingBottom(PaddingForElement.PadingBottomEltment(_arraySize, _index, 26))
+                .PaddingBottom(PaddingForElement.PadingBottomEltment(_isLastItem, 26))
                 .Column(column =>
                 {
                     column.Item()
