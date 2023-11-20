@@ -51,8 +51,8 @@
         public string? Name { get; set; }
         public string? Position { get; set; }
         public string? Url { get; set; }
-        public string? StartDate { get; set; }
-        public string? EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string? Summary { get; set; }
         public List<string>? Highlights { get; set; }
     }
@@ -76,8 +76,8 @@
         public string? Url { get; set; }
         public string? Area { get; set; }
         public string? StudyType { get; set; }
-        public string? StartDate { get; set; }
-        public string? EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string? Score { get; set; }
         public List<string>? Courses { get; set; }
     }
@@ -144,8 +144,8 @@
     public class Project
     {
         public string? Name { get; set; }
-        public string? StartDate { get; set; }
-        public string? EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string? Description { get; set; }
         public List<string>? Technologies { get; set; }
         public List<string>? Highlights { get; set; }

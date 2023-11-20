@@ -14,40 +14,40 @@ namespace SkySoft.CvRenderer.Pages.Main.MainComponents
         }
 
 
-        //AboutMeComponent
-        public static IContainer AboutMeContainerSize(this IContainer element)
-        {
-            return element
-                 .PaddingTop(15)
-                 .PaddingBottom(34)
-                 .PaddingLeft(40)
-                 .PaddingRight(30)
-                 .AlignLeft();
-        }
+        ////AboutMeComponent
+        //public static IContainer AboutMeContainerSize(this IContainer element)
+        //{
+        //    return element
+        //         .PaddingTop(15)
+        //         .PaddingBottom(34)
+        //         .PaddingLeft(40)
+        //         .PaddingRight(30)
+        //         .AlignLeft();
+        //}
 
-        public static IContainer NameLastNameSize(this IContainer element)
-        {
-            return element
-                .PaddingBottom(14);
-        }
+        //public static IContainer NameLastNameSize(this IContainer element)
+        //{
+        //    return element
+        //        .PaddingBottom(14);
+        //}
 
-        public static IContainer LabelSize(this IContainer element)
-        {
-            return element
-                .PaddingBottom(24);
-        }
+        //public static IContainer LabelSize(this IContainer element)
+        //{
+        //    return element
+        //        .PaddingBottom(24);
+        //}
 
-        public static IContainer SummarySize(this IContainer element)
-        {
-            return element
-                .PaddingBottom(27);
-        }
-        public static IContainer LocationSize(this IContainer element)
-        {
-            return element
-                .ExtendVertical()
-                .AlignBottom();
-        }
+        //public static IContainer SummarySize(this IContainer element)
+        //{
+        //    return element
+                
+        //}
+        //public static IContainer LocationSize(this IContainer element)
+        //{
+        //    return element
+        //        .ExtendVertical()
+        //        .AlignBottom();
+        //}
         //AboutMeComponent
 
 

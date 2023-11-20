@@ -19,7 +19,8 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 
                 column.Item()
                 .AlignLeft()
-                .Component(new TitleComponent("PROJECTS ACCOMPLISHED", "#000000", 24));
+                .PaddingBottom(24)
+                .Component(new CaptionComponent("PROJECTS ACCOMPLISHED", "#000000"));
             });
         }
     }

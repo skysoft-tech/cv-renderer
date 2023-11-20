@@ -30,7 +30,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 row.AutoItem()
                 .MinWidth(50)
                 .MaxWidth(50)
-                .Text($"{_project.StartDate}\n{_project.EndDate}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
+                .Text($"{_project.StartDate:MM/yyyy}\n{_project.EndDate:MM/yyyy}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
 
                 row.AutoItem()
                 .Component(new VerticalLine(26f, 8, _index));

@@ -4,7 +4,7 @@ using QuestPDF.Infrastructure;
 using SkiaSharp;
 using System.Net;
 
-namespace SkySoft.CvRenderer.Pages.Main.Header
+namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 {
     internal class PhotoComponent : IComponent
     {
@@ -49,7 +49,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Header
         private bool TryLoadPhoto(string? photo, out SKBitmap? bitmap)
         {
             bitmap = default;
-            
+
             if (string.IsNullOrWhiteSpace(photo))
             {
                 _logger.LogError("Photo isn't provided");

@@ -34,6 +34,11 @@ namespace SkySoft.CvRenderer.Assets
         public static string ContrastFontColor => "FFFFFF";
 
         /// <summary>
+        /// Color for label on dark background
+        /// </summary>
+        public static string AlterContrastFontColor => "D2D2D2";
+
+        /// <summary>
         /// Light gray used in Address info
         /// </summary>
         public static string FooterFontColor => "989898";

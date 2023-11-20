@@ -1,11 +1,9 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
-using WebApplicationPdf.GlobalComponent;
-using SkySoft.CvRenderer.Pages.Main.Header;
-using SkySoft.CvRenderer.Pages.Main.AboutMe;
 using Microsoft.Extensions.Logging;
 using SkySoft.CvRenderer.Assets;
+using SkySoft.CvRenderer.Pages.Main.SidePanel;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
@@ -35,7 +33,7 @@ namespace SkySoft.CvRenderer.Pages.Main
 
                       column.Item()
                       .ShowOnce()
-                      .Component(new AboutMeContainer(_logger, cvModel));
+                      .Component(new AboutMeComponent(_logger, cvModel));
                   });
 
                 row.RelativeItem(1)

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 
-namespace SkySoft.CvRenderer.Pages.Main.Header
+namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 {
     public class HeaderComponent : IComponent
     {

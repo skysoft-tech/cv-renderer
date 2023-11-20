@@ -7,7 +7,7 @@ using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
 using SkySoft.CvRenderer.Pages.Main.Skills;
 using Microsoft.Extensions.Logging;
 using SkySoft.CvRenderer.Pages.Main.MainComponents;
-using System.Data.Common;
+using SkySoft.CvRenderer.Assets;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
@@ -24,58 +24,53 @@ namespace SkySoft.CvRenderer.Pages.Main
 
         public void Compose(IContainer container)
         {
-            var incrementWorkExperience = 0;
-            var incrementAcademicBackground = 0;
-
             container.Row(row =>
             {
                 row.RelativeItem()
-                .Element(ComponentsSize.WorkExperienceComponentSize)
-                .Column(column =>
-                {
-                    column.Item()
-                    .Component(new HeadTitle());
-
-                    column.Item()
-                   .Component(new TitleComponent("WORK EXPERIENCE", "#000000", 20));
-
-                    _cvModel.Work.ForEach(work =>
-                    {
-                        column.Item().Component(new WorkExperienceComponent(work, incrementWorkExperience, _cvModel.Work.Count));
-                        incrementWorkExperience++;
-                    });
-
-                    column.Item()
-                    .Component(new HorizontalLine());
-
-                    column.Item()
-                    .ShowEntire()
+                    .Element(ComponentsSize.WorkExperienceComponentSize)
                     .Column(column =>
                     {
-                        column.Item()
-                        .Component(new TitleComponent("ACADEMIC BACKGROUND", "#000000", 20));
+                        column.Item().Component(new HeadTitle());
 
-                        _cvModel.Education.ForEach(education =>
-                        {
-                            column.Item().Component(new AcademicBackgroundComponent(education, incrementAcademicBackground, _cvModel.Education.Count));
-                            incrementAcademicBackground++;
-                        });
+                        column.Item()
+                            .ShowEntire()
+                            .Column(column =>
+                            {
+                                column.Item().Component(new CaptionComponent("WORK EXPERIENCE", DocumentColors.FontColor));
+
+                                var workItems = _cvModel.Work ?? new List<Work>();
+                                for (var i = 0; i < workItems.Count; i++)
+                                {
+                                    column.Item().Component(new WorkExperienceComponent(workItems[i], i, workItems.Count));
+                                }
+
+                                column.Item().Component(new HorizontalLine());
+                            });
+
+                        column.Item()
+                            .ShowEntire()
+                            .Column(column =>
+                            {
+                                column.Item().Component(new CaptionComponent("ACADEMIC BACKGROUND", DocumentColors.FontColor));
+
+                                var educationItems = _cvModel.Education ?? new List<Education>();
+                                for (var i = 0; i < educationItems.Count; i++)
+                                {
+                                    column.Item().Component(new AcademicBackgroundComponent(educationItems[i], i, educationItems.Count));
+                                }
+
+                                column.Item().Component(new HorizontalLine());
+                            });
+
+                        column.Item()
+                            .ShowEntire()
+                            .Column(column =>
+                            {
+                                column.Item().Component(new CaptionComponent("SKILLS", DocumentColors.FontColor));
+
+                                column.Item().Component(new SkillsContainer(_logger, _cvModel));
+                            });
                     });
-
-                    column.Item()
-                    .Component(new HorizontalLine());
-
-                    column.Item()
-                    .ShowEntire()
-                    .Column(column =>
-                    {
-                        column.Item()
-                        .Component(new TitleComponent("SKILLS", "#000000", 13));
-
-                        column.Item()
-                       .Component(new SkillsContainer(_logger, _cvModel));
-                    });
-                });
             });
         }
     }    

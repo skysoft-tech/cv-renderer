@@ -9,8 +9,8 @@ namespace WebApplicationPdf.GlobalComponent
         public void Compose(IContainer container)
         {
             container
-                .PaddingTop(20)
-                .PaddingBottom(20)
+                .PaddingTop(18)
+                .PaddingBottom(DocumentSpaces.SpaceBetweenSections)
                 .LineHorizontal(1)
                 .LineColor(DocumentColors.ElementsBackgroundColor);
         }

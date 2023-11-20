@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -52,14 +52,12 @@ namespace SkySoft.CvRenderer.Cli
 
         private CvModel DeserializeInput(string cvJson)
         {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-            };
+            var options = new JsonSerializerSettings();
 
-            options.Converters.Add(new JsonStringEnumConverter());
+            options.Converters.Add(new StringEnumConverter());
+            options.Converters.Add(new MultiFormatDateConverter());
 
-            var cv = JsonSerializer.Deserialize<CvModel>(cvJson, options);
+            var cv = JsonConvert.DeserializeObject<CvModel>(cvJson, options);
             if (cv is null)
             {
                 _logger.LogError("Failed to deserialize cv");

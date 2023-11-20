@@ -3,7 +3,7 @@ using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkySoft.CvRenderer.Assets;
 
-namespace SkySoft.CvRenderer.Pages.Main.Header
+namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 {
     internal class PolygonComponent : IComponent
     {
@@ -23,7 +23,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Header
                 // it's important to set style to Fill 
                 // to besure that stroke doesn't overlap 
                 // polygon borders
-                Style = SKPaintStyle.Fill 
+                Style = SKPaintStyle.Fill
             };
 
             var path = GetPolygon(availableSpace);
