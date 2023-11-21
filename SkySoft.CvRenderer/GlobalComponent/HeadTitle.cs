@@ -15,7 +15,7 @@ namespace WebApplicationPdf.GlobalComponent
                 .AlignRight()
                 .PaddingBottom(10)
                 .Width(1.5f, Unit.Inch)
-                .Image(AssetsHelper.ReadResourceBytes("Assets/Images/LogoFull.png"));
+                .Image(AssetsHelper.ReadResourceBytes("Assets/Images/Logo.png"));
             });
         }
     }

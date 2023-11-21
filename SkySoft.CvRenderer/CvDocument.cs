@@ -9,8 +9,6 @@ using SkySoft.CvRenderer.Pages.Main;
 using SkySoft.CvRenderer.Pages.Projects;
 using SkySoft.CvRenderer.Pages.Projects.Components;
 
-using WebApplicationPdf.GlobalComponent;
-
 namespace SkySoft.CvRenderer
 {
     internal class CvDocument : IDocument

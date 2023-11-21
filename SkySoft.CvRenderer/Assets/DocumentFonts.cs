@@ -33,13 +33,11 @@ namespace SkySoft.CvRenderer.Assets
             .FontSize(12)
             .Weight(FontWeight.Normal);
 
-
         public static TextStyle MinorTextStyle => TextStyle
             .Default
             .FontColor(DocumentColors.HintColor)
             .LineHeight(0.8f)
             .FontSize(10);
-
 
         public static TextStyle TextBoldStyle => TextStyle
             .Default
@@ -47,7 +45,6 @@ namespace SkySoft.CvRenderer.Assets
             .LineHeight(0.8f)
             .FontSize(12)
             .Weight(FontWeight.SemiBold);
-
 
         public static TextStyle TextStyle => TextStyle
               .Default
