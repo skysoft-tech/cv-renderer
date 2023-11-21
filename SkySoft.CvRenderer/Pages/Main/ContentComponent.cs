@@ -2,24 +2,25 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.GlobalComponent;
-using SkySoft.CvRenderer.Pages.Main.WorkExperience;
 using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
 using SkySoft.CvRenderer.Pages.Main.Skills;
 using Microsoft.Extensions.Logging;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
 using SkySoft.CvRenderer.Assets;
+using SkySoft.CvRenderer.Models;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
-    public class BackgroundContainer : IComponent
+    public class ContentComponent : IComponent
     {
         private readonly ILogger _logger;
         private readonly CvModel _cvModel;
+        private readonly CvOptions _options;
 
-        public BackgroundContainer(ILogger logger, CvModel value)
+        public ContentComponent(ILogger logger, CvModel value, CvOptions options)
         {
             _logger = logger;
             _cvModel = value;
+            _options = options;
         }
 
         public void Compose(IContainer container)
@@ -27,7 +28,9 @@ namespace SkySoft.CvRenderer.Pages.Main
             container.Row(row =>
             {
                 row.RelativeItem()
-                    .Element(ComponentsSize.WorkExperienceComponentSize)
+                    .PaddingTop(12)
+                    .PaddingLeft(18)
+                    .PaddingRight(20)
                     .Column(column =>
                     {
                         column.Item().Component(new HeadTitle());
@@ -41,7 +44,7 @@ namespace SkySoft.CvRenderer.Pages.Main
                                 var workItems = _cvModel.Work ?? new List<Work>();
                                 for (var i = 0; i < workItems.Count; i++)
                                 {
-                                    column.Item().Component(new WorkExperienceComponent(workItems[i], i, workItems.Count));
+                                    column.Item().Component(new WorkExperienceComponent(workItems[i], i, workItems.Count, _options));
                                 }
 
                                 column.Item().Component(new HorizontalLine());
@@ -56,7 +59,7 @@ namespace SkySoft.CvRenderer.Pages.Main
                                 var educationItems = _cvModel.Education ?? new List<Education>();
                                 for (var i = 0; i < educationItems.Count; i++)
                                 {
-                                    column.Item().Component(new AcademicBackgroundComponent(educationItems[i], i, educationItems.Count));
+                                    column.Item().Component(new AcademicBackgroundComponent(educationItems[i], i, educationItems.Count, _options));
                                 }
 
                                 column.Item().Component(new HorizontalLine());

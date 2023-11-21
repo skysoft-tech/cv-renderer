@@ -2,8 +2,6 @@
 using QuestPDF.Infrastructure;
 using SkiaSharp;
 using SkySoft.CvRenderer.Assets;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
-using System.Collections.Generic;
 
 namespace SkySoft.CvRenderer.GlobalComponent
 {
@@ -39,7 +37,8 @@ namespace SkySoft.CvRenderer.GlobalComponent
                 });
 
                 layer.PrimaryLayer()
-                    .Element(ComponentsSize.LinesSize)
+                    .PaddingLeft(26)
+                    .PaddingRight(14)
                     .PaddingTop(_isFirstItem ? 5 : 0)
                     .LineVertical(1)
                     .LineColor(DocumentColors.ElementsBackgroundColor);

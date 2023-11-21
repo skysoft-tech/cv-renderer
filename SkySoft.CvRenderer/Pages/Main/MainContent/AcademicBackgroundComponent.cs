@@ -1,44 +1,46 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.GlobalComponent;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
+using SkySoft.CvRenderer.Models;
+using SkySoft.CvRenderer.Utils;
 
 namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
 {
     public class AcademicBackgroundComponent : IComponent
     {
         private readonly Education _education;
-
+        private readonly CvOptions _options;
         private readonly bool _isFirstItem;
         private readonly bool _isLastItem;
 
-        public AcademicBackgroundComponent(Education? value, int index, int count)
+        public AcademicBackgroundComponent(Education value, int index, int count, CvOptions options)
         {
             _education = value;
-
+            _options = options;
             _isFirstItem = index == 0;
             _isLastItem = index + 1 == count;
         }
 
         public void Compose(IContainer container)
         {
-            var start = _education.StartDate?.ToString("yyyy");
-            var end = _education.EndDate?.ToString("yyyy") ?? "present";
+            var start = _education.StartDate.ToYearString();
+            var end = _education.EndDate.ToYearString();
 
             container
             .Row(row =>
             {
                 row.AutoItem()
-                    .MinWidth(60)
-                    .MaxWidth(60)
+                    .MinWidth(_options.WorkColumnWidth)
+                    .MaxWidth(_options.WorkColumnWidth)
                     .Text($"{start} - {end}")
-                    .Style(WorkAcademicStyle.WorkStartDateStyle);
+                    .Style(DocumentFonts.MinorLabelStyle);
 
                 row.AutoItem().Component(new VerticalLine(26f, 6, _isFirstItem));
 
                 row.RelativeItem()
-                    .PaddingBottom(PaddingForElement.PadingBottomEltment(_isLastItem, 13))
+                    .PaddingBottom(_isLastItem ? 0 : 13)
                     .Column(column =>
                     {
                         column.Item()
@@ -46,28 +48,28 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                             .Text(text =>
                             {
                                 text.Span($"{_education.Institution}\n")
-                                .Style(WorkAcademicStyle.WorkNameStyle);
+                                    .Style(DocumentFonts.AccentLabelStyle);
 
                                 text.Span($"{_education.City}, {_education.Country}")
-                                .Style(WorkAcademicStyle.WorkSummaryStyle);
+                                    .Style(DocumentFonts.HintLabelStyle);
                             });
 
                         column.Item()
                             .Text(text =>
                             {
                                 text.Span($"{_education.StudyType} {Transfer(_education.Score)}")
-                                .Style(WorkAcademicStyle.StudyTypeStyle);
+                                    .Style(DocumentFonts.LabelStyle);
 
                                 text.Span($"{_education.Score}")
-                                .Style(WorkAcademicStyle.WorkSummaryStyle);
+                                    .Style(DocumentFonts.HintLabelStyle);
                             });
                     });
             });
         }
 
-        private string Transfer(string value)
+        private string Transfer(string? value)
         {
-            return value == "" ? "" : "\n";
+            return string.IsNullOrEmpty(value) ? "" : "\n";
         }
     }
 }

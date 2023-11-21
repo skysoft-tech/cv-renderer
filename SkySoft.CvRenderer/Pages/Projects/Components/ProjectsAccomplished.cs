@@ -2,9 +2,10 @@
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
+using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.GlobalComponent;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
+using SkySoft.CvRenderer.Utils;
 
 namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
@@ -25,54 +26,55 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 
         public void Compose(IContainer container)
         {
-            container
-            .ShowEntire()
-            .Row(row =>
-            {
-                row.AutoItem()
-                .MinWidth(50)
-                .MaxWidth(50)
-                .Text($"{_project.StartDate:MM/yyyy}\n{_project.EndDate:MM/yyyy}").Style(ProjectsAccomplishedStyle.ProjectStartDateStyle);
+            container.ShowEntire()
+                .Row(row =>
+                {
+                    row.AutoItem()
+                        .MinWidth(50)
+                        .MaxWidth(50)
+                        .Text($"{_project.StartDate.ToMonthString()}\n{_project.EndDate.ToMonthString()}")
+                        .Style(DocumentFonts.MinorLabelStyle);
 
-                row.AutoItem()
-                .Component(new VerticalLine(26f, 8, _isFirstItem));
+                    row.AutoItem()
+                        .Component(new VerticalLine(26f, 8, _isFirstItem));
 
                 
-                row.RelativeItem()
-                .PaddingBottom(PaddingForElement.PadingBottomEltment(_isLastItem, 26))
-                .Column(column =>
-                {
-                    column.Item()
-                    .PaddingBottom(8)
-                    .Text(text =>
-                    {
-                        text.Span($"{_project.Name}\n").Style(ProjectsAccomplishedStyle.ProjectNameStyle);
-
-                        text.Span($"{_project.Description}").Style(ProjectsAccomplishedStyle.ProjectDescriptionStyle);
-                    });
-
-                    column.Item()
-                    .Text(text => 
-                    {
-                        text.Span("Duties\n").Style(ProjectsAccomplishedStyle.DutiesStyle);
-
-                        _project.Highlights.ForEach(highlights =>
+                    row.RelativeItem()
+                        .PaddingBottom(_isLastItem ? 0 : 26)
+                        .Column(column =>
                         {
-                            text.Span($"{highlights}\n").Style(ProjectsAccomplishedStyle.ProjectDescriptionStyle);
+                            column.Item()
+                                .Text(text =>
+                                {
+                                    text.Span($"{_project.Name}\n").Style(DocumentFonts.AccentLabelStyle.FontSize(14));
+
+                                    text.Span($"{_project.Description}").Style(DocumentFonts.LabelStyle);
+                                });
+
+                            column.Item()
+                                .PaddingTop(8)
+                                .Text(text => 
+                                {
+                                    text.Span("Duties\n").Style(DocumentFonts.MinorLabelStyle.FontSize(12));
+
+                                    _project.Highlights?.ForEach(highlights =>
+                                    {
+                                        text.Span($"{highlights}").Style(DocumentFonts.LabelStyle);
+                                    });
+                                });
+
+                            column.Item()
+                                .PaddingTop(8)
+                                .Text(text =>
+                                {
+                                    text.Span("Technologies").Style(DocumentFonts.MinorLabelStyle.FontSize(12));
+
+                                });
+
+                            column.Item()
+                                .Component(new TechnologiesComponent(_project));
                         });
-                    });
-
-                    column.Item()
-                    .Text(text =>
-                    {
-                        text.Span("Technologies").Style(ProjectsAccomplishedStyle.DutiesStyle);
-
-                    });
-
-                    column.Item()
-                    .Component(new TechnologiesComponent(_project));
                 });
-            });
         }
     }
 }

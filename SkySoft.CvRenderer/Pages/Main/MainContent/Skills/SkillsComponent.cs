@@ -3,7 +3,6 @@ using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
 
 namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
@@ -30,7 +29,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
                          row.AutoItem().Text(text =>
                          {
                              text.Span($"{_skill.Name}")
-                             .Style(WorkAcademicStyle.SkillsStyle);
+                             .Style(DocumentFonts.TextStyle);
                          });
                      });
 

@@ -1,13 +1,9 @@
-﻿using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Core;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using SkySoft.CvRenderer.Core;
+using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Models;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -20,7 +16,7 @@ namespace SkySoft.CvRenderer.Cli
             _logger = logger;
         }
 
-        public async Task Run(string input, string output)
+        public async Task Run(string input, string output, int width)
         {
             _logger.LogInformation("Render [{input}] to [{output}]", input, output);
 
@@ -39,8 +35,9 @@ namespace SkySoft.CvRenderer.Cli
             var outputFileName = GetPdfName(input, output);
             var outputFile = File.OpenWrite(outputFileName);
 
+            var options = BuildOptions(width);
             var renderer = new PdfRenderer(_logger, cv);
-            await renderer.Render(outputFile);
+            await renderer.Render(outputFile, options);
 
             _logger.LogInformation("Created file: {outputFileName}", outputFileName);
         }
@@ -103,6 +100,14 @@ namespace SkySoft.CvRenderer.Cli
             }
 
             return false;
+        }
+
+        private CvOptions BuildOptions(int width)
+        {
+            return new CvOptions
+            {
+                WorkColumnWidth = width
+            };
         }
     }
 }

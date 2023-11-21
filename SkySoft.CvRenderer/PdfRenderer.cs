@@ -6,6 +6,7 @@ using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Models;
 using System.ComponentModel;
 using System.Text.Json;
 
@@ -22,12 +23,12 @@ namespace SkySoft.CvRenderer.Core
             _cv = cv;
         }
 
-        public async Task Render(Stream stream)
+        public async Task Render(Stream stream, CvOptions options)
         {
             SetupLicense();
             SetupFont();
 
-            var document = new CvDocument(_logger, _cv);
+            var document = new CvDocument(_logger, _cv, options);
 
 #if DEBUG
             document.ShowInPreviewer();

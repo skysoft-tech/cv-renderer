@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Main\WorkExperience\**" />
+    <EmbeddedResource Remove="Pages\Main\WorkExperience\**" />
+    <None Remove="Pages\Main\WorkExperience\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Assets\Font\Hind-Regular.ttf" />
     <None Remove="Assets\Font\Hind-SemiBold.ttf" />
     <None Remove="Assets\Hind-Bold.ttf" />

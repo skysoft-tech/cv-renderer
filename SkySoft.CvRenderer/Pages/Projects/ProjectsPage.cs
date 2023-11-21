@@ -1,10 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Pages.Main.MainComponents;
-using SkySoft.CvRenderer.Pages.Main.WorkExperience;
 using SkySoft.CvRenderer.Pages.Projects.Components;
-using WebApplicationPdf.GlobalComponent;
 
 namespace SkySoft.CvRenderer.Pages.Projects
 {
@@ -24,7 +21,10 @@ namespace SkySoft.CvRenderer.Pages.Projects
             .Row(row =>
             {
                 row.RelativeItem(1)
-                .Element(ComponentsSize.ProjectsAccomplishedSize)
+                .PaddingBottom(47)
+                .PaddingLeft(43)
+                .PaddingRight(49)
+                .AlignLeft()
                 .Column(column =>
                 {
                     _cvModel.Projects.ForEach(projects =>
