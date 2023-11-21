@@ -5,8 +5,10 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <AssemblyVersion>0.1.0.0-beta</AssemblyVersion>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <Version>0.1.0-beta</Version>
     <FileVersion>0.1.0.0</FileVersion>
+    <RepositoryUrl>https://github.com/skysoft-tech/cv-renderer</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
