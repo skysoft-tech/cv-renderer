@@ -24,9 +24,7 @@ Windows or Linux machine
 
 ### Installation
 
-```bash
-   git clone https://github.com/yourusername/cv-generator.git
-```
+You can download binaries in the Releases section
 
 ## Usage
 
