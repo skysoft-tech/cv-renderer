@@ -67,7 +67,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                                 .PaddingTop(8)
                                 .Text(text =>
                                 {
-                                    text.Span("Keywords").Style(DocumentFonts.MinorLabelStyle.FontSize(12));
+                                    text.Span("Technologies").Style(DocumentFonts.MinorLabelStyle.FontSize(12));
 
                                 });
 
