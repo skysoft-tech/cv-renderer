@@ -72,7 +72,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                                 });
 
                             column.Item()
-                                .Component(new TechnologiesComponent(_project));
+                                .Component(new KeywordsComponent(_project));
                         });
                 });
         }

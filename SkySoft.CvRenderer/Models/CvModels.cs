@@ -147,7 +147,7 @@
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string? Description { get; set; }
-        public List<string>? Technologies { get; set; }
+        public List<string>? Keywords { get; set; }
         public List<string>? Highlights { get; set; }
         public string? Url { get; set; }
     }

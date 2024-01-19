@@ -4,11 +4,11 @@ using SkySoft.CvRenderer.Core.Models;
 
 namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
-    public class TechnologiesComponent : IComponent
+    public class KeywordsComponent : IComponent
     {
         public Project _project { get; set; }
 
-        public TechnologiesComponent(Project project)
+        public KeywordsComponent(Project project)
         {
             _project = project;
         }
@@ -23,7 +23,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                     inline.VerticalSpacing(0);
                     inline.AlignLeft();
 
-                    _project.Technologies?.ForEach(technology =>
+                    _project.Keywords?.ForEach(technology =>
                     {
                         inline.Item().Component(new TechnologyComponent(technology));
                     });
