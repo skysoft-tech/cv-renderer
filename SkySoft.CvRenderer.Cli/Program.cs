@@ -1,19 +1,24 @@
 ﻿using Serilog;
 using System.CommandLine;
+﻿using Microsoft.Extensions.Configuration;
+using SkySoft.CvRenderer.Cli.CliOptions;
 
 namespace SkySoft.CvRenderer.Cli
 {
     internal class Program
     {
-        private static async Task<int> Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            var inputOption = new Option<string>(
-                aliases: new string[] { "--cvJson", "--in", "-f" },
-                description: "Path to JSON file with CV data. See more: https://jsonresume.org/schema/");
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("settings.json", optional: true)
+                .AddCommandLineConfiguration(args)
+                .Build();
 
-            var outputOption = new Option<string>(
-                aliases: new string[] { "--pdf", "--out", "-p" },
-                description: "The way to save CV");
+            var options = config.Get<AppOptions>();
+            
+            var logger = Logger.SetupLogger();
+            var executor = new Executor(logger);
 
             var companyColumnWidthOption = new Option<int>(
                 aliases: new string[] { "--columnWidth", "-w" },
@@ -40,6 +45,7 @@ namespace SkySoft.CvRenderer.Cli
             }, inputOption, outputOption, companyColumnWidthOption, companyHideLogo);
 
             return await rootCommand.InvokeAsync(args);
+            await executor.Run(options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth);
         }
     }
 }
