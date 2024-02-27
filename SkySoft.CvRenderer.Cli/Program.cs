@@ -1,4 +1,5 @@
-﻿using System.CommandLine;
+﻿using Serilog;
+using System.CommandLine;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -19,18 +20,24 @@ namespace SkySoft.CvRenderer.Cli
                 description: "Allows to change width of the first column in Work Experience section", 
                 getDefaultValue: () => 60);
 
+            var companyHideLogo = new Option<bool>(
+                 aliases: new string[] { "--hideLogo", "-h" },
+                 description: "Allows you to hide the logo in the header",
+                 getDefaultValue: () => false);
+
             var rootCommand = new RootCommand("Allow to render PDF based on CV data");
             rootCommand.AddOption(inputOption);
             rootCommand.AddOption(outputOption);
             rootCommand.AddOption(companyColumnWidthOption);
+            rootCommand.AddOption(companyHideLogo);
 
-            rootCommand.SetHandler(async (input, output, width) =>
+            rootCommand.SetHandler(async (input, output, width, hideLogo) =>
             {
                 var logger = Logger.SetupLogger();
                 var executor = new Executor(logger);
 
-                await executor.Run(input, output, width);
-            }, inputOption, outputOption, companyColumnWidthOption);
+                await executor.Run(input, output, width, hideLogo);
+            }, inputOption, outputOption, companyColumnWidthOption, companyHideLogo);
 
             return await rootCommand.InvokeAsync(args);
         }

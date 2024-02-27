@@ -16,7 +16,7 @@ namespace SkySoft.CvRenderer.Cli
             _logger = logger;
         }
 
-        public async Task Run(string input, string output, int width)
+        public async Task Run(string input, string output, int width, bool hideLogo)
         {
             _logger.LogInformation("Render [{input}] to [{output}]", input, output);
 
@@ -35,7 +35,7 @@ namespace SkySoft.CvRenderer.Cli
             var outputFileName = GetPdfName(input, output);
             var outputFile = File.OpenWrite(outputFileName);
 
-            var options = BuildOptions(width);
+            var options = BuildOptions(width, hideLogo);
             var renderer = new PdfRenderer(_logger, cv);
             await renderer.Render(outputFile, options);
 
@@ -102,11 +102,12 @@ namespace SkySoft.CvRenderer.Cli
             return false;
         }
 
-        private CvOptions BuildOptions(int width)
+        private CvOptions BuildOptions(int width, bool hideLogo)
         {
             return new CvOptions
             {
-                WorkColumnWidth = width
+                WorkColumnWidth = width,
+                HideLogo = hideLogo,
             };
         }
     }

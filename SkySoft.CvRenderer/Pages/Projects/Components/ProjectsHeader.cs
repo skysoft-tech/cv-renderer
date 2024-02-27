@@ -6,6 +6,12 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 {
     public class ProjectsHeader : IComponent
     {
+        private readonly bool _hideLogo;
+        public ProjectsHeader(bool hideLogo) 
+        {
+            _hideLogo = hideLogo;
+        }
+
         public void Compose(IContainer container)
         {
             container
@@ -15,8 +21,8 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                 .Column(column =>
                 {
                     column.Item()
-                       .AlignRight()
-                       .Component(new HeadTitle());
+                        .AlignRight()
+                        .Component(new HeadTitle(_hideLogo));
 
                     column.Item()
                         .AlignLeft()

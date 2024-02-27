@@ -33,7 +33,7 @@ namespace SkySoft.CvRenderer.Pages.Main
                     .PaddingRight(20)
                     .Column(column =>
                     {
-                        column.Item().Component(new HeadTitle());
+                        column.Item().Component(new HeadTitle(_options.HideLogo));
 
                         column.Item()
                             .ShowEntire()
