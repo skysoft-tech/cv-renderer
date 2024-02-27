@@ -1,5 +1,6 @@
 ﻿{
   "rendering": {
-    "workColumnWidth":  65
+    "workColumnWidth": 65,
+    "hideLogo": true
   }
 }

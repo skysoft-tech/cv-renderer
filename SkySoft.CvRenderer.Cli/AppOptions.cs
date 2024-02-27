@@ -25,5 +25,11 @@ namespace SkySoft.CvRenderer.Cli
         [CliOptionName("--workColumnWidth", "-w")]
         [CliOptionDescription("Allows to change width of the first column in Work Experience section")]
         public int WorkColumnWidth { get; set; } = 60;
+
+        [DefaultValue(true)]
+        [OptionKeyName($"Rendering:{nameof(HideLogo)}")]
+        [CliOptionName("--hideLogo", "-h")]
+        [CliOptionDescription("Allows you to disable the logo in the header")]
+        public bool HideLogo { get; set; } = true;
     }
 }
