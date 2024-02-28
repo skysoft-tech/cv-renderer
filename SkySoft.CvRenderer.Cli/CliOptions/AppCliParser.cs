@@ -10,7 +10,8 @@ namespace SkySoft.CvRenderer.Cli.CliOptions
             {
                 new CliOption<string?>(s => s.InputFile),
                 new CliOption<string?>(s => s.OutputFile),
-                new CliOption<int>(s => s.Rendering.WorkColumnWidth)
+                new CliOption<int>(s => s.Rendering.WorkColumnWidth),
+                new CliOption<bool>(s => s.Rendering.HideLogo)
             };
         }
     }
