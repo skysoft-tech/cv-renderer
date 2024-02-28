@@ -7,7 +7,7 @@ namespace WebApplicationPdf.GlobalComponent
     public class HeadTitle : IComponent
     {
         private readonly bool _hideLogo;
-        public HeadTitle(bool hideLogo) 
+        public HeadTitle(bool hideLogo)
         {
             _hideLogo = hideLogo;
         }
@@ -19,10 +19,10 @@ namespace WebApplicationPdf.GlobalComponent
                 if (_hideLogo)
                 {
                     column.Item()
-                .AlignRight()
-                .PaddingBottom(10)
-                .Width(1.5f, Unit.Inch)
-                .Image(AssetsHelper.ReadResourceBytes("Assets/Images/Logo.png"));
+                        .AlignRight()
+                        .PaddingBottom(10)
+                        .Width(1.5f, Unit.Inch)
+                        .Image(AssetsHelper.ReadResourceBytes("Assets/Images/Logo.png"));
                 }
             });
         }
