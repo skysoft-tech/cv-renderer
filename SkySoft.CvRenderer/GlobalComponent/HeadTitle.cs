@@ -16,11 +16,14 @@ namespace WebApplicationPdf.GlobalComponent
             container
             .Column(column =>
             {
-                if (_hideLogo) column.Item()
+                if (_hideLogo)
+                {
+                    column.Item()
                 .AlignRight()
                 .PaddingBottom(10)
                 .Width(1.5f, Unit.Inch)
                 .Image(AssetsHelper.ReadResourceBytes("Assets/Images/Logo.png"));
+                }
             });
         }
     }
