@@ -1,5 +1,3 @@
-﻿using Serilog;
-using System.CommandLine;
 ﻿using Microsoft.Extensions.Configuration;
 using SkySoft.CvRenderer.Cli.CliOptions;
 
