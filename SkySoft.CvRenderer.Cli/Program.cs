@@ -1,3 +1,5 @@
+﻿using Serilog;
+using System.CommandLine;
 ﻿using Microsoft.Extensions.Configuration;
 using SkySoft.CvRenderer.Cli.CliOptions;
 
@@ -14,12 +16,11 @@ namespace SkySoft.CvRenderer.Cli
                 .Build();
 
             var options = config.Get<AppOptions>();
-            
+
             var logger = Logger.SetupLogger();
             var executor = new Executor(logger);
 
-            await executor.Run(options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth);
+            await executor.Run(options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth, options.Rendering.HideLogo);
         }
     }
 }
-

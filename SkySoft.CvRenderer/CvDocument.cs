@@ -31,7 +31,7 @@ namespace SkySoft.CvRenderer
                 page.Size(PageSizes.A4);
                 page.DefaultTextStyle(SetDefaultFont);
 
-                page.Header().Dynamic(new HeadTitleDynamic());
+                page.Header().Dynamic(new HeadTitleDynamic(_options.HideLogo));
 
                 page.Content().Component(new MainPage(_logger, _cv, _options));
             });
@@ -42,7 +42,7 @@ namespace SkySoft.CvRenderer
                 page.DefaultTextStyle(SetDefaultFont);
 
                 page.Header()
-                .Component(new ProjectsHeader());
+                .Component(new ProjectsHeader(_options.HideLogo));
 
                 page.Content()
                 .Component(new ProjectsPage(_cv));

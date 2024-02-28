@@ -10,6 +10,12 @@ namespace SkySoft.CvRenderer.GlobalComponent
     {
         public int State { get; set; }
 
+        private readonly bool _hideLogo;
+        public HeadTitleDynamic(bool hideLogo)
+        {
+            _hideLogo = hideLogo;
+        }
+
         public DynamicComponentComposeResult Compose(DynamicContext context)
         {
             var content = context.CreateElement(container =>
@@ -30,7 +36,7 @@ namespace SkySoft.CvRenderer.GlobalComponent
                     c.AlignRight()
                     .PaddingTop(12)
                     .PaddingRight(20)
-                    .Component(new HeadTitle());
+                    .Component(new HeadTitle(_hideLogo));
                 });
             });
 
