@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Core;
 using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Models;
+using SkySoft.CvRenderer.Cli;
 
-namespace SkySoft.CvRenderer.Cli
+namespace SkySoft.CvRenderer.Api
 {
     internal class Executor
     {
@@ -16,9 +16,9 @@ namespace SkySoft.CvRenderer.Cli
             _logger = logger;
         }
 
-        public async Task Run(string input, string output, int width, bool hideLogo)
+        public async Task<byte[]> Run(string input, int width, bool hideLogo)
         {
-            _logger.LogInformation("Render [{input}] to [{output}]", input, output);
+            _logger.LogInformation("Render [{input}]", input);
 
             var cvJson = await ReadInput(input);
 
@@ -32,14 +32,10 @@ namespace SkySoft.CvRenderer.Cli
                 cv.Basics!.Image = absPhotoPath;
             }
 
-            var outputFileName = GetPdfName(input, output);
-            var outputFile = File.OpenWrite(outputFileName);
-
             var options = BuildOptions(width, hideLogo);
             var renderer = new PdfRenderer(_logger, cv);
-            await renderer.CliRender(outputFile, options);
 
-            _logger.LogInformation("Created file: {outputFileName}", outputFileName);
+            return await renderer.ApiRender(options);  
         }
 
         private Task<string> ReadInput(string input)
@@ -63,11 +59,6 @@ namespace SkySoft.CvRenderer.Cli
             }
 
             return cv;
-        }
-
-        private string GetPdfName(string input, string output)
-        {
-            return output ?? input.Replace(".json", ".pdf");
         }
 
         private bool TryResolveAbsPhotoPath(string? photoPath, string input, out string? absPhotoPath)
@@ -111,4 +102,6 @@ namespace SkySoft.CvRenderer.Cli
             };
         }
     }
+
+
 }

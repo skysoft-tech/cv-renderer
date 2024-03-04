@@ -8,6 +8,7 @@ using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Models;
 using System.ComponentModel;
+using System.Reflection.Metadata;
 using System.Text.Json;
 
 namespace SkySoft.CvRenderer.Core
@@ -23,18 +24,26 @@ namespace SkySoft.CvRenderer.Core
             _cv = cv;
         }
 
-        public async Task Render(Stream stream, CvOptions options)
+        public async Task<byte[]> ApiRender(CvOptions options)
         {
             SetupLicense();
             SetupFont();
 
             var document = new CvDocument(_logger, _cv, options);
+            return document.GeneratePdf();
+        }
 
+        public async Task CliRender(Stream stream, CvOptions options)
+        {
+            SetupLicense();
+            SetupFont();
+
+            var document = new CvDocument(_logger, _cv, options);
 #if DEBUG
             document.ShowInPreviewer();
 #else
-            var pdfData = document.GeneratePdf();
-            await stream.WriteAsync(pdfData);
+                    var pdfData = document.GeneratePdf();
+                    await stream.WriteAsync(pdfData);
 #endif
         }
 

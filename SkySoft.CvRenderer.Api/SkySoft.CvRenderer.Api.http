@@ -1,0 +1,6 @@
+@SkySoft.CvRenderer.Api_HostAddress = https://localhost:7236
+
+
+POST {{SkySoft.CvRenderer.Api_HostAddress}}/download/PostPdfFile?filePath=string
+
+###
