@@ -1,15 +1,9 @@
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.IO;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SkySoft.CvRenderer.Api.Controllers
 {
     [ApiController]
-    [Route("download")]
+    [Route("api/[controller]")]
     public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,11 +12,11 @@ namespace SkySoft.CvRenderer.Api.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost("PostDownloadCv")]
-        public async Task<IActionResult> DownloadCv(
-            [FromQuery] string filePath,
-            [FromQuery] int WorkColumnWidth = 60, 
-            [FromQuery] bool HideLogo = false)
+        [HttpPost("convertToPdf")]
+        public async Task<IActionResult> ConvertJsonToPdf(
+            [FromForm] string filePath,
+            [FromForm] int WorkColumnWidth = 60,
+            [FromForm] bool HideLogo = false)
         {
             if (!System.IO.File.Exists(filePath))
             {

@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json.Converters;
-using Newtonsoft.Json;
-using SkySoft.CvRenderer.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using SkySoft.CvRenderer.Cli;
 using SkySoft.CvRenderer.Core;
 using SkySoft.CvRenderer.Core.Models;
-using SkySoft.CvRenderer.Cli;
+using SkySoft.CvRenderer.Models;
 
 namespace SkySoft.CvRenderer.Api
 {
@@ -35,7 +35,7 @@ namespace SkySoft.CvRenderer.Api
             var options = BuildOptions(width, hideLogo);
             var renderer = new PdfRenderer(_logger, cv);
 
-            return await renderer.ApiRender(options);  
+            return await renderer.ApiRender(options);
         }
 
         private Task<string> ReadInput(string input)

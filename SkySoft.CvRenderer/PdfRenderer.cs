@@ -1,15 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
-using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Models;
-using System.ComponentModel;
-using System.Reflection.Metadata;
-using System.Text.Json;
 
 namespace SkySoft.CvRenderer.Core
 {
@@ -42,8 +38,8 @@ namespace SkySoft.CvRenderer.Core
 #if DEBUG
             document.ShowInPreviewer();
 #else
-                    var pdfData = document.GeneratePdf();
-                    await stream.WriteAsync(pdfData);
+            var pdfData = document.GeneratePdf();
+            await stream.WriteAsync(pdfData);
 #endif
         }
 
