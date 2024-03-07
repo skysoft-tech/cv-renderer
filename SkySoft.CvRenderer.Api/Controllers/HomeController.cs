@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SkySoft.CvRenderer.Api.Models;
 
 namespace SkySoft.CvRenderer.Api.Controllers
 {
@@ -13,12 +14,9 @@ namespace SkySoft.CvRenderer.Api.Controllers
         }
 
         [HttpPost("convertToPdf")]
-        public async Task<IActionResult> ConvertJsonToPdf(
-            [FromForm] string filePath,
-            [FromForm] int WorkColumnWidth = 60,
-            [FromForm] bool HideLogo = false)
+        public async Task<IActionResult> ConvertJsonToPdf([FromBody] FileUploadModel fileUpload)
         {
-            if (!System.IO.File.Exists(filePath))
+            if (!System.IO.File.Exists(fileUpload.FilePath))
             {
                 _logger.LogError("JSON file does not exist.");
                 return NotFound();
@@ -26,9 +24,9 @@ namespace SkySoft.CvRenderer.Api.Controllers
 
             var executor = new Executor(_logger);
 
-            var pdfData = await executor.Run(filePath, WorkColumnWidth, HideLogo);
+            var pdfData = await executor.Run(fileUpload.FilePath, fileUpload.cvOptions.WorkColumnWidth, fileUpload.cvOptions.HideLogo);
 
-            return File(pdfData, "application/pdf", Path.GetFileNameWithoutExtension(filePath));
+            return File(pdfData, "application/pdf", Path.GetFileNameWithoutExtension(fileUpload.FilePath));
         }
     }
 }
