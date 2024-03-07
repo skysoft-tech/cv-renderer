@@ -24,7 +24,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
 
             var executor = new Executor(_logger);
 
-            var pdfData = await executor.Run(fileUpload.FilePath, fileUpload.cvOptions.WorkColumnWidth, fileUpload.cvOptions.HideLogo);
+            var pdfData = await executor.Run(fileUpload.FilePath, fileUpload.CvOptions.WorkColumnWidth, fileUpload.CvOptions.HideLogo);
 
             return File(pdfData, "application/pdf", Path.GetFileNameWithoutExtension(fileUpload.FilePath));
         }

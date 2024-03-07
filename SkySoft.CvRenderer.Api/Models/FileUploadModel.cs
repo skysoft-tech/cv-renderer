@@ -5,6 +5,6 @@ namespace SkySoft.CvRenderer.Api.Models
     public class FileUploadModel
     {
         public string? FilePath { get; set; }
-        public CvOptions? cvOptions { get; set; }
+        public CvOptions? CvOptions { get; set; }
     }
 }
