@@ -1,9 +1,9 @@
 ﻿using Serilog;
 using Serilog.Extensions.Logging;
 
-namespace SkySoft.CvRenderer.Cli
+namespace SkySoft.CvRenderer.Utils
 {
-    internal class Logger
+    public class Logger
     {
         public static Microsoft.Extensions.Logging.ILogger SetupLogger()
         {
