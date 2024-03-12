@@ -5,15 +5,15 @@ using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Utils.Api
 {
-    public class CreatePdfCvFromModel
+    public class CreateCvFromModel
     {
-        private readonly ILogger<CreatePdfCvFromModel> _logger;
-        public CreatePdfCvFromModel(ILogger<CreatePdfCvFromModel> logger)
+        private readonly ILogger<CreateCvFromModel> _logger;
+        public CreateCvFromModel(ILogger<CreateCvFromModel> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<Stream> CreateJsonCv(CvModel cvModel)
+        public async Task<Stream> CreateCv(CvModel cvModel)
         {
             var outputFile = new MemoryStream();
 

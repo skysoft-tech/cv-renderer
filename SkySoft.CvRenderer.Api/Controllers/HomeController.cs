@@ -1,59 +1,41 @@
 using Microsoft.AspNetCore.Mvc;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Utils.Api;
+
 namespace SkySoft.CvRenderer.Api.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class HomeController : ControllerBase
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly CreatePdfCvFromModel _createPdfCvFromModel;
-        //private readonly DeserializeInputFile _deserializeInputFile;
+        private readonly CreateCvFromModel _createPdfCvFromModel;
+        private readonly CreateCvFromFile _createPdfCvFromFile;
 
-        public HomeController(ILogger<HomeController> logger, CreatePdfCvFromModel createPdfCvFromModel/*, DeserializeInputFile deserializeInputFile*/)
+        public HomeController(ILogger<HomeController> logger, CreateCvFromModel createPdfCvFromModel, CreateCvFromFile createPdfCvFromFile)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _createPdfCvFromModel = createPdfCvFromModel ?? throw new ArgumentNullException(nameof(createPdfCvFromModel));
-            //_deserializeInputFile = deserializeInputFile ?? throw new ArgumentNullException(nameof(deserializeInputFile));
+            _createPdfCvFromFile = createPdfCvFromFile ?? throw new ArgumentNullException(nameof(createPdfCvFromFile));
         }
 
-        [HttpPost("upload-model")]
-        public async Task<IActionResult> UploadCvModel([FromBody] CvModel cvModel)
+        [HttpPost("cv/upload-model")]
+        public async Task<IActionResult> Post([FromBody] CvModel cvModel)
         {
-            var jsonCv = await _createPdfCvFromModel.CreateJsonCv(cvModel);
+            var jsonCv = await _createPdfCvFromModel.CreateCv(cvModel);
 
-            var a = File(jsonCv, "application/pdf", cvModel.Basics.Name + ".pdf");
-            return a;
+            return File(jsonCv, "application/pdf", cvModel.Basics.Name ?? "Your cv" + ".pdf");
         }
 
+        [HttpPost("cv/upload-file")]
+        public async Task<IActionResult> Post(IFormFile file)
+        {
+            using var stream = new MemoryStream();
+            await file.CopyToAsync(stream);
 
-        //[HttpPost("upload")]
-        //public async Task<ActionResult> UploadPdfFile([FromBody] FileUploadModel fileUpload, IFormFile file)
-        //{
-        //    var inputStream = file.OpenReadStream();
+            var streamFilePdf = await _createPdfCvFromFile.CreateCv(stream.ToArray());
 
-        //    //var deserializeInputFile = new DeserializeInputFile(_logger, fileUpload);
-        //    var outputStream = await _deserializeInputFile.DeserializationAsync(inputStream);
-
-        //    return File(outputStream, "application/pdf", "file.pdf" /*Path.GetFileNameWithoutExtension(fileUpload.FilePath) + ".pdf"*/);
-        //}
+            return File(streamFilePdf, "application/pdf", file.FileName ?? "Your cv" + ".pdf");
+        }
     }
-
-    //[HttpPost("upload")]
-    //public async Task<ActionResult> UploadPdfFile([FromBody] IFormFile file)
-    //{
-    //    CvOptions cvOptions = new CvOptions()
-    //    {
-    //        WorkColumnWidth = 60,
-    //        HideLogo = true
-    //    };
-
-    //    var stream = new MemoryStream();
-
-    //    var deserializeInputFile = new DeserializeInputFile(_logger, cvOptions, file);
-    //    await deserializeInputFile.DeserializationAsync(stream);
-
-    //    return File(stream.ToArray(), "application/pdf", "file.pdf" /*Path.GetFileNameWithoutExtension(fileUpload.FilePath) + ".pdf"*/);
-    //}
 }

@@ -13,8 +13,8 @@ namespace SkySoft.CvRenderer.Api
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddTransient<CreatePdfCvFromModel>();
-            //builder.Services.AddTransient<DeserializeInputFile>();
+            builder.Services.AddTransient<CreateCvFromModel>();
+            builder.Services.AddTransient<CreateCvFromFile>();
 
             builder.Services.AddMvc().AddNewtonsoftJson(options =>
             {

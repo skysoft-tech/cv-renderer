@@ -15,16 +15,9 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
 
         public CvOptions BuildOptions()
         {
-            var DefaultWidthValue = 60;
-
-            if (_width != 0)
-            {
-                DefaultWidthValue = _width;
-            }
-
             return new CvOptions
             {
-                WorkColumnWidth = DefaultWidthValue,
+                WorkColumnWidth = _width,
                 HideLogo = _hideLogo,
             };
         }
