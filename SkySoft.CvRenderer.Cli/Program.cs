@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SkySoft.CvRenderer.Cli.CliOptions;
 using SkySoft.CvRenderer.Utils;
-using SkySoft.CvRenderer.Utils.Cli;
 
 namespace SkySoft.CvRenderer.Cli
 {

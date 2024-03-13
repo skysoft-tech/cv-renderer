@@ -6,12 +6,12 @@ using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Utils.Deserialization
 {
-    internal class DeserializeInput
+    public class DeserializeInput
     {
         private readonly ILogger _logger;
         private readonly string _cvJson;
 
-        internal DeserializeInput(ILogger logger, string cvJson)
+        public DeserializeInput(ILogger logger, string cvJson)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _cvJson = cvJson ?? throw new ArgumentNullException(nameof(cvJson));

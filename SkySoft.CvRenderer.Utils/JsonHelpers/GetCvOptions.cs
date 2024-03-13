@@ -2,12 +2,12 @@
 
 namespace SkySoft.CvRenderer.Utils.JsonHelpers
 {
-    internal class GetCvOptions
+    public class GetCvOptions
     {
         private readonly int _width;
         private readonly bool _hideLogo;
 
-        internal GetCvOptions(int width, bool hideLogo)
+        public GetCvOptions(int width, bool hideLogo)
         {
             _width = width;
             _hideLogo = hideLogo;

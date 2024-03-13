@@ -2,12 +2,12 @@
 
 namespace SkySoft.CvRenderer.Utils.JsonHelpers
 {
-    internal class TryResolveAbsPhoto
+    public class TryResolveAbsPhoto
     {
         private readonly CvModel _cvModel;
         private readonly string _input;
 
-        internal TryResolveAbsPhoto(CvModel cvModel, string input)
+        public TryResolveAbsPhoto(CvModel cvModel, string input)
         {
             _cvModel = cvModel ?? throw new ArgumentNullException(nameof(cvModel));
             _input = input ?? throw new ArgumentNullException(nameof(cvModel));

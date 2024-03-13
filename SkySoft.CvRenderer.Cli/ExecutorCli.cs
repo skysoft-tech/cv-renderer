@@ -3,7 +3,7 @@ using SkySoft.CvRenderer.Core;
 using SkySoft.CvRenderer.Utils.Deserialization;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
 
-namespace SkySoft.CvRenderer.Utils.Cli
+namespace SkySoft.CvRenderer.Cli
 {
     public class ExecutorCli
     {
@@ -43,7 +43,7 @@ namespace SkySoft.CvRenderer.Utils.Cli
             var options = getCvOptions.BuildOptions();
 
             var renderer = new PdfRenderer(_logger, cv);
-            await renderer.Render(outputFile, options);
+            await renderer.RenderCli(outputFile, options);
 
             _logger.LogInformation("Created file: {outputFileName}", outputFileName);
         }
