@@ -20,11 +20,11 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
         public CvModel DeserializeJson()
         {
             var options = new JsonSerializerSettings();
-
             options.Converters.Add(new StringEnumConverter());
             options.Converters.Add(new MultiFormatDateConverter());
 
             var cv = JsonConvert.DeserializeObject<CvModel>(_cvJson, options);
+
             if (cv is null)
             {
                 _logger.LogError("Failed to deserialize cv");

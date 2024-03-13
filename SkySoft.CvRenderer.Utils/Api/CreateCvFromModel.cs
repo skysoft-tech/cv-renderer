@@ -13,7 +13,7 @@ namespace SkySoft.CvRenderer.Utils.Api
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<Stream> CreateCv(CvModel cvModel)
+        public async Task<Stream> CreateCvAsync(CvModel cvModel)
         {
             var outputFile = new MemoryStream();
 

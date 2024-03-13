@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Utils.Api;
+using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Api.Controllers
 {
@@ -22,20 +23,38 @@ namespace SkySoft.CvRenderer.Api.Controllers
         [HttpPost("cv/upload-model")]
         public async Task<IActionResult> Post([FromBody] CvModel cvModel)
         {
-            var jsonCv = await _createPdfCvFromModel.CreateCv(cvModel);
+            try
+            {
+                var pdfStream = await _createPdfCvFromModel.CreateCvAsync(cvModel);
 
-            return File(jsonCv, "application/pdf", cvModel.Basics.Name ?? "Your cv" + ".pdf");
+                var fileName = new GetFileName(cvModel.Basics.Name, "Your cv").GetName();
+                return File(pdfStream, "application/pdf", fileName);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing CV model upload.");
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost("cv/upload-file")]
         public async Task<IActionResult> Post(IFormFile file)
         {
-            using var stream = new MemoryStream();
-            await file.CopyToAsync(stream);
-
-            var streamFilePdf = await _createPdfCvFromFile.CreateCv(stream.ToArray());
-
-            return File(streamFilePdf, "application/pdf", file.FileName ?? "Your cv" + ".pdf");
+            try
+            {
+                using (var fileStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(fileStream);
+                    var pdfStream = await _createPdfCvFromFile.CreateCvAsync(fileStream.ToArray());
+                    var fileName = new GetFileName(file.FileName, "Your cv").GetName();
+                    return File(pdfStream, "application/pdf", fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing uploaded CV file.");
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace SkySoft.CvRenderer.Utils.Api
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<Stream> CreateCv(byte[] input)
+        public async Task<Stream> CreateCvAsync(byte[] input)
         {
             var deserializeInput = new DeserializeInput(_logger, Encoding.Default.GetString(input));
             var cv = deserializeInput.DeserializeJson();
