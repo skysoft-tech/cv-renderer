@@ -16,6 +16,12 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
 
         public T DeserializeJson<T>(string cvJson)
         {
+            if (string.IsNullOrEmpty(cvJson))
+            {
+                _logger.LogError("Input JSON string is null or empty");
+                throw new ArgumentException("Input JSON string is null or empty", nameof(cvJson));
+            }
+
             var options = new JsonSerializerSettings();
 
             options.Converters.Add(new StringEnumConverter());
