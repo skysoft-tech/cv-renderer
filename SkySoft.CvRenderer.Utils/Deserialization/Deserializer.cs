@@ -7,9 +7,9 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
 {
     public class Deserializer
     {
-        private readonly ILogger<Deserializer> _logger;
+        private readonly ILogger _logger;
 
-        public Deserializer(ILogger<Deserializer> logger)
+        public Deserializer(ILogger logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }

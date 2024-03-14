@@ -32,9 +32,7 @@ namespace SkySoft.CvRenderer.Cli
 
             _logger.LogDebug("Json: {cvJson}", cvJson);
 
-            var deserializerLogger = new LoggerFactory().CreateLogger<Deserializer>();
-
-            var cv = new Deserializer(deserializerLogger).DeserializeJson<CvModel>(cvJson);
+            var cv = new Deserializer(_logger).DeserializeJson<CvModel>(cvJson);
 
             cv.Basics!.Image = new TryResolveAbsPhoto(cv, _input).TryResolvePhoto();
 
