@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using SkySoft.CvRenderer.Cli.CliOptions;
 using SkySoft.CvRenderer.Utils;
-using SkySoft.CvRenderer.Utils.Deserialization;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -20,11 +18,7 @@ namespace SkySoft.CvRenderer.Cli
 
             var logger = Logger.SetupLogger();
 
-            var deserializerLogger = new LoggerFactory().CreateLogger<Deserializer>();
-
-            var deserializer = new Deserializer(deserializerLogger);
-
-            var deserializeCli = new ExecutorCli(logger, deserializer, options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth, options.Rendering.HideLogo);
+            var deserializeCli = new ExecutorCli(logger, options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth, options.Rendering.HideLogo);
             await deserializeCli.Run();
         }
     }

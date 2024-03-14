@@ -9,12 +9,12 @@ namespace SkySoft.CvRenderer.Api.Controllers
     public class CvController : ControllerBase
     {
         private readonly ILogger<CvController> _logger;
-        private readonly CreateCv _createCv;
+        private readonly CvCreator _ñvCreator;
 
-        public CvController(ILogger<CvController> logger, CreateCv createCv)
+        public CvController(ILogger<CvController> logger, CvCreator ñvCreator)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _createCv = createCv ?? throw new ArgumentNullException(nameof(createCv));
+            _ñvCreator = ñvCreator ?? throw new ArgumentNullException(nameof(ñvCreator));
         }
 
         [HttpPost("object")]
@@ -22,7 +22,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
         {
             try
             {
-                var pdfStream = await _createCv.FromModelAsync(cvModel);
+                var pdfStream = await _ñvCreator.FromModelAsync(cvModel);
                 var fileName = cvModel.Basics?.Name ?? "Your cv" + ".pdf";
 
                 return File(pdfStream, "application/pdf", fileName);
@@ -42,7 +42,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
                 using (var fileStream = file.OpenReadStream())
                 {
 
-                    var pdfStream = await _createCv.FromFileAsync(fileStream);
+                    var pdfStream = await _ñvCreator.FromFileAsync(fileStream);
                     var fileName = Path.GetFileNameWithoutExtension(file.FileName) ?? "Your cv" + ".pdf";
 
                     return File(pdfStream, "application/pdf", fileName);

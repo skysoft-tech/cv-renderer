@@ -10,21 +10,18 @@ namespace SkySoft.CvRenderer.Cli
     public class ExecutorCli
     {
         private readonly ILogger _logger;
-        private readonly Deserializer _deserializer;
         private readonly string _input;
         private readonly string _output;
         private readonly int _width;
         private readonly bool _hideLogo;
 
-        public ExecutorCli(ILogger logger, Deserializer deserializer, string input, string output, int width, bool hideLogo)
+        public ExecutorCli(ILogger logger, string input, string output, int width, bool hideLogo)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
             _input = input ?? throw new ArgumentNullException(nameof(input));
             _output = output;
             _width = width;
             _hideLogo = hideLogo;
-
         }
 
         public async Task Run()
@@ -35,7 +32,9 @@ namespace SkySoft.CvRenderer.Cli
 
             _logger.LogDebug("Json: {cvJson}", cvJson);
 
-            var cv = _deserializer.DeserializeJson<CvModel>(cvJson);
+            var deserializerLogger = new LoggerFactory().CreateLogger<Deserializer>();
+
+            var cv = new Deserializer(deserializerLogger).DeserializeJson<CvModel>(cvJson);
 
             cv.Basics!.Image = new TryResolveAbsPhoto(cv, _input).TryResolvePhoto();
 

@@ -6,13 +6,13 @@ using System.Text;
 
 namespace SkySoft.CvRenderer.Api
 {
-    public class CreateCv
+    public class CvCreator
     {
-        private readonly ILogger<CreateCv> _logger;
+        private readonly ILogger<CvCreator> _logger;
         private readonly Deserializer _deserializer;
 
 
-        public CreateCv(ILogger<CreateCv> logger, Deserializer deserializeInput)
+        public CvCreator(ILogger<CvCreator> logger, Deserializer deserializeInput)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _deserializer = deserializeInput ?? throw new ArgumentNullException(nameof(deserializeInput));
