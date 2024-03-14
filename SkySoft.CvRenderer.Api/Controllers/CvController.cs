@@ -23,8 +23,9 @@ namespace SkySoft.CvRenderer.Api.Controllers
             try
             {
                 var pdfStream = await _createCv.FromModelAsync(cvModel);
+                var fileName = cvModel.Basics?.Name ?? "Your cv" + ".pdf";
 
-                return File(pdfStream, "application/pdf", cvModel.Basics?.Name ?? "Your cv" + ".pdf");
+                return File(pdfStream, "application/pdf", fileName);
             }
             catch (Exception ex)
             {
@@ -38,16 +39,13 @@ namespace SkySoft.CvRenderer.Api.Controllers
         {
             try
             {
-                using (var fileStream = new MemoryStream())
+                using (var fileStream = file.OpenReadStream())
                 {
-                    await file.CopyToAsync(fileStream);
 
                     var pdfStream = await _createCv.FromFileAsync(fileStream);
+                    var fileName = Path.GetFileNameWithoutExtension(file.FileName) ?? "Your cv" + ".pdf";
 
-                    var a = file.FileName ?? "Your cv" + ".pdf";
-                    var b = File(pdfStream, "application/pdf", a);
-
-                    return File(pdfStream, "application/pdf", Path.GetFileNameWithoutExtension(file.FileName) ?? "Your cv" + ".pdf");
+                    return File(pdfStream, "application/pdf", fileName);
                 }
             }
             catch (Exception ex)
@@ -56,7 +54,5 @@ namespace SkySoft.CvRenderer.Api.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
-
-
     }
 }

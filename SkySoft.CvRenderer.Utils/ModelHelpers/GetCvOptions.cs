@@ -1,6 +1,6 @@
 ﻿using SkySoft.CvRenderer.Models;
 
-namespace SkySoft.CvRenderer.Utils.JsonHelpers
+namespace SkySoft.CvRenderer.Utils.ModelHelpers
 {
     public class GetCvOptions
     {

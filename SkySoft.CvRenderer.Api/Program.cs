@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Converters;
+using SkySoft.CvRenderer.Utils.Deserialization;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Api
@@ -13,6 +14,7 @@ namespace SkySoft.CvRenderer.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<CreateCv>();
+            builder.Services.AddTransient<Deserializer>();
 
             builder.Services.AddMvc().AddNewtonsoftJson(options =>
             {

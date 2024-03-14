@@ -1,29 +1,27 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Utils.Deserialization
 {
-    public class DeserializeInput
+    public class Deserializer
     {
-        private readonly ILogger _logger;
-        private readonly string _cvJson;
+        private readonly ILogger<Deserializer> _logger;
 
-        public DeserializeInput(ILogger logger, string cvJson)
+        public Deserializer(ILogger<Deserializer> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _cvJson = cvJson ?? throw new ArgumentNullException(nameof(cvJson));
         }
 
-        public CvModel DeserializeJson()
+        public T DeserializeJson<T>(string cvJson)
         {
             var options = new JsonSerializerSettings();
+
             options.Converters.Add(new StringEnumConverter());
             options.Converters.Add(new MultiFormatDateConverter());
 
-            var cv = JsonConvert.DeserializeObject<CvModel>(_cvJson, options);
+            var cv = JsonConvert.DeserializeObject<T>(cvJson, options);
 
             if (cv is null)
             {
