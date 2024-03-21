@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿#define IS_DESKTOP
+
+using Microsoft.Extensions.Configuration;
 using SkySoft.CvRenderer.Cli.CliOptions;
 using SkySoft.CvRenderer.Utils;
 

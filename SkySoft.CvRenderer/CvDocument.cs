@@ -14,12 +14,14 @@ namespace SkySoft.CvRenderer
     internal class CvDocument : IDocument
     {
         private readonly ILogger _logger;
+        private readonly IFileResolver _fileResolver;
         private readonly CvModel _cv;
         private readonly CvOptions _options;
 
-        public CvDocument(ILogger logger, CvModel cv, CvOptions options)
+        public CvDocument(ILogger logger, IFileResolver fileResolver, CvModel cv, CvOptions options)
         {
             _logger = logger;
+            _fileResolver = fileResolver;
             _cv = cv;
             _options = options;
         }
@@ -33,7 +35,7 @@ namespace SkySoft.CvRenderer
 
                 page.Header().Dynamic(new HeadTitleDynamic(_options.HideLogo));
 
-                page.Content().Component(new MainPage(_logger, _cv, _options));
+                page.Content().Component(new MainPage(_logger, _fileResolver, _cv, _options));
             });
 
             container.Page(page =>

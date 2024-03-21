@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using SkySoft.CvRenderer.Core;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils.Deserialization;
-using SkySoft.CvRenderer.Utils.JsonHelpers;
-using SkySoft.CvRenderer.Utils.ModelHelpers;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -34,14 +33,19 @@ namespace SkySoft.CvRenderer.Cli
 
             var cv = new Deserializer(_logger).DeserializeJson<CvModel>(cvJson);
 
-            cv.Basics!.Image = new TryResolveAbsPhoto(cv, _input).TryResolvePhoto();
+            var fileResolver = new FileResolver(_input);
 
             var outputFileName = GetPdfName(_input, _output);
-            var outputFile = File.OpenWrite(outputFileName);
 
-            var options = new GetCvOptions(_width, _hideLogo).BuildOptions();
+            using var outputFile = File.OpenWrite(outputFileName);
 
-            await new PdfRenderer(_logger, cv).RenderCli(outputFile, options);
+            var options = new CvOptions()
+            {
+                WorkColumnWidth = 60,
+                HideLogo = true,
+            };
+
+            new PdfRenderer(_logger, fileResolver, cv).Render(outputFile, options);
 
             _logger.LogInformation("Created file: {outputFileName}", outputFileName);
         }

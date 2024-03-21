@@ -1,27 +1,22 @@
-﻿using SkySoft.CvRenderer.Core.Models;
-
-namespace SkySoft.CvRenderer.Utils.JsonHelpers
+﻿namespace SkySoft.CvRenderer.Cli
 {
-    public class TryResolveAbsPhoto
+    public class FileResolver : DefaultFileResolver, IFileResolver
     {
-        private readonly CvModel _cvModel;
         private readonly string _input;
 
-        public TryResolveAbsPhoto(CvModel cvModel, string input)
+        public FileResolver(string input)
         {
-            _cvModel = cvModel ?? throw new ArgumentNullException(nameof(cvModel));
-            _input = input ?? throw new ArgumentNullException(nameof(cvModel));
+            _input = input ?? throw new ArgumentNullException(nameof(input));
         }
 
-        public string TryResolvePhoto()
+        protected override Stream GetFromFile(string? path)
         {
-            var isResolved = TryResolveAbsPhotoPath(_cvModel.Basics?.Image, _input, out var absPhotoPath);
-            if (isResolved)
+            if (TryResolveAbsPhotoPath(path, _input, out var absPhotoPath))
             {
-                return absPhotoPath;
+                return base.GetFromFile(absPhotoPath);
             }
 
-            return _cvModel.Basics?.Image;
+            throw new FileNotFoundException();
         }
 
         private bool TryResolveAbsPhotoPath(string? photoPath, string input, out string? absPhotoPath)

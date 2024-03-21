@@ -2,18 +2,19 @@
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkiaSharp;
-using System.Net;
 
 namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 {
     internal class PhotoComponent : IComponent
     {
         private readonly ILogger _logger;
-        private readonly string _photo;
+        private readonly IFileResolver _fileResolver;
+        private readonly string? _photo;
 
-        public PhotoComponent(ILogger logger, string? photo)
+        public PhotoComponent(ILogger logger, IFileResolver fileResolver, string? photo)
         {
             _logger = logger;
+            _fileResolver = fileResolver;
             _photo = photo;
         }
 
@@ -59,14 +60,9 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 
             try
             {
-                if (IsUrl(photo))
-                {
-                    bitmap = GetImageFromUrl(photo);
-                }
-                else
-                {
-                    bitmap = GetImageFromFile(photo);
-                }
+                using var fileStream = _fileResolver.ResolveFile(photo);
+
+                bitmap = SKBitmap.Decode(fileStream);
 
                 return true;
             }
@@ -77,41 +73,6 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
                 return false;
             }
         }
-
-        private SKBitmap? GetImageFromFile(string? photo)
-        {
-            if (!File.Exists(photo))
-            {
-                throw new FileNotFoundException();
-            }
-
-            using var stream = File.OpenRead(photo);
-
-            return SKBitmap.Decode(stream);
-        }
-
-
-        private SKBitmap GetImageFromUrl(string photo)
-        {
-            using var client = new WebClient();
-            using Stream stream = client.OpenRead(photo);
-
-            return SKBitmap.Decode(stream);
-        }
-
-        private bool IsUrl(string? photo)
-        {
-            if (photo == null)
-            {
-                return false;
-            }
-
-            bool result = Uri.TryCreate(photo, UriKind.Absolute, out var uriResult)
-                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-
-            return result;
-        }
-
 
         private void DrawImagePlaceholder(SKCanvas canvas, Size availableSpace)
         {

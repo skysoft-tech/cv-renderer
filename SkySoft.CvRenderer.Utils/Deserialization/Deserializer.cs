@@ -14,7 +14,17 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        public Deserializer(ILogger<Deserializer> logger)
+        {
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
         public T DeserializeJson<T>(string cvJson)
+        {
+            return (T)DeserializeJson(cvJson, typeof(T));
+        }
+
+        public object DeserializeJson(string cvJson, Type type)
         {
             if (string.IsNullOrEmpty(cvJson))
             {
@@ -27,7 +37,7 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
             options.Converters.Add(new StringEnumConverter());
             options.Converters.Add(new MultiFormatDateConverter());
 
-            var cv = JsonConvert.DeserializeObject<T>(cvJson, options);
+            var cv = JsonConvert.DeserializeObject(cvJson, type, options);
 
             if (cv is null)
             {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using SkySoft.CvRenderer.Core.Models;
-
+using Microsoft.Extensions.Options;
+using SkySoft.CvRenderer.Api.ModelsApi;
+using SkySoft.CvRenderer.Models;
 
 namespace SkySoft.CvRenderer.Api.Controllers
 {
@@ -9,21 +10,31 @@ namespace SkySoft.CvRenderer.Api.Controllers
     public class CvController : ControllerBase
     {
         private readonly ILogger<CvController> _logger;
-        private readonly CvCreator _ñvCreator;
+        private readonly CvCreator _cvCreator;
+        private readonly CvOptions _cvOptions;
 
-        public CvController(ILogger<CvController> logger, CvCreator ñvCreator)
+        public CvController(ILogger<CvController> logger, CvCreator cvCreator, IOptions<CvOptions> options)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _ñvCreator = ñvCreator ?? throw new ArgumentNullException(nameof(ñvCreator));
+            _cvCreator = cvCreator ?? throw new ArgumentNullException(nameof(cvCreator));
+            _cvOptions = options.Value;
         }
 
         [HttpPost("object")]
-        public async Task<IActionResult> Post([FromBody] CvModel cvModel)
+        public async Task<IActionResult> Post(ObjectModel objectCv)
         {
             try
             {
-                var pdfStream = await _ñvCreator.FromModelAsync(cvModel);
-                var fileName = cvModel.Basics?.Name ?? "Your cv" + ".pdf";
+                if (objectCv.CvOptions == null)
+                {
+                    objectCv.CvOptions = _cvOptions;
+                }
+
+                using var photoFile = GetPhotoFile(objectCv.Photo);
+
+                var pdfStream = _cvCreator.FromModel(objectCv.CvModel, photoFile, objectCv.CvOptions);
+
+                var fileName = objectCv.CvModel.Basics?.Name ?? "Your cv" + ".pdf";
 
                 return File(pdfStream, "application/pdf", fileName);
             }
@@ -35,24 +46,39 @@ namespace SkySoft.CvRenderer.Api.Controllers
         }
 
         [HttpPost("file")]
-        public async Task<IActionResult> Post(IFormFile file)
+        public async Task<IActionResult> Post([FromForm] FileModel file)
         {
             try
             {
-                using (var fileStream = file.OpenReadStream())
-                {
+                using var photo = GetPhotoFile(file.Photo);
 
-                    var pdfStream = await _ñvCreator.FromFileAsync(fileStream);
-                    var fileName = Path.GetFileNameWithoutExtension(file.FileName) ?? "Your cv" + ".pdf";
+                using var fileStream = file.File.OpenReadStream();
 
-                    return File(pdfStream, "application/pdf", fileName);
-                }
+                var pdfStream = await _cvCreator.FromFileAsync(fileStream, photo, file.CvOptions);
+
+                var fileName = Path.GetFileNameWithoutExtension(file.File.FileName) ?? "Your cv" + ".pdf";
+
+                return File(pdfStream, "application/pdf", fileName);
+
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while processing uploaded CV file.");
                 return StatusCode(500, "Internal Server Error");
             }
+        }
+
+        private PhotoFile GetPhotoFile(IFormFile? photo)
+        {
+            var photoFile = new PhotoFile();
+
+            if (photo != null)
+            {
+                photoFile.Name = photo.FileName;
+                photoFile.Stream = photo.OpenReadStream();
+            }
+
+            return photoFile;
         }
     }
 }

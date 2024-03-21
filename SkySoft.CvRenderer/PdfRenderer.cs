@@ -9,41 +9,49 @@ using SkySoft.CvRenderer.Models;
 
 namespace SkySoft.CvRenderer.Core
 {
-    public class PdfRenderer
+    public interface IPdfRenderer
+    {
+        void Render(Stream stream, CvOptions options);
+    }
+
+    public class PdfRenderer : IPdfRenderer
     {
         private readonly ILogger _logger;
         private readonly CvModel _cv;
+        private readonly IFileResolver _fileResolver;
 
-        public PdfRenderer(ILogger logger, CvModel cv)
+        public PdfRenderer(ILogger logger, CvModel cv) : this(logger, new DefaultFileResolver(), cv) { }
+
+        public PdfRenderer(ILogger logger, IFileResolver fileResolver, CvModel cv)
         {
             _logger = logger;
+            _fileResolver = fileResolver;
             _cv = cv;
         }
 
-        public async Task<Stream> Render(CvOptions options)
+        public void Render(Stream stream, CvOptions options)
         {
             SetupLicense();
             SetupFont();
 
-            var document = new CvDocument(_logger, _cv, options);
+            var document = new CvDocument(_logger, _fileResolver, _cv, options);
 
-            var pdfData = document.GeneratePdf();
+            document.GeneratePdf(stream);
+            var a = ShowPreview();
 
-            return new MemoryStream(pdfData);
+            if (a)
+            {
+                document.ShowInPreviewer();
+            }
         }
 
-        public async Task RenderCli(Stream stream, CvOptions options)
+        private bool ShowPreview()
         {
-            SetupLicense();
-            SetupFont();
-
-            var document = new CvDocument(_logger, _cv, options);
-#if DEBUG
-            document.ShowInPreviewer();
-#else
-            var pdfData = document.GeneratePdf();
-            await stream.WriteAsync(pdfData);
+#if DEBUG && IS_DESKTOP
+            return true;
 #endif
+
+            return false;
         }
 
         private void SetupFont()

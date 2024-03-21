@@ -1,4 +1,5 @@
 using Newtonsoft.Json.Converters;
+using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils.Deserialization;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
 
@@ -21,6 +22,8 @@ namespace SkySoft.CvRenderer.Api
                 options.SerializerSettings.Converters.Add(new StringEnumConverter());
                 options.SerializerSettings.Converters.Add(new MultiFormatDateConverter());
             });
+
+            builder.Services.Configure<CvOptions>(builder.Configuration.GetSection(nameof(CvOptions)));
 
             var app = builder.Build();
 

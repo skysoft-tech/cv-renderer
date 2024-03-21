@@ -1,7 +1,8 @@
-﻿using SkySoft.CvRenderer.Core;
+﻿using SkySoft.CvRenderer.Api.ModelsApi;
+using SkySoft.CvRenderer.Core;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils.Deserialization;
-using SkySoft.CvRenderer.Utils.ModelHelpers;
 using System.Text;
 
 namespace SkySoft.CvRenderer.Api
@@ -11,30 +12,30 @@ namespace SkySoft.CvRenderer.Api
         private readonly ILogger<CvCreator> _logger;
         private readonly Deserializer _deserializer;
 
-
         public CvCreator(ILogger<CvCreator> logger, Deserializer deserializeInput)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _deserializer = deserializeInput ?? throw new ArgumentNullException(nameof(deserializeInput));
         }
 
-        public async Task<Stream> FromFileAsync(Stream stream)
+        public async Task<Stream> FromFileAsync(Stream stream, PhotoFile? photoStream, CvOptions options)
         {
             var stringJson = await StreamToString(stream);
             var cv = _deserializer.DeserializeJson<CvModel>(stringJson);
 
-            return await FromModelAsync(cv);
+            return FromModel(cv, photoStream, options);
         }
 
-        public async Task<Stream> FromModelAsync(CvModel cvModel)
+        public Stream FromModel(CvModel cvModel, PhotoFile? photoStream, CvOptions options)
         {
-            var options = new GetCvOptions(60, true).BuildOptions();
+            var stream = new MemoryStream();
+            var fileResolver = new FileResolver(photoStream);
 
-            var outputFile = await new PdfRenderer(_logger, cvModel).Render(options);
+            new PdfRenderer(_logger, fileResolver, cvModel).Render(stream, options);
 
-            outputFile.Seek(0, SeekOrigin.Begin);
+            stream.Seek(0, SeekOrigin.Begin);
 
-            return outputFile;
+            return stream;
         }
 
         public async Task<string> StreamToString(Stream stream)
