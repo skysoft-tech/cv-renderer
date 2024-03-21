@@ -39,13 +39,7 @@ namespace SkySoft.CvRenderer.Cli
 
             using var outputFile = File.OpenWrite(outputFileName);
 
-            var options = new CvOptions()
-            {
-                WorkColumnWidth = 60,
-                HideLogo = true,
-            };
-
-            new PdfRenderer(_logger, fileResolver, cv).Render(outputFile, options);
+            new PdfRenderer(_logger, fileResolver, cv).Render(outputFile, GetCvOptions());
 
             _logger.LogInformation("Created file: {outputFileName}", outputFileName);
         }
@@ -58,6 +52,15 @@ namespace SkySoft.CvRenderer.Cli
         private string GetPdfName(string input, string output)
         {
             return output ?? input.Replace(".json", ".pdf");
+        }
+
+        private CvOptions GetCvOptions()
+        {
+            return new CvOptions()
+            {
+                WorkColumnWidth = _width,
+                HideLogo = _hideLogo
+            };
         }
     }
 }

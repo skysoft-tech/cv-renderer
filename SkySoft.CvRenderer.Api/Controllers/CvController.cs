@@ -34,7 +34,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
 
                 var pdfStream = _cvCreator.FromModel(objectCv.CvModel, photoFile, objectCv.CvOptions);
 
-                var fileName = objectCv.CvModel.Basics?.Name ?? "Your cv" + ".pdf";
+                var fileName = objectCv.CvModel.Basics?.Name ?? "Your cv";
 
                 return File(pdfStream, "application/pdf", fileName);
             }
@@ -56,7 +56,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
 
                 var pdfStream = await _cvCreator.FromFileAsync(fileStream, photo, file.CvOptions);
 
-                var fileName = Path.GetFileNameWithoutExtension(file.File.FileName) ?? "Your cv" + ".pdf";
+                var fileName = Path.GetFileNameWithoutExtension(file.File.FileName) ?? "Your cv";
 
                 return File(pdfStream, "application/pdf", fileName);
 

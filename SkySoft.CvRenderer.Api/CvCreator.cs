@@ -40,7 +40,6 @@ namespace SkySoft.CvRenderer.Api
 
         public async Task<string> StreamToString(Stream stream)
         {
-            stream.Position = 0;
             using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
             {
                 return await reader.ReadToEndAsync();

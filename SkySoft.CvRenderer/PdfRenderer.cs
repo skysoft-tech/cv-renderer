@@ -37,9 +37,8 @@ namespace SkySoft.CvRenderer.Core
             var document = new CvDocument(_logger, _fileResolver, _cv, options);
 
             document.GeneratePdf(stream);
-            var a = ShowPreview();
 
-            if (a)
+            if (ShowPreview())
             {
                 document.ShowInPreviewer();
             }
