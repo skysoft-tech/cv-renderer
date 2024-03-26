@@ -1,7 +1,8 @@
-﻿using Serilog;
-using System.CommandLine;
-﻿using Microsoft.Extensions.Configuration;
+﻿#define IS_DESKTOP
+
+using Microsoft.Extensions.Configuration;
 using SkySoft.CvRenderer.Cli.CliOptions;
+using SkySoft.CvRenderer.Utils;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -18,9 +19,9 @@ namespace SkySoft.CvRenderer.Cli
             var options = config.Get<AppOptions>();
 
             var logger = Logger.SetupLogger();
-            var executor = new Executor(logger);
 
-            await executor.Run(options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth, options.Rendering.HideLogo);
+            var deserializeCli = new ExecutorCli(logger, options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth, options.Rendering.HideLogo);
+            await deserializeCli.Run();
         }
     }
 }

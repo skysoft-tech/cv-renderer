@@ -1,41 +1,56 @@
 ﻿using Microsoft.Extensions.Logging;
 using QuestPDF.Drawing;
 using QuestPDF.Fluent;
-using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Models;
-using System.ComponentModel;
-using System.Text.Json;
 
 namespace SkySoft.CvRenderer.Core
 {
-    public class PdfRenderer
+    public interface IPdfRenderer
+    {
+        void Render(Stream stream, CvOptions options);
+    }
+
+    public class PdfRenderer : IPdfRenderer
     {
         private readonly ILogger _logger;
         private readonly CvModel _cv;
+        private readonly IFileResolver _fileResolver;
 
-        public PdfRenderer(ILogger logger, CvModel cv)
+        public PdfRenderer(ILogger logger, CvModel cv) : this(logger, new DefaultFileResolver(), cv) { }
+
+        public PdfRenderer(ILogger logger, IFileResolver fileResolver, CvModel cv)
         {
             _logger = logger;
+            _fileResolver = fileResolver;
             _cv = cv;
         }
 
-        public async Task Render(Stream stream, CvOptions options)
+        public void Render(Stream stream, CvOptions options)
         {
             SetupLicense();
             SetupFont();
 
-            var document = new CvDocument(_logger, _cv, options);
+            var document = new CvDocument(_logger, _fileResolver, _cv, options);
 
-#if DEBUG
-            document.ShowInPreviewer();
-#else
-            var pdfData = document.GeneratePdf();
-            await stream.WriteAsync(pdfData);
+            document.GeneratePdf(stream);
+
+            if (ShowPreview())
+            {
+                document.ShowInPreviewer();
+            }
+        }
+
+        private bool ShowPreview()
+        {
+#if DEBUG && IS_DESKTOP
+            return true;
 #endif
+
+            return false;
         }
 
         private void SetupFont()
