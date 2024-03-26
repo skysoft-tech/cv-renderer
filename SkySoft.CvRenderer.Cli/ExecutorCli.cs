@@ -36,7 +36,6 @@ namespace SkySoft.CvRenderer.Cli
             var fileResolver = new FileResolver(_input);
 
             var outputFileName = GetPdfName(_input, _output);
-
             using var outputFile = File.OpenWrite(outputFileName);
 
             new PdfRenderer(_logger, fileResolver, cv).Render(outputFile, GetCvOptions());

@@ -13,9 +13,9 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 
         public PhotoComponent(ILogger logger, IFileResolver fileResolver, string? photo)
         {
-            _logger = logger;
-            _fileResolver = fileResolver;
-            _photo = photo;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _fileResolver = fileResolver ?? throw new ArgumentNullException(nameof(fileResolver));
+            _photo = photo ?? throw new ArgumentNullException(nameof(photo));
         }
 
         public void Compose(IContainer container)
@@ -61,8 +61,8 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
             try
             {
                 using var fileStream = _fileResolver.ResolveFile(photo);
-
-                bitmap = SKBitmap.Decode(fileStream);
+                var img = SKImage.FromEncodedData(fileStream);
+                bitmap = SKBitmap.FromImage(img);
 
                 return true;
             }

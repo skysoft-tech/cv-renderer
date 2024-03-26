@@ -23,13 +23,13 @@ namespace SkySoft.CvRenderer
                 return GetFromBase64String(path);
             }
 
-
             return GetFromFile(path);
         }
 
         protected virtual Stream GetFromUrl(string url)
         {
             using var client = new WebClient();
+
             return client.OpenRead(url);
         }
 
