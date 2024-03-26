@@ -30,7 +30,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
                     objectCv.CvOptions = _cvOptions;
                 }
 
-                var photoFile = GetPhotoFile(objectCv.Photo);
+                using var photoFile = GetPhotoFile(objectCv.Photo);
 
                 var pdfStream = _cvCreator.FromModel(objectCv.CvModel, photoFile, objectCv.CvOptions);
 
