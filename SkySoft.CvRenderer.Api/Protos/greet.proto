@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package GenerateCv;
+
+option csharp_namespace = "SkySoftCvRendererApi";
+
+service GenerateCvService {
+  rpc DownloadCv(Request) returns (stream ChunkResponse);
+}
+
+message Request {
+  CvModelsProto CvModels = 1;
+  CvOptionsProto CvOptions = 2;
+}
+
+message CvModelsProto {
+  string jsonCv = 1;
+}
+
+message CvOptionsProto {
+  int32 WorkColumnWidth = 1;
+  bool HideLogo = 2;
+}
+
+message ChunkResponse {
+    string FileName = 1;
+    bytes Chunk = 3;
+}

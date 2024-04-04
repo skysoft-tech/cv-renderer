@@ -9,7 +9,7 @@ namespace SkySoft.CvRenderer.Api.ModelsApi
     {
         [Required]
         [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
-        public CvModel? CvModel { get; set; }
+        public CvModel CvModel { get; set; }
         public IFormFile? Photo { get; set; }
         public CvOptions? CvOptions { get; set; }
     }

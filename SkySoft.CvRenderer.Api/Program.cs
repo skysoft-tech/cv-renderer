@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Newtonsoft.Json.Converters;
+using SkySoft.CvRenderer.Api.Services;
 using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils.Deserialization;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
+using System.Net;
 
 namespace SkySoft.CvRenderer.Api
 {
@@ -10,6 +13,20 @@ namespace SkySoft.CvRenderer.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.Listen(IPAddress.Any, 5000, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                });
+
+                //options.Listen(IPAddress.Any, 5199);
+
+                //options.Listen(IPAddress.Any, 7236);
+            });
+
+            builder.Services.AddGrpc();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +50,8 @@ namespace SkySoft.CvRenderer.Api
                 app.UseSwaggerUI();
                 app.UseDeveloperExceptionPage();
             }
+
+            app.MapGrpcService<GreeterService>();
 
             app.UseHttpsRedirection();
 
