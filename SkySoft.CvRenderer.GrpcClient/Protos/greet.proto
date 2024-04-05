@@ -23,6 +23,5 @@ message CvOptionsProto {
 }
 
 message ChunkResponse {
-    string FileName = 1;
-    bytes Chunk = 3;
+  bytes Chunk = 1;
 }

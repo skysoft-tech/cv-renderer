@@ -16,14 +16,15 @@ namespace SkySoft.CvRenderer.Api
 
             builder.WebHost.ConfigureKestrel(options =>
             {
-                options.Listen(IPAddress.Any, 5000, listenOptions =>
+                // gRPC
+                options.Listen(IPAddress.Any, 5000, listenOptions => 
                 {
                     listenOptions.Protocols = HttpProtocols.Http2;
                 });
-
-                //options.Listen(IPAddress.Any, 5199);
-
-                //options.Listen(IPAddress.Any, 7236);
+                // api http
+                options.Listen(IPAddress.Any, 5199);
+                // api https
+                options.Listen(IPAddress.Any, 7236);
             });
 
             builder.Services.AddGrpc();

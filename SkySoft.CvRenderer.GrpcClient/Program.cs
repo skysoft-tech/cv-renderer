@@ -6,7 +6,7 @@ namespace SkySoft.CvRenderer.GrpcClient
     {
         public static async Task Main(string[] args)
         {
-            GrpcChannel channel = GrpcChannel.ForAddress("http://0.0.0.0:5000");
+            GrpcChannel channel = GrpcChannel.ForAddress("http://127.0.0.1:5000");
 
             var client = new SkySoftCvRendererApi.GenerateCvService.GenerateCvServiceClient(channel);
 
@@ -30,16 +30,25 @@ namespace SkySoft.CvRenderer.GrpcClient
 
             var response = client.DownloadCv(request);
 
-            var stream = new MemoryStream();
+            using var stream = new MemoryStream();
 
             while (await response.ResponseStream.MoveNext(CancellationToken.None))
             {
                 var responseResult = response.ResponseStream.Current.Chunk.ToArray();
 
-                stream.Write(responseResult, 0, responseResult.Length);
+                await stream.WriteAsync(responseResult, 0, responseResult.Length);
             }
 
-            var result = stream.ToArray();
+            if (stream.Length == 0)
+            {
+                throw new ArgumentNullException(nameof(stream.Length));
+            }
+
+            var fileStream = File.Create("C:\\GrpcClientCv.pdf");
+
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.CopyTo(fileStream);
+            fileStream.Close();
         }
     }
 }

@@ -14,6 +14,9 @@ namespace SkySoft.CvRenderer.Api.Services
         private readonly CvCreator _cvCreator;
         private readonly Deserializer _deserializer;
 
+        private Int32 chunkSize;
+        private byte[] buffer;
+
         public GreeterService(ILogger<GreeterService> logger, Deserializer deserializer, CvCreator cvCreator)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -26,14 +29,18 @@ namespace SkySoft.CvRenderer.Api.Services
             _logger.LogInformation("Request [{request}]", request);
 
             var objectModel = RequestToObjectModel(request);
+            using var pdfStream = _cvCreator.FromModel(objectModel.CvModel, null, objectModel.CvOptions);
 
-            var pdfStream = _cvCreator.FromModel(objectModel.CvModel, null, objectModel.CvOptions);
+            chunkSize = 250 * 1024;
+            buffer = new byte[chunkSize];
 
-            await responseStream.WriteAsync(new ChunkResponse
+            while (await pdfStream.ReadAsync(buffer, 0, buffer.Length) != 0)
             {
-                FileName = "file",
-                Chunk = await ByteString.FromStreamAsync(pdfStream)
-            });
+                await responseStream.WriteAsync(new ChunkResponse
+                {
+                    Chunk = ByteString.CopyFrom(buffer)
+                });
+            }
         }
 
         private ObjectModel RequestToObjectModel(Request request)
