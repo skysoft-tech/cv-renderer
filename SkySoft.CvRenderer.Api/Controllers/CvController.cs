@@ -7,28 +7,18 @@ namespace SkySoft.CvRenderer.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CvController : ControllerBase
+    public class CvController(ILogger<CvController> logger, CvCreator cvCreator, IOptions<CvOptions> options) : ControllerBase
     {
-        private readonly ILogger<CvController> _logger;
-        private readonly CvCreator _cvCreator;
-        private readonly CvOptions _cvOptions;
-
-        public CvController(ILogger<CvController> logger, CvCreator cvCreator, IOptions<CvOptions> options)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _cvCreator = cvCreator ?? throw new ArgumentNullException(nameof(cvCreator));
-            _cvOptions = options.Value;
-        }
+        private readonly ILogger<CvController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly CvCreator _cvCreator = cvCreator ?? throw new ArgumentNullException(nameof(cvCreator));
+        private readonly CvOptions _cvOptions = options.Value;
 
         [HttpPost("object")]
         public async Task<IActionResult> Post(ObjectModel objectCv)
         {
             try
             {
-                if (objectCv.CvOptions == null)
-                {
-                    objectCv.CvOptions = _cvOptions;
-                }
+                objectCv.CvOptions ??= _cvOptions;
 
                 using var photoFile = GetPhotoFile(objectCv.Photo);
 
@@ -68,7 +58,7 @@ namespace SkySoft.CvRenderer.Api.Controllers
             }
         }
 
-        private PhotoFile GetPhotoFile(IFormFile? photo)
+        private static PhotoFile GetPhotoFile(IFormFile? photo)
         {
             var photoFile = new PhotoFile();
 

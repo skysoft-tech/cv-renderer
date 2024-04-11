@@ -7,20 +7,14 @@ using System.Text;
 
 namespace SkySoft.CvRenderer.Api
 {
-    public class CvCreator
+    public class CvCreator(ILogger<CvCreator> logger, Deserializer deserializeInput)
     {
-        private readonly ILogger<CvCreator> _logger;
-        private readonly Deserializer _deserializer;
-
-        public CvCreator(ILogger<CvCreator> logger, Deserializer deserializeInput)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _deserializer = deserializeInput ?? throw new ArgumentNullException(nameof(deserializeInput));
-        }
+        private readonly ILogger<CvCreator> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly Deserializer _deserializer = deserializeInput ?? throw new ArgumentNullException(nameof(deserializeInput));
 
         public async Task<Stream> FromFileAsync(Stream stream, PhotoFile? photoStream, CvOptions options)
         {
-            var stringJson = await StreamToString(stream);
+            var stringJson = await StreamToStringAsync(stream);
             var cv = _deserializer.DeserializeJson<CvModel>(stringJson);
 
             return FromModel(cv, photoStream, options);
@@ -38,12 +32,10 @@ namespace SkySoft.CvRenderer.Api
             return stream;
         }
 
-        public async Task<string> StreamToString(Stream stream)
+        private static async Task<string> StreamToStringAsync(Stream stream)
         {
-            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
-            {
-                return await reader.ReadToEndAsync();
-            }
+            using var reader = new StreamReader(stream, Encoding.UTF8);
+            return await reader.ReadToEndAsync();
         }
     }
 }

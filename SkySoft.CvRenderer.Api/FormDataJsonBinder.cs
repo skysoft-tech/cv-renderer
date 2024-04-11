@@ -4,14 +4,10 @@ using SkySoft.CvRenderer.Utils.Deserialization;
 
 namespace SkySoft.CvRenderer.Api
 {
-    public class FormDataJsonBinder : IModelBinder
+    public class FormDataJsonBinder(Deserializer deserializer) : IModelBinder
     {
-        private readonly Deserializer _deserializer;
+        private readonly Deserializer _deserializer = deserializer;
 
-        public FormDataJsonBinder(Deserializer deserializer)
-        {
-            _deserializer = deserializer;
-        }
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             if (bindingContext == null)

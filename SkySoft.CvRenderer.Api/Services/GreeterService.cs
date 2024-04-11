@@ -8,21 +8,14 @@ using SkySoftCvRendererApi;
 
 namespace SkySoft.CvRenderer.Api.Services
 {
-    public class GreeterService : GenerateCvService.GenerateCvServiceBase
+    public class GreeterService(ILogger<GreeterService> logger, Deserializer deserializer, CvCreator cvCreator) : GenerateCvService.GenerateCvServiceBase
     {
-        private readonly ILogger<GreeterService> _logger;
-        private readonly CvCreator _cvCreator;
-        private readonly Deserializer _deserializer;
+        private readonly ILogger<GreeterService> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        private readonly CvCreator _cvCreator = cvCreator ?? throw new ArgumentNullException(nameof(cvCreator));
+        private readonly Deserializer _deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
 
         private Int32 chunkSize;
-        private byte[] buffer;
-
-        public GreeterService(ILogger<GreeterService> logger, Deserializer deserializer, CvCreator cvCreator)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _deserializer = deserializer ?? throw new ArgumentNullException(nameof(deserializer));
-            _cvCreator = cvCreator ?? throw new ArgumentNullException(nameof(cvCreator));
-        }
+        private byte[]? buffer;
 
         public override async Task DownloadCv(Request request, IServerStreamWriter<ChunkResponse> responseStream, ServerCallContext context)
         {
