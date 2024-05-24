@@ -1,34 +1,25 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Utils.Deserialization
 {
-    public class Deserializer
+    public interface ICvDeserializer
     {
-        private readonly ILogger _logger;
+        T DeserializeCv<T>(string cvJson);
+    }
 
-        public Deserializer(ILogger logger)
+    public class CvDeserializer : ICvDeserializer
+    {
+        public T DeserializeCv<T>(string cvJson)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            return (T)DeserializeCv(cvJson, typeof(T));
         }
 
-        public Deserializer(ILogger<Deserializer> logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        }
-
-        public T DeserializeJson<T>(string cvJson)
-        {
-            return (T)DeserializeJson(cvJson, typeof(T));
-        }
-
-        public object DeserializeJson(string cvJson, Type type)
+        public object DeserializeCv(string cvJson, Type type)
         {
             if (string.IsNullOrEmpty(cvJson))
             {
-                _logger.LogError("Input JSON string is null or empty");
                 throw new ArgumentException("Input JSON string is null or empty", nameof(cvJson));
             }
 
@@ -38,12 +29,9 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
             options.Converters.Add(new MultiFormatDateConverter());
 
             var cv = JsonConvert.DeserializeObject(cvJson, type, options);
-
             if (cv is null)
             {
-                _logger.LogError("Failed to deserialize cv");
-
-                throw new Exception();
+                throw new Exception("Failed to deserialize CV");
             }
 
             return cv;

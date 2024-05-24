@@ -5,12 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SkySoft.CvRenderer.Api.ModelsApi
 {
-    public class ObjectModel
+    public class RenderCvRequest
     {
-        [Required]
-        [ModelBinder(BinderType = typeof(FormDataJsonBinder))]
-        public CvModel? CvModel { get; set; }
-        public IFormFile? Photo { get; set; }
         public CvOptions? CvOptions { get; set; }
+
+        [Required]
+        public required CvModel CvData { get; set; }
     }
 }

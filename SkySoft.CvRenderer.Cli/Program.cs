@@ -1,6 +1,7 @@
 ﻿#define IS_DESKTOP
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using SkySoft.CvRenderer.Cli.CliOptions;
 using SkySoft.CvRenderer.Utils;
 
@@ -20,8 +21,20 @@ namespace SkySoft.CvRenderer.Cli
 
             var logger = Logger.SetupLogger();
 
-            var deserializeCli = new ExecutorCli(logger, options.InputFile, options.OutputFile, options.Rendering.WorkColumnWidth, options.Rendering.HideLogo);
-            await deserializeCli.Run();
+            try {
+                var deserializeCli = new ExecutorCli(
+                   logger,
+                   options.InputFile,
+                   options.OutputFile,
+                   options.Rendering.WorkColumnWidth,
+                   options.Rendering.HideLogo);
+
+                await deserializeCli.Run();
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical(ex, "Failed to render CV");
+            }
         }
     }
 }
