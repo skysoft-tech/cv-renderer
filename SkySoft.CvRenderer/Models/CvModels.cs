@@ -35,7 +35,6 @@
     public class Basics
     {
         public string? Name { get; set; }
-        public string? LastName { get; set; }
         public string? Label { get; set; }
         public string? Image { get; set; }
         public string? Email { get; set; }
@@ -71,8 +70,6 @@
     public class Education
     {
         public string? Institution { get; set; }
-        public string? City { get; set; }
-        public string? Country { get; set; }
         public string? Url { get; set; }
         public string? Area { get; set; }
         public string? StudyType { get; set; }

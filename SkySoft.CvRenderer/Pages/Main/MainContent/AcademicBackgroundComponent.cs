@@ -47,29 +47,21 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                             .PaddingBottom(4)
                             .Text(text =>
                             {
-                                text.Span($"{_education.Institution}\n")
+                                text.Span($"{_education.Institution}")
                                     .Style(DocumentFonts.AccentLabelStyle);
-
-                                text.Span($"{_education.City}, {_education.Country}")
-                                    .Style(DocumentFonts.HintLabelStyle);
                             });
 
                         column.Item()
                             .Text(text =>
                             {
-                                text.Span($"{_education.StudyType} {Transfer(_education.Score)}")
+                                text.Span($"\n{_education.StudyType}")
                                     .Style(DocumentFonts.LabelStyle);
 
-                                text.Span($"{_education.Score}")
+                                text.Span($"\n{_education.Area}")
                                     .Style(DocumentFonts.HintLabelStyle);
                             });
                     });
             });
-        }
-
-        private string Transfer(string? value)
-        {
-            return string.IsNullOrEmpty(value) ? "" : "\n";
         }
     }
 }
