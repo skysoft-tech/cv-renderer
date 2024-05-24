@@ -1,7 +1,5 @@
-﻿using QuestPDF.Elements;
-using QuestPDF.Fluent;
+﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using SkiaSharp;
 using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.GlobalComponent;
@@ -38,7 +36,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
                     row.AutoItem()
                         .Component(new VerticalLine(26f, 8, _isFirstItem));
 
-                
+
                     row.RelativeItem()
                         .PaddingBottom(_isLastItem ? 0 : 26)
                         .Column(column =>
@@ -53,7 +51,7 @@ namespace SkySoft.CvRenderer.Pages.Projects.Components
 
                             column.Item()
                                 .PaddingTop(8)
-                                .Text(text => 
+                                .Text(text =>
                                 {
                                     text.Span("Duties\n").Style(DocumentFonts.MinorLabelStyle.FontSize(12));
 

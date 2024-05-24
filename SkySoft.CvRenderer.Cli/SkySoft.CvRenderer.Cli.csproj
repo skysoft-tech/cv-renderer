@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SkySoft.CvRenderer\SkySoft.CvRenderer.csproj" />
+    <ProjectReference Include="..\SkySoft.CvRenderer.Utils\SkySoft.CvRenderer.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>

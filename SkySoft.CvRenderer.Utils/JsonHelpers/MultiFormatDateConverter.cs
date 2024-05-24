@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System.Globalization;
 
-namespace SkySoft.CvRenderer.Cli
+namespace SkySoft.CvRenderer.Utils.JsonHelpers
 {
     // source: https://stackoverflow.com/a/51319347
-    internal class MultiFormatDateConverter : JsonConverter
+    public class MultiFormatDateConverter : JsonConverter
     {
         public List<string> DateTimeFormats { get; set; } = new List<string>
         {
@@ -38,8 +38,8 @@ namespace SkySoft.CvRenderer.Cli
             {
                 // adjust this as necessary to fit your needs
                 if (DateTime.TryParseExact(dateString, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
-                { 
-                    return date; 
+                {
+                    return date;
                 }
             }
 

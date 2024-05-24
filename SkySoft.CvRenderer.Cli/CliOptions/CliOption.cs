@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.CommandLine;
 using System.CommandLine.Parsing;
-using System.CommandLine;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SkySoft.CvRenderer.Cli.CliOptions
 {
@@ -22,13 +17,13 @@ namespace SkySoft.CvRenderer.Cli.CliOptions
             ConfigKey = key;
         }
 
-        public CliOption(string name, Expression<OptionsPropertyAccessor<T>> key, string description = null)
+        public CliOption(string name, Expression<OptionsPropertyAccessor<T>> key, string? description = null)
             : base(name, description)
         {
             ConfigKey = key;
         }
 
-        public CliOption(string[] aliases, Expression<OptionsPropertyAccessor<T>> key, string description = null)
+        public CliOption(string[] aliases, Expression<OptionsPropertyAccessor<T>> key, string? description = null)
             : base(aliases, description)
         {
             ConfigKey = key;
@@ -38,7 +33,7 @@ namespace SkySoft.CvRenderer.Cli.CliOptions
             string[] aliases,
             Expression<OptionsPropertyAccessor<T>> key,
             ParseArgument<T> parseArgument,
-            string description = null
+            string? description = null
         )
             : base(aliases, parseArgument, false, description)
         {
@@ -53,7 +48,7 @@ namespace SkySoft.CvRenderer.Cli.CliOptions
         public CliArrayOption(
             string[] aliases,
             Expression<OptionsPropertyAccessor<string[]>> key,
-            string description = null
+            string? description = null
         )
             : base(aliases, key, GetCustomParser(), description)
         {

@@ -8,11 +8,13 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
     public class HeaderComponent : IComponent
     {
         private readonly ILogger _logger;
+        private readonly IFileResolver _fileResolver;
         private readonly CvModel _model;
 
-        public HeaderComponent(ILogger logger, CvModel model)
+        public HeaderComponent(ILogger logger, IFileResolver fileResolver, CvModel model)
         {
             _logger = logger;
+            _fileResolver = fileResolver;
             _model = model;
         }
 
@@ -33,7 +35,7 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
                         .Height(128)
                         .Width(128)
                         .AlignCenter()
-                        .Component(new PhotoComponent(_logger, _model?.Basics?.Image));
+                        .Component(new PhotoComponent(_logger, _fileResolver, _model?.Basics?.Image));
                 });
         }
 
