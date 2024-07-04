@@ -23,10 +23,22 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 
             container.Text(text =>
             {
+                if (_basics is null) 
+                {
+                    return;
+                }
+
                 var (firstName, lastName) = GetNameParts(_basics.Name);
 
-                text.Span($"{firstName}").Style(style.Weight(FontWeight.Bold));
-                text.Span($"{lastName}").Style(style.Weight(FontWeight.Light));
+                if (firstName != null)
+                {
+                    text.Span($"{firstName}").Style(style.Weight(FontWeight.Bold));
+                }
+
+                if (lastName != null)
+                {
+                    text.Span($"{lastName}").Style(style.Weight(FontWeight.Light));
+                }
             });
         }
 
@@ -40,18 +52,17 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
                 return (firstName, lastName);
             }
 
-            if (name.Contains(" "))
-            {
-                return (firstName: name, lastName: "");
-            }
-            
             var parts = name.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length > 0)
-            {
-                return 
-            }            
+            var splitResult = (firstName, lastName);
 
-            return ()
+            splitResult.firstName = parts[0];
+
+            if (parts.Length == 2)
+            {
+                splitResult.lastName = parts[1];
+            }
+
+            return splitResult;
         }
     }
 }

@@ -54,7 +54,7 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                         column.Item()
                             .Text(text =>
                             {
-                                text.Span($"\n{_education.StudyType}")
+                                text.Span($"{_education.StudyType}")
                                     .Style(DocumentFonts.LabelStyle);
 
                                 text.Span($"\n{_education.Area}")

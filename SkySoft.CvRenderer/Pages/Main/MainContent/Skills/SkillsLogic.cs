@@ -36,7 +36,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
         {
             var list = new List<Skill>();
 
-            for (int a = 0; a < _cvModel.Skills.Count; a++)
+            for (int a = 0; a < _cvModel.Skills!.Count; a++)
             {
                 if (a % 2 == valueNumber)
                 {

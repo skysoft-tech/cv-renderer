@@ -6,12 +6,12 @@ using System.Collections.Generic;
 
 namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
-    public class SkillsContainer : IComponent
+    public class SkillsMain : IComponent
     {
         private readonly ILogger _logger;
         private readonly CvModel _cvModel;
 
-        public SkillsContainer(ILogger logger, CvModel cvModel)
+        public SkillsMain(ILogger logger, CvModel cvModel)
         {
             _logger = logger;
             _cvModel = cvModel;

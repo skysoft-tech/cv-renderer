@@ -18,6 +18,12 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
 
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
+            // check if date field is already parsed
+            if (reader.TokenType == JsonToken.Date)
+            {
+                return reader.Value;
+            }
+
             var dateString = reader.Value as string;
             if (string.IsNullOrWhiteSpace(dateString))
             {
@@ -27,9 +33,7 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
                 throw new JsonException("Unable to parse null as a date.");
             }
 
-            DateTime date;
-
-            if (DateTime.TryParse(dateString, out date))
+            if (DateTime.TryParse(dateString, out var date))
             {
                 return date;
             }

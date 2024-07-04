@@ -38,17 +38,20 @@ namespace SkySoft.CvRenderer
                 page.Content().Component(new MainPage(_logger, _fileResolver, _cv, _options));
             });
 
-            container.Page(page =>
+            if (_cv.Projects!.Count is not 0 && _cv.Projects is not null)
             {
-                page.Size(PageSizes.A4);
-                page.DefaultTextStyle(SetDefaultFont);
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.DefaultTextStyle(SetDefaultFont);
 
-                page.Header()
-                .Component(new ProjectsHeader(_options.HideLogo));
+                    page.Header()
+                    .Component(new ProjectsHeader(_options.HideLogo));
 
-                page.Content()
-                .Component(new ProjectsPage(_cv));
-            });
+                    page.Content()
+                    .Component(new ProjectsPage(_cv));
+                });
+            }
         }
 
         private TextStyle SetDefaultFont(TextStyle textStyle)

@@ -1,6 +1,7 @@
 ﻿using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
+using SkySoft.CvRenderer.GlobalComponent;
 using SkySoft.CvRenderer.Pages.Projects.Components;
 
 namespace SkySoft.CvRenderer.Pages.Projects
@@ -8,7 +9,7 @@ namespace SkySoft.CvRenderer.Pages.Projects
     public class ProjectsPage : IComponent
     {
         private readonly CvModel _cvModel;
-        public ProjectsPage(CvModel? value)
+        public ProjectsPage(CvModel value)
         {
             _cvModel = value;
         }
@@ -27,7 +28,7 @@ namespace SkySoft.CvRenderer.Pages.Projects
                 .AlignLeft()
                 .Column(column =>
                 {
-                    _cvModel.Projects.ForEach(projects =>
+                    _cvModel.Projects!.ForEach(projects =>
                     {
                         column.Item()
                         .Component(new ProjectsAccomplished(projects, incrementProjectsAccomplished, _cvModel.Projects.Count));

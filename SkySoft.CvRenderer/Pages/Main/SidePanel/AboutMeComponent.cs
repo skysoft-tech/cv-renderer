@@ -73,8 +73,8 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
                            });
 
                         column.Item()
-                            .PaddingTop(DocumentSpaces.SpaceBetweenSections)
-                            .Component(new CaptionComponent("LANGUAGE", DocumentColors.ContrastFontColor));
+                        .PaddingTop(DocumentSpaces.SpaceBetweenSections)
+                        .Component(new CaptionComponent("LANGUAGE", DocumentColors.ContrastFontColor));
 
                         column.Item()
                             .ShowEntire()

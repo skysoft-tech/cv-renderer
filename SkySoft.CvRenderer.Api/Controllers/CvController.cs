@@ -50,31 +50,31 @@ namespace SkySoft.CvRenderer.Api.Controllers
         private static string GetFileName(RenderCvRequest request)
         {
             var name = request.CvData?.Basics?.Name;
-            var lastName = request.CvData?.Basics?.LastName;
 
-            var fullName = GetFullName(name, lastName) ?? DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var fullName = GetFullName(name) ?? DateTime.Now.ToString("yyyyMMdd_HHmmss");
 
             return $"CV_{fullName}";
         }
 
-        private static string? GetFullName(string? name, string? lastName)
+        private static string? GetFullName(string? name)
         {
-            if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastName))
+            var splitResult = string.Empty;
+
+            if (string.IsNullOrEmpty(name))
             {
                 return null;
             }
 
-            if (string.IsNullOrEmpty(name))
+            var parts = name.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+            splitResult = parts[0];
+
+            if (parts.Length == 2)
             {
-                return lastName;
+                splitResult = "_" + parts[1];
             }
 
-            if (string.IsNullOrEmpty(lastName))
-            {
-                return name;
-            }
-
-            return $"{name}_{lastName}";
+            return splitResult;
         }
     }
 }
