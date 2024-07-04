@@ -38,7 +38,7 @@ namespace SkySoft.CvRenderer
                 page.Content().Component(new MainPage(_logger, _fileResolver, _cv, _options));
             });
 
-            if (_cv.Projects!.Count is not 0 && _cv.Projects is not null)
+            if (_cv.Projects is not null && _cv.Projects!.Count is not 0)
             {
                 container.Page(page =>
                 {
