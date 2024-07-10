@@ -4,6 +4,8 @@ using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils.Deserialization;
 using SkySoft.CvRenderer.GlobalComponent;
+using System.Diagnostics;
+using System.Threading;
 
 namespace SkySoft.CvRenderer.Cli
 {
@@ -33,8 +35,6 @@ namespace SkySoft.CvRenderer.Cli
             _logger.LogDebug("Json: {cvJson}", cvJson);
 
             var cv = new CvDeserializer().DeserializeCv<CvModel>(cvJson);
-
-            new ModelNormalizer(_logger, cv).Normalize();
 
             var fileResolver = new FileResolver(_input);
 

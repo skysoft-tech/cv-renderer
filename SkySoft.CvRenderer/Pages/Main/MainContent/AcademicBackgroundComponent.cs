@@ -44,7 +44,6 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     .Column(column =>
                     {
                         column.Item()
-                            .PaddingBottom(4)
                             .Text(text =>
                             {
                                 text.Span($"{_education.Institution}")

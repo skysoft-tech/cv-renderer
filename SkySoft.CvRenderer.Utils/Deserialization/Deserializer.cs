@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
+using System.Text.Json.Serialization;
 
 namespace SkySoft.CvRenderer.Utils.Deserialization
 {
@@ -27,6 +28,7 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
 
             options.Converters.Add(new StringEnumConverter());
             options.Converters.Add(new MultiFormatDateConverter());
+            options.Converters.Add(new NullFilteringListConverter());
 
             var cv = JsonConvert.DeserializeObject(cvJson, type, options);
             if (cv is null)
