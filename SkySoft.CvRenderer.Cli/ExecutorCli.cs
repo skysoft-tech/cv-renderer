@@ -3,9 +3,6 @@ using SkySoft.CvRenderer.Core;
 using SkySoft.CvRenderer.Core.Models;
 using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils.Deserialization;
-using SkySoft.CvRenderer.GlobalComponent;
-using System.Diagnostics;
-using System.Threading;
 
 namespace SkySoft.CvRenderer.Cli
 {
