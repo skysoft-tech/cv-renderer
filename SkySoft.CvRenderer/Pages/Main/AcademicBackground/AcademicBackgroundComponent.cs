@@ -8,20 +8,12 @@ using SkySoft.CvRenderer.Utils;
 
 namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
 {
-    public class AcademicBackgroundComponent : IComponent
+    public class AcademicBackgroundComponent(Education value, int index, int count, CvOptions options) : IComponent
     {
-        private readonly Education _education;
-        private readonly CvOptions _options;
-        private readonly bool _isFirstItem;
-        private readonly bool _isLastItem;
-
-        public AcademicBackgroundComponent(Education value, int index, int count, CvOptions options)
-        {
-            _education = value;
-            _options = options;
-            _isFirstItem = index == 0;
-            _isLastItem = index + 1 == count;
-        }
+        private readonly Education _education = value;
+        private readonly CvOptions _options = options;
+        private readonly bool _isFirstItem = index == 0;
+        private readonly bool _isLastItem = index + 1 == count;
 
         public void Compose(IContainer container)
         {
@@ -44,32 +36,23 @@ namespace SkySoft.CvRenderer.Pages.Main.AcademicBackground
                     .Column(column =>
                     {
                         column.Item()
-                            .PaddingBottom(4)
                             .Text(text =>
                             {
-                                text.Span($"{_education.Institution}\n")
+                                text.Span($"{_education.Institution}")
                                     .Style(DocumentFonts.AccentLabelStyle);
-
-                                text.Span($"{_education.City}, {_education.Country}")
-                                    .Style(DocumentFonts.HintLabelStyle);
                             });
 
                         column.Item()
                             .Text(text =>
                             {
-                                text.Span($"{_education.StudyType} {Transfer(_education.Score)}")
+                                text.Span($"{_education.StudyType}")
                                     .Style(DocumentFonts.LabelStyle);
 
-                                text.Span($"{_education.Score}")
+                                text.Span($"\n{_education.Area}")
                                     .Style(DocumentFonts.HintLabelStyle);
                             });
                     });
             });
-        }
-
-        private string Transfer(string? value)
-        {
-            return string.IsNullOrEmpty(value) ? "" : "\n";
         }
     }
 }

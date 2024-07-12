@@ -6,10 +6,10 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
     // source: https://stackoverflow.com/a/51319347
     public class MultiFormatDateConverter : JsonConverter
     {
-        public List<string> DateTimeFormats { get; set; } = new List<string>
-        {
+        public List<string> DateTimeFormats { get; set; } =
+        [
             "yyyy", "MM/yyyy", "DD/MM/yyyy", "dd-MM-yyyy"
-        };
+        ];
 
         public override bool CanConvert(Type objectType)
         {
@@ -18,6 +18,12 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
 
         public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
+            // check if date field is already parsed
+            if (reader.TokenType == JsonToken.Date)
+            {
+                return reader.Value;
+            }
+
             var dateString = reader.Value as string;
             if (string.IsNullOrWhiteSpace(dateString))
             {
@@ -27,9 +33,7 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
                 throw new JsonException("Unable to parse null as a date.");
             }
 
-            DateTime date;
-
-            if (DateTime.TryParse(dateString, out date))
+            if (DateTime.TryParse(dateString, out var date))
             {
                 return date;
             }
@@ -51,7 +55,7 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
             get { return false; }
         }
 
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }

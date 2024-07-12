@@ -6,7 +6,7 @@ using SkySoft.CvRenderer.GlobalComponent;
 using SkySoft.CvRenderer.Models;
 using SkySoft.CvRenderer.Utils;
 
-namespace SkySoft.CvRenderer.Pages.Main
+namespace SkySoft.CvRenderer.Pages.Main.WorkExperience
 {
     public class WorkExperienceComponent : IComponent
     {

@@ -11,6 +11,9 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
         private readonly ILogger _logger;
         private readonly Skill _skill;
 
+        private readonly static int _maxSkillLevel = Enum.GetValues<SkillLevel>().Cast<int>().Max();
+
+
         public SkillsComponent(ILogger logger, Skill value)
         {
             _logger = logger;
@@ -50,8 +53,7 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
 
         private void AddSkillSegments(RowDescriptor row)
         {
-            var maxSkillLevel = GetMaxLevel();
-            for (var i = 0; i <= maxSkillLevel; i++)
+            for (var i = 0; i <= _maxSkillLevel; i++)
             {
                 var level = GetSkillLevel();
 
@@ -78,11 +80,6 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
 
                 return (int)SkillLevel.Professional;
             }
-        }
-
-        private int GetMaxLevel()
-        {
-            return Enum.GetValues<SkillLevel>().Cast<int>().Max();
         }
     }
 

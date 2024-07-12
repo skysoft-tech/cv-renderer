@@ -17,7 +17,7 @@ namespace SkySoft.CvRenderer.Cli
                 .AddCommandLineConfiguration(args)
                 .Build();
 
-            var options = config.Get<AppOptions>();
+            var options = config.Get<AppOptions>() ?? new AppOptions();
 
             var logger = Logger.SetupLogger();
 

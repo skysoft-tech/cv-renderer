@@ -5,14 +5,9 @@ using SkySoft.CvRenderer.Assets;
 
 namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 {
-    public class LanguagesComponent : IComponent
+    public class LanguagesComponent(string value) : IComponent
     {
-        private readonly string _language;
-
-        public LanguagesComponent(string value)
-        {
-            _language = value;
-        }
+        private readonly string _language = value;
 
         public void Compose(IContainer container)
         {

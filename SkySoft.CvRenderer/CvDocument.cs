@@ -11,20 +11,12 @@ using SkySoft.CvRenderer.Pages.Projects.Components;
 
 namespace SkySoft.CvRenderer
 {
-    internal class CvDocument : IDocument
+    internal class CvDocument(ILogger logger, IFileResolver fileResolver, CvModel cv, CvOptions options) : IDocument
     {
-        private readonly ILogger _logger;
-        private readonly IFileResolver _fileResolver;
-        private readonly CvModel _cv;
-        private readonly CvOptions _options;
-
-        public CvDocument(ILogger logger, IFileResolver fileResolver, CvModel cv, CvOptions options)
-        {
-            _logger = logger;
-            _fileResolver = fileResolver;
-            _cv = cv;
-            _options = options;
-        }
+        private readonly ILogger _logger = logger;
+        private readonly IFileResolver _fileResolver = fileResolver;
+        private readonly CvModel _cv = cv;
+        private readonly CvOptions _options = options;
 
         public void Compose(IDocumentContainer container)
         {
@@ -38,23 +30,23 @@ namespace SkySoft.CvRenderer
                 page.Content().Component(new MainPage(_logger, _fileResolver, _cv, _options));
             });
 
-            container.Page(page =>
+            var isAnyProject = _cv.Projects != null && _cv.Projects.Count != 0;
+            if (isAnyProject)
             {
-                page.Size(PageSizes.A4);
-                page.DefaultTextStyle(SetDefaultFont);
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A4);
+                    page.DefaultTextStyle(SetDefaultFont);
 
-                page.Header()
-                .Component(new ProjectsHeader(_options.HideLogo));
+                    page.Header()
+                    .Component(new ProjectsHeader(_options.HideLogo));
 
-                page.Content()
-                .Component(new ProjectsPage(_cv));
-            });
+                    page.Content()
+                    .Component(new ProjectsPage(_cv));
+                });
+            }
         }
 
-        private TextStyle SetDefaultFont(TextStyle textStyle)
-        {
-            return textStyle
-                .FontFamily("Hind");
-        }
+        private TextStyle SetDefaultFont(TextStyle textStyle) => textStyle.FontFamily("Hind");
     }
 }

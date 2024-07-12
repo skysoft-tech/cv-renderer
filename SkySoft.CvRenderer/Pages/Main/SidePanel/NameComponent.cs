@@ -23,9 +23,46 @@ namespace SkySoft.CvRenderer.Pages.Main.SidePanel
 
             container.Text(text =>
             {
-                text.Span($"{_basics.Name}").Style(style.Weight(FontWeight.Bold));
-                text.Span($"{_basics.LastName}").Style(style.Weight(FontWeight.Light));
+                if (_basics is null) 
+                {
+                    return;
+                }
+
+                var (firstName, lastName) = GetNameParts(_basics.Name);
+
+                if (firstName != null)
+                {
+                    text.Span($"{firstName}").Style(style.Weight(FontWeight.Bold));
+                }
+
+                if (lastName != null)
+                {
+                    text.Span($"{lastName}").Style(style.Weight(FontWeight.Light));
+                }
             });
+        }
+
+        public (string firstName, string lastName) GetNameParts(string? name)
+        {
+            var firstName = string.Empty;
+            var lastName = string.Empty;
+
+            if (name == null)
+            {
+                return (firstName, lastName);
+            }
+
+            var parts = name.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+            var splitResult = (firstName, lastName);
+
+            splitResult.firstName = parts[0];
+
+            if (parts.Length == 2)
+            {
+                splitResult.lastName = parts[1];
+            }
+
+            return splitResult;
         }
     }
 }

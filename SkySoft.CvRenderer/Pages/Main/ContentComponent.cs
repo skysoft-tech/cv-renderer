@@ -2,26 +2,19 @@
 using QuestPDF.Infrastructure;
 using SkySoft.CvRenderer.Core.Models;
 using WebApplicationPdf.GlobalComponent;
-using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
-using SkySoft.CvRenderer.Pages.Main.Skills;
 using Microsoft.Extensions.Logging;
-using SkySoft.CvRenderer.Assets;
 using SkySoft.CvRenderer.Models;
+using SkySoft.CvRenderer.Pages.Main.AcademicBackground;
+using SkySoft.CvRenderer.Pages.Main.WorkExperience;
+using SkySoft.CvRenderer.Pages.Main.Skills;
 
 namespace SkySoft.CvRenderer.Pages.Main
 {
-    public class ContentComponent : IComponent
+    public class ContentComponent(ILogger logger, CvModel value, CvOptions options) : IComponent
     {
-        private readonly ILogger _logger;
-        private readonly CvModel _cvModel;
-        private readonly CvOptions _options;
-
-        public ContentComponent(ILogger logger, CvModel value, CvOptions options)
-        {
-            _logger = logger;
-            _cvModel = value;
-            _options = options;
-        }
+        private readonly ILogger _logger = logger;
+        private readonly CvModel _cvModel = value;
+        private readonly CvOptions _options = options;
 
         public void Compose(IContainer container)
         {
@@ -36,45 +29,18 @@ namespace SkySoft.CvRenderer.Pages.Main
                         column.Item().Component(new HeadTitle(_options.HideLogo));
 
                         column.Item()
-                            .ShowEntire()
-                            .Column(column =>
-                            {
-                                column.Item().Component(new CaptionComponent("WORK EXPERIENCE", DocumentColors.FontColor));
-
-                                var workItems = _cvModel.Work ?? new List<Work>();
-                                for (var i = 0; i < workItems.Count; i++)
-                                {
-                                    column.Item().Component(new WorkExperienceComponent(workItems[i], i, workItems.Count, _options));
-                                }
-
-                                column.Item().Component(new HorizontalLine());
-                            });
+                           .ShowEntire()
+                           .Component(new WorkExperienceContainer(_cvModel.Work, _options));
 
                         column.Item()
-                            .ShowEntire()
-                            .Column(column =>
-                            {
-                                column.Item().Component(new CaptionComponent("ACADEMIC BACKGROUND", DocumentColors.FontColor));
-
-                                var educationItems = _cvModel.Education ?? new List<Education>();
-                                for (var i = 0; i < educationItems.Count; i++)
-                                {
-                                    column.Item().Component(new AcademicBackgroundComponent(educationItems[i], i, educationItems.Count, _options));
-                                }
-
-                                column.Item().Component(new HorizontalLine());
-                            });
+                           .ShowEntire()
+                           .Component(new AcademicBackgroundContainer(_cvModel.Education, _options));
 
                         column.Item()
-                            .ShowEntire()
-                            .Column(column =>
-                            {
-                                column.Item().Component(new CaptionComponent("SKILLS", DocumentColors.FontColor));
-
-                                column.Item().Component(new SkillsContainer(_logger, _cvModel));
-                            });
+                           .ShowEntire()
+                           .Component(new SkillsContainer(_logger, _cvModel));
                     });
             });
         }
-    }    
+    }
 }
