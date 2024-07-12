@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace SkySoft.CvRenderer.Utils.JsonHelpers
 {
+    // source: https://stackoverflow.com/a/62941295/2473732
     internal class NullFilteringListConverter : JsonConverter
     {
-        private static MethodInfo? _readJsonGeneric = typeof(NullFilteringListConverter).GetPrivateMethod(nameof(ReadJsonGeneric));
+        private static readonly MethodInfo? _readJsonGeneric = typeof(NullFilteringListConverter).GetPrivateMethod(nameof(ReadJsonGeneric));
 
         public override bool CanConvert(Type objectType)
         {
@@ -32,6 +34,8 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
         /// <summary>
         /// NOTE: this method used in reflection in method <see cref="ReadJson(JsonReader, Type, object?, JsonSerializer)"/>
         /// </summary>
+        [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Cannot be static due to way how it used in reflection")]
+        [SuppressMessage("Performance", "CA1859:Use concrete types when possible for improved performance", Justification = "")]
         object? ReadJsonGeneric<T>(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var list = existingValue as List<T>;

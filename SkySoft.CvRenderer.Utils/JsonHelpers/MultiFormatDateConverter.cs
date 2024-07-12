@@ -6,10 +6,10 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
     // source: https://stackoverflow.com/a/51319347
     public class MultiFormatDateConverter : JsonConverter
     {
-        public List<string> DateTimeFormats { get; set; } = new List<string>
-        {
+        public List<string> DateTimeFormats { get; set; } =
+        [
             "yyyy", "MM/yyyy", "DD/MM/yyyy", "dd-MM-yyyy"
-        };
+        ];
 
         public override bool CanConvert(Type objectType)
         {

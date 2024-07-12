@@ -16,7 +16,7 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
             return (T)DeserializeCv(cvJson, typeof(T));
         }
 
-        public object DeserializeCv(string cvJson, Type type)
+        private static object DeserializeCv(string cvJson, Type type)
         {
             if (string.IsNullOrEmpty(cvJson))
             {
@@ -29,12 +29,8 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
             options.Converters.Add(new MultiFormatDateConverter());
             options.Converters.Add(new NullFilteringListConverter());
 
-            var cv = JsonConvert.DeserializeObject(cvJson, type, options);
-            if (cv == null)
-            {
-                throw new Exception("Failed to deserialize CV");
-            }
-
+            var cv = JsonConvert.DeserializeObject(cvJson, type, options) ?? throw new Exception("Failed to deserialize CV");
+            
             return cv;
         }
     }

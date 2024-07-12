@@ -11,20 +11,12 @@ using SkySoft.CvRenderer.Pages.Projects.Components;
 
 namespace SkySoft.CvRenderer
 {
-    internal class CvDocument : IDocument
+    internal class CvDocument(ILogger logger, IFileResolver fileResolver, CvModel cv, CvOptions options) : IDocument
     {
-        private readonly ILogger _logger;
-        private readonly IFileResolver _fileResolver;
-        private readonly CvModel _cv;
-        private readonly CvOptions _options;
-
-        public CvDocument(ILogger logger, IFileResolver fileResolver, CvModel cv, CvOptions options)
-        {
-            _logger = logger;
-            _fileResolver = fileResolver;
-            _cv = cv;
-            _options = options;
-        }
+        private readonly ILogger _logger = logger;
+        private readonly IFileResolver _fileResolver = fileResolver;
+        private readonly CvModel _cv = cv;
+        private readonly CvOptions _options = options;
 
         public void Compose(IDocumentContainer container)
         {
@@ -38,7 +30,8 @@ namespace SkySoft.CvRenderer
                 page.Content().Component(new MainPage(_logger, _fileResolver, _cv, _options));
             });
 
-            if (_cv.Projects is not null && _cv.Projects!.Count is not 0)
+            var isAnyProject = _cv.Projects != null && _cv.Projects.Count != 0;
+            if (isAnyProject)
             {
                 container.Page(page =>
                 {
@@ -54,10 +47,6 @@ namespace SkySoft.CvRenderer
             }
         }
 
-        private TextStyle SetDefaultFont(TextStyle textStyle)
-        {
-            return textStyle
-                .FontFamily("Hind");
-        }
+        private TextStyle SetDefaultFont(TextStyle textStyle) => textStyle.FontFamily("Hind");
     }
 }

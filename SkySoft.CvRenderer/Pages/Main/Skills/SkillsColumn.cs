@@ -5,18 +5,11 @@ using SkySoft.CvRenderer.Core.Models;
 
 namespace SkySoft.CvRenderer.Pages.Main.Skills
 {
-    public class SkillsLogic : IComponent
+    public class SkillsColumn(ILogger logger, CvModel cvModel, int parityIndex) : IComponent
     {
-        private readonly ILogger _logger;
-        private readonly CvModel _cvModel;
-        private readonly int _parityIndex;
-
-        public SkillsLogic(ILogger logger, CvModel cvModel, int parityIndex)
-        {
-            _logger = logger;
-            _cvModel = cvModel;
-            _parityIndex = parityIndex;
-        }
+        private readonly ILogger _logger = logger;
+        private readonly CvModel _cvModel = cvModel;
+        private readonly int _parityIndex = parityIndex;
 
         public void Compose(IContainer container)
         {
@@ -32,15 +25,15 @@ namespace SkySoft.CvRenderer.Pages.Main.Skills
             });
         }
 
-        private List<Skill> GetParityIndex(int valueNumber)
+        private List<Skill> GetParityIndex(int parityIndex)
         {
             var list = new List<Skill>();
 
-            for (int a = 0; a < _cvModel.Skills!.Count; a++)
+            for (int i = 0; i < _cvModel.Skills!.Count; i++)
             {
-                if (a % 2 == valueNumber)
+                if (i % 2 == parityIndex)
                 {
-                    list.Add(_cvModel.Skills[a]);
+                    list.Add(_cvModel.Skills[i]);
                 }
             }
 
