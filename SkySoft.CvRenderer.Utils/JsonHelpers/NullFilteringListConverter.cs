@@ -5,6 +5,8 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
 {
     internal class NullFilteringListConverter : JsonConverter
     {
+        private static MethodInfo? _readJsonGeneric = typeof(NullFilteringListConverter).GetPrivateMethod(nameof(ReadJsonGeneric));
+
         public override bool CanConvert(Type objectType)
         {
             if (objectType.IsArray || objectType == typeof(string) || objectType.IsPrimitive)
@@ -13,13 +15,32 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
             }
                 
             var itemType = objectType.GetListItemType();
+            if (itemType == null)
+            {
+                return false;
+            }
 
-            return itemType != null && (!itemType.IsValueType || Nullable.GetUnderlyingType(itemType) is not null);
+            var isNullableValueTypeWithoutValue = itemType.IsValueType && Nullable.GetUnderlyingType(itemType) == null;
+            if (isNullableValueTypeWithoutValue)
+            {
+                return false;
+            }
+
+            return true;
         }
 
+        /// <summary>
+        /// NOTE: this method used in reflection in method <see cref="ReadJson(JsonReader, Type, object?, JsonSerializer)"/>
+        /// </summary>
         object? ReadJsonGeneric<T>(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var list = existingValue as List<T> ?? serializer.ContractResolver.ResolveContract(objectType).DefaultCreator() as List<T>;
+            var list = existingValue as List<T>;
+            if (list == null)
+            {
+                var contract = serializer.ContractResolver.ResolveContract(objectType);
+                var objectFactory = contract.DefaultCreator;
+                list = objectFactory?.Invoke() as List<T>;
+            }
 
             if (list != null) 
             {
@@ -31,21 +52,13 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
             return list;
         }
 
-        public override object? ReadJson(JsonReader reader,
-            Type objectType,
-            object existingValue,
-            JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             var itemType = objectType.GetListItemType();
-            var method = typeof(NullFilteringListConverter).GetMethod(
-                "ReadJsonGeneric", BindingFlags.NonPublic 
-                | BindingFlags.Instance 
-                | BindingFlags.Public
-            );
 
             try
             {
-                return method!.MakeGenericMethod([itemType!]).Invoke(this, [reader, objectType, existingValue, serializer]);
+                return _readJsonGeneric!.MakeGenericMethod([itemType!]).Invoke(this, [reader, objectType, existingValue, serializer]);
             }
             catch (Exception ex)
             {
@@ -54,19 +67,27 @@ namespace SkySoft.CvRenderer.Utils.JsonHelpers
         }
 
         public override bool CanWrite => false;
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => throw new NotImplementedException();
+
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) => throw new NotImplementedException();
     }
 
-    public static partial class JsonExtensions
+    internal static class ReflectionHelpers
     {
-        internal static Type? GetListItemType(this Type type)
+        internal static MethodInfo? GetPrivateMethod(this Type? type, string methodName)
         {
-            if (type.IsPrimitive || type.IsArray || type == typeof(string))
+            var allInstanceMethods = BindingFlags.NonPublic | BindingFlags.Instance;
+
+            return type?.GetMethod(methodName, allInstanceMethods);
+        }
+
+        internal static Type? GetListItemType(this Type? type)
+        {
+            if (type == null || type.IsPrimitive || type.IsArray || type == typeof(string))
             {
                 return null;
             }
 
-            while(type is not null)
+            while (type != null)
             {
                 if (type.IsGenericType)
                 {

@@ -30,7 +30,7 @@ namespace SkySoft.CvRenderer.Utils.Deserialization
             options.Converters.Add(new NullFilteringListConverter());
 
             var cv = JsonConvert.DeserializeObject(cvJson, type, options);
-            if (cv is null)
+            if (cv == null)
             {
                 throw new Exception("Failed to deserialize CV");
             }
