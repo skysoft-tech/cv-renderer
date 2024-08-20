@@ -16,6 +16,7 @@ namespace SkySoft.CvRenderer.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<ICvRenderingService, CvRenderingService>();
+            builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
 
             builder.Services.AddMvc().AddNewtonsoftJson(options =>
             {
