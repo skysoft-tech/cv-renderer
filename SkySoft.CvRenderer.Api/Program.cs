@@ -1,7 +1,6 @@
 using Newtonsoft.Json.Converters;
 using SkySoft.CvRenderer.Api.Services;
 using SkySoft.CvRenderer.Models;
-using SkySoft.CvRenderer.Utils.Deserialization;
 using SkySoft.CvRenderer.Utils.JsonHelpers;
 
 namespace SkySoft.CvRenderer.Api
@@ -16,7 +15,7 @@ namespace SkySoft.CvRenderer.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddTransient<ICvRenderingService, CvRenderingService>();
-            builder.Services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+            builder.Services.AddAWSLambdaHosting(LambdaEventSource.ApplicationLoadBalancer);
 
             builder.Services.AddMvc().AddNewtonsoftJson(options =>
             {
